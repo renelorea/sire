@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import '../models/alumno.dart';
+import '../models/usuario.dart';
+import '../models/tipo_reporte.dart';
 import '../models/reporte.dart';
+import '../services/alumno_service.dart';
+import '../services/usuario_service.dart';
+import '../services/tipo_reporte_service.dart';
 import '../services/reporte_service.dart';
 
 class ReporteFormScreen extends StatefulWidget {
@@ -12,43 +18,56 @@ class ReporteFormScreen extends StatefulWidget {
 
 class _ReporteFormScreenState extends State<ReporteFormScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _tituloController = TextEditingController();
   final _descripcionController = TextEditingController();
-  final _fechaController = TextEditingController();
-  final _alumnoIdController = TextEditingController();
-  final _grupoIdController = TextEditingController();
-  final _tipoIdController = TextEditingController();
-  final _service = ReporteService();
+  final _accionesController = TextEditingController();
+  DateTime? _fechaIncidencia;
+
+  List<Alumno> _alumnos = [];
+  List<Usuario> _usuarios = [];
+  List<TipoReporte> _tipos = [];
+
+  Alumno? _alumnoSeleccionado;
+  Usuario? _usuarioSeleccionado;
+  TipoReporte? _tipoSeleccionado;
 
   @override
   void initState() {
     super.initState();
-    if (widget.reporte != null) {
-      _tituloController.text = widget.reporte!.titulo;
-      _descripcionController.text = widget.reporte!.descripcion;
-      _fechaController.text = widget.reporte!.fecha;
-      _alumnoIdController.text = widget.reporte!.alumnoId.toString();
-      _grupoIdController.text = widget.reporte!.grupoId.toString();
-      _tipoIdController.text = widget.reporte!.tipoReporteId.toString();
-    }
+    _cargarDatos();
+  }
+
+  Future<void> _cargarDatos() async {
+    final alumnos = await AlumnoService().obtenerAlumnos();
+    final usuarios = await UsuarioService().obtenerUsuarios();
+    final tipos = await TipoReporteService().obtenerTipos();
+
+    setState(() {
+      _alumnos = alumnos;
+      _usuarios = usuarios;
+      _tipos = tipos;
+    });
   }
 
   void _guardar() async {
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate() &&
+        _alumnoSeleccionado != null &&
+        _usuarioSeleccionado != null &&
+        _tipoSeleccionado != null &&
+        _fechaIncidencia != null) {
       final nuevo = Reporte(
-        id: widget.reporte?.id ?? 0,
-        titulo: _tituloController.text,
-        descripcion: _descripcionController.text,
-        fecha: _fechaController.text,
-        alumnoId: int.tryParse(_alumnoIdController.text) ?? 0,
-        grupoId: int.tryParse(_grupoIdController.text) ?? 0,
-        tipoReporteId: int.tryParse(_tipoIdController.text) ?? 0,
+        id: 0,
+        folio: '', // Se autogenera en backend
+        descripcionHechos: _descripcionController.text,
+        accionesTomadas: _accionesController.text,
+        fechaIncidencia: _fechaIncidencia!.toIso8601String(),
+        fechaCreacion: '', // Se autogenera en backend
+        estatus: 'Abierto',
+        alumno: _alumnoSeleccionado!,
+        usuario: _usuarioSeleccionado!,
+        tipoReporte: _tipoSeleccionado!,
       );
-      if (widget.reporte == null) {
-        await _service.crearReporte(nuevo);
-      } else {
-        await _service.editarReporte(nuevo);
-      }
+
+      await ReporteService().crearReporte(nuevo);
       Navigator.pop(context);
     }
   }
@@ -56,63 +75,93 @@ class _ReporteFormScreenState extends State<ReporteFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.reporte == null ? 'Nuevo Reporte' : 'Editar Reporte'),
-      ),
+      appBar: AppBar(title: Text('Nuevo Reporte de Incidencia')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              TextFormField(
-                controller: _tituloController,
-                decoration: InputDecoration(labelText: 'Título'),
-                validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
-              ),
-              TextFormField(
-                controller: _descripcionController,
-                decoration: InputDecoration(labelText: 'Descripción'),
-                validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
-              ),
-              TextFormField(
-                controller: _fechaController,
-                decoration: InputDecoration(labelText: 'Fecha (YYYY-MM-DD)'),
-                validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
-              ),
-              TextFormField(
-                controller: _alumnoIdController,
-                decoration: InputDecoration(labelText: 'ID del Alumno'),
-                keyboardType: TextInputType.number,
-                validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
-              ),
-              TextFormField(
-                controller: _grupoIdController,
-                decoration: InputDecoration(labelText: 'ID del Grupo'),
-                keyboardType: TextInputType.number,
-                validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
-              ),
-              TextFormField(
-                controller: _tipoIdController,
-                decoration: InputDecoration(labelText: 'ID del Tipo de Reporte'),
-                keyboardType: TextInputType.number,
-                validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
-              ),
-              SizedBox(height: 20),
-              widget.reporte == null
-                  ? ElevatedButton(
+        child: _alumnos.isEmpty || _usuarios.isEmpty || _tipos.isEmpty
+            ? Center(child: CircularProgressIndicator())
+            : Form(
+                key: _formKey,
+                child: ListView(
+                  children: [
+                    DropdownButtonFormField<Alumno>(
+                      value: _alumnoSeleccionado,
+                      decoration: InputDecoration(labelText: 'Alumno'),
+                      items: _alumnos.map((a) {
+                        return DropdownMenuItem(
+                          value: a,
+                          child: Text('${a.nombre} ${a.apaterno} ${a.amaterno}'),
+                        );
+                      }).toList(),
+                      onChanged: (value) => setState(() => _alumnoSeleccionado = value),
+                      validator: (value) => value == null ? 'Selecciona un alumno' : null,
+                    ),
+                    DropdownButtonFormField<Usuario>(
+                      value: _usuarioSeleccionado,
+                      decoration: InputDecoration(labelText: 'Usuario que reporta'),
+                      items: _usuarios.map((u) {
+                        return DropdownMenuItem(
+                          value: u,
+                          child: Text('${u.nombre} ${u.apaterno} (${u.rol})'),
+                        );
+                      }).toList(),
+                      onChanged: (value) => setState(() => _usuarioSeleccionado = value),
+                      validator: (value) => value == null ? 'Selecciona un usuario' : null,
+                    ),
+                    DropdownButtonFormField<TipoReporte>(
+                      value: _tipoSeleccionado,
+                      decoration: InputDecoration(labelText: 'Tipo de reporte'),
+                      items: _tipos.map((t) {
+                        return DropdownMenuItem(
+                          value: t,
+                          child: Text('${t.nombre} (${t.gravedad})'),
+                        );
+                      }).toList(),
+                      onChanged: (value) => setState(() => _tipoSeleccionado = value),
+                      validator: (value) => value == null ? 'Selecciona un tipo' : null,
+                    ),
+                    TextFormField(
+                      controller: _descripcionController,
+                      decoration: InputDecoration(labelText: 'Descripción de los hechos'),
+                      maxLines: 3,
+                      validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
+                    ),
+                    TextFormField(
+                      controller: _accionesController,
+                      decoration: InputDecoration(labelText: 'Acciones tomadas'),
+                      maxLines: 2,
+                    ),
+                    ListTile(
+                      title: Text(_fechaIncidencia == null
+                          ? 'Selecciona fecha de incidencia'
+                          : 'Fecha: ${_fechaIncidencia!.toLocal().toString().split(' ')[0]}'),
+                      trailing: Icon(Icons.calendar_today),
+                      onTap: () async {
+                        final fecha = await showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2020),
+                          lastDate: DateTime(2100),
+                        );
+                        if (fecha != null) {
+                          setState(() => _fechaIncidencia = fecha);
+                        }
+                      },
+                    ),
+                    TextFormField(
+                      initialValue: 'Abierto',
+                      decoration: InputDecoration(labelText: 'Estatus'),
+                      enabled: false,
+                    ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
                       onPressed: _guardar,
                       child: Text('Guardar'),
                       style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                    )
-                  : ElevatedButton(
-                      onPressed: _guardar,
-                      child: Text('Actualizar'),
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                     ),
-            ],
-          ),
-        ),
+                  ],
+                ),
+              ),
       ),
     );
   }

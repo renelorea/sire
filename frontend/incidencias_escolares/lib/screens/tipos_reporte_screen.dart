@@ -15,14 +15,19 @@ class _TiposReporteScreenState extends State<TiposReporteScreen> {
   @override
   void initState() {
     super.initState();
-    _tipos = _service.obtenerTipos();
+    _cargarTipos();
   }
 
-  void _refrescar() => setState(() => _tipos = _service.obtenerTipos());
+  Future<void> _cargarTipos() async {
+    final tipos = _service.obtenerTipos();
+    setState(() {
+      _tipos = tipos;
+    });
+  }
 
-  void _eliminar(int id) async {
+  Future<void> _eliminar(int id) async {
     await _service.eliminarTipo(id);
-    _refrescar();
+    await _cargarTipos();
   }
 
   @override
@@ -32,34 +37,47 @@ class _TiposReporteScreenState extends State<TiposReporteScreen> {
       body: FutureBuilder<List<TipoReporte>>(
         future: _tipos,
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final tipos = snapshot.data!;
-            return ListView.builder(
-              itemCount: tipos.length,
-              itemBuilder: (context, index) {
-                final t = tipos[index];
-                return ListTile(
-                  title: Text(t.nombre),
-                  subtitle: Text(t.descripcion),
-                  trailing: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(icon: Icon(Icons.edit), onPressed: () {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          }
+          if (snapshot.hasError) {
+            return Center(child: Text('Error al cargar los tipos'));
+          }
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('No hay tipos registrados'));
+          }
+
+          final tipos = snapshot.data!;
+          return ListView.builder(
+            itemCount: tipos.length,
+            itemBuilder: (context, index) {
+              final t = tipos[index];
+              return ListTile(
+                title: Text(t.nombre),
+                subtitle: Text('${t.descripcion} • Gravedad: ${t.gravedad}'),
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (_) => TipoReporteFormScreen(tipo: t),
                           ),
-                        ).then((_) => _refrescar());
-                      }),
-                      IconButton(icon: Icon(Icons.delete), onPressed: () => _eliminar(t.id)),
-                    ],
-                  ),
-                );
-              },
-            );
-          }
-          return Center(child: CircularProgressIndicator());
+                        ).then((_) => _cargarTipos());
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () => _eliminar(t.id),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -67,7 +85,7 @@ class _TiposReporteScreenState extends State<TiposReporteScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (_) => TipoReporteFormScreen()),
-          ).then((_) => _refrescar());
+          ).then((_) => _cargarTipos());
         },
         child: Icon(Icons.add),
         backgroundColor: Colors.green,

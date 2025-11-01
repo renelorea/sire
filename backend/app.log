@@ -319,3 +319,523 @@
 2025-10-15 23:27:44,866 - INFO - 192.168.2.191 - - [15/Oct/2025 23:27:44] "GET /api/grupos HTTP/1.1" 200 -
 2025-10-15 23:52:13,081 - INFO - 192.168.2.191 - - [15/Oct/2025 23:52:13] "OPTIONS /api/reportes HTTP/1.1" 200 -
 2025-10-15 23:52:13,096 - INFO - 192.168.2.191 - - [15/Oct/2025 23:52:13] "[31m[1mGET /api/reportes HTTP/1.1[0m" 401 -
+2025-10-23 22:08:02,093 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.110:5000
+2025-10-23 22:08:02,098 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-23 22:08:02,099 - INFO -  * Restarting with stat
+2025-10-23 22:08:02,530 - WARNING -  * Debugger is active!
+2025-10-23 22:08:02,540 - INFO -  * Debugger PIN: 149-262-596
+2025-10-23 22:19:19,000 - INFO - 192.168.2.191 - - [23/Oct/2025 22:19:19] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-23 22:19:19,044 - INFO - 192.168.2.191 - - [23/Oct/2025 22:19:19] "[31m[1mPOST /api/login HTTP/1.1[0m" 401 -
+2025-10-23 22:28:32,536 - INFO - 192.168.2.191 - - [23/Oct/2025 22:28:32] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-23 22:28:32,554 - INFO - 192.168.2.191 - - [23/Oct/2025 22:28:32] "[31m[1mPOST /api/login HTTP/1.1[0m" 401 -
+2025-10-23 22:28:43,885 - INFO - 192.168.2.191 - - [23/Oct/2025 22:28:43] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-23 22:28:44,433 - INFO - 192.168.2.191 - - [23/Oct/2025 22:28:44] "POST /api/login HTTP/1.1" 200 -
+2025-10-23 22:29:25,036 - INFO - 192.168.2.191 - - [23/Oct/2025 22:29:25] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-10-23 22:29:25,064 - INFO - 192.168.2.191 - - [23/Oct/2025 22:29:25] "GET /api/usuarios HTTP/1.1" 200 -
+2025-10-23 22:29:53,783 - INFO - 192.168.2.191 - - [23/Oct/2025 22:29:53] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-10-23 22:29:53,792 - INFO - 192.168.2.191 - - [23/Oct/2025 22:29:53] "GET /api/usuarios HTTP/1.1" 200 -
+2025-10-25 13:56:56,514 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py', reloading
+2025-10-25 13:56:57,872 - INFO -  * Restarting with stat
+2025-10-25 13:56:59,027 - WARNING -  * Debugger is active!
+2025-10-25 13:56:59,070 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 13:57:46,611 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/services/seguimiento_service.py', reloading
+2025-10-25 13:57:46,689 - INFO -  * Restarting with stat
+2025-10-25 13:57:47,203 - WARNING -  * Debugger is active!
+2025-10-25 13:57:47,211 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 13:58:39,707 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/seguimiento_controller.py', reloading
+2025-10-25 13:58:39,795 - INFO -  * Restarting with stat
+2025-10-25 13:58:40,201 - WARNING -  * Debugger is active!
+2025-10-25 13:58:40,207 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 13:59:36,739 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/routes/seguimiento_routes.py', reloading
+2025-10-25 13:59:36,802 - INFO -  * Restarting with stat
+2025-10-25 13:59:37,280 - WARNING -  * Debugger is active!
+2025-10-25 13:59:37,287 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 14:02:00,701 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/app.py', reloading
+2025-10-25 14:02:00,764 - INFO -  * Restarting with stat
+2025-10-25 14:46:23,864 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-10-25 14:46:23,864 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-25 14:46:23,865 - INFO -  * Restarting with stat
+2025-10-25 14:46:24,274 - WARNING -  * Debugger is active!
+2025-10-25 14:46:24,285 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 20:24:33,664 - INFO - 192.168.2.191 - - [25/Oct/2025 20:24:33] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-25 20:24:33,703 - INFO - 192.168.2.191 - - [25/Oct/2025 20:24:33] "[31m[1mPOST /api/login HTTP/1.1[0m" 401 -
+2025-10-25 20:27:17,540 - INFO - 192.168.2.191 - - [25/Oct/2025 20:27:17] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-25 20:27:17,893 - INFO - 192.168.2.191 - - [25/Oct/2025 20:27:17] "POST /api/login HTTP/1.1" 200 -
+2025-10-25 20:27:36,948 - INFO - 192.168.2.191 - - [25/Oct/2025 20:27:36] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-25 20:27:36,980 - INFO - 192.168.2.191 - - [25/Oct/2025 20:27:36] "[35m[1mGET /api/tipos-reporte HTTP/1.1[0m" 500 -
+2025-10-25 20:36:51,887 - INFO - 127.0.0.1 - - [25/Oct/2025 20:36:51] "GET /apidocs/ HTTP/1.1" 200 -
+2025-10-25 20:36:51,975 - INFO - 127.0.0.1 - - [25/Oct/2025 20:36:51] "GET /flasgger_static/swagger-ui-bundle.js HTTP/1.1" 200 -
+2025-10-25 20:36:51,975 - INFO - 127.0.0.1 - - [25/Oct/2025 20:36:51] "GET /flasgger_static/swagger-ui-standalone-preset.js HTTP/1.1" 200 -
+2025-10-25 20:36:51,975 - INFO - 127.0.0.1 - - [25/Oct/2025 20:36:51] "[36mGET /flasgger_static/lib/jquery.min.js HTTP/1.1[0m" 304 -
+2025-10-25 20:36:51,981 - INFO - 127.0.0.1 - - [25/Oct/2025 20:36:51] "GET /flasgger_static/swagger-ui.css HTTP/1.1" 200 -
+2025-10-25 20:36:52,279 - INFO - 127.0.0.1 - - [25/Oct/2025 20:36:52] "GET /apispec_1.json HTTP/1.1" 200 -
+2025-10-25 20:36:52,280 - INFO - 127.0.0.1 - - [25/Oct/2025 20:36:52] "[36mGET /flasgger_static/favicon-32x32.png HTTP/1.1[0m" 304 -
+2025-10-25 20:37:36,605 - INFO - 127.0.0.1 - - [25/Oct/2025 20:37:36] "[31m[1mGET /api/usuarios HTTP/1.1[0m" 401 -
+2025-10-25 20:45:48,793 - INFO - 127.0.0.1 - - [25/Oct/2025 20:45:48] "POST /api/login HTTP/1.1" 200 -
+2025-10-25 20:47:52,780 - INFO - 127.0.0.1 - - [25/Oct/2025 20:47:52] "[33mGET /api/tipo-reporte HTTP/1.1[0m" 404 -
+2025-10-25 20:48:09,409 - INFO - 127.0.0.1 - - [25/Oct/2025 20:48:09] "POST /api/login HTTP/1.1" 200 -
+2025-10-25 20:48:37,323 - INFO - 127.0.0.1 - - [25/Oct/2025 20:48:37] "[33mGET /api/tipo-reporte HTTP/1.1[0m" 404 -
+2025-10-25 20:52:26,753 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/tipos_reporte_controller.py', reloading
+2025-10-25 20:52:27,020 - INFO -  * Restarting with stat
+2025-10-25 20:52:27,677 - WARNING -  * Debugger is active!
+2025-10-25 20:52:27,691 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 20:52:42,637 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-10-25 20:52:42,637 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-25 20:52:42,638 - INFO -  * Restarting with stat
+2025-10-25 20:52:43,021 - WARNING -  * Debugger is active!
+2025-10-25 20:52:43,029 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 20:53:03,424 - INFO - 127.0.0.1 - - [25/Oct/2025 20:53:03] "POST /api/login HTTP/1.1" 200 -
+2025-10-25 20:53:15,918 - INFO - 127.0.0.1 - - [25/Oct/2025 20:53:15] "[33mGET /api/tipo-reporte HTTP/1.1[0m" 404 -
+2025-10-25 20:53:36,337 - INFO - 127.0.0.1 - - [25/Oct/2025 20:53:36] "[33mGET /api/tipo-reporte HTTP/1.1[0m" 404 -
+2025-10-25 20:55:33,969 - INFO - 127.0.0.1 - - [25/Oct/2025 20:55:33] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-25 21:08:24,871 - INFO - 192.168.2.191 - - [25/Oct/2025 21:08:24] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-25 21:08:24,880 - INFO - 192.168.2.191 - - [25/Oct/2025 21:08:24] "[31m[1mGET /api/tipos-reporte HTTP/1.1[0m" 401 -
+2025-10-25 21:32:41,129 - INFO - 192.168.2.191 - - [25/Oct/2025 21:32:41] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-25 21:32:41,478 - INFO - 192.168.2.191 - - [25/Oct/2025 21:32:41] "POST /api/login HTTP/1.1" 200 -
+2025-10-25 21:32:46,544 - INFO - 192.168.2.191 - - [25/Oct/2025 21:32:46] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-25 21:32:46,554 - INFO - 192.168.2.191 - - [25/Oct/2025 21:32:46] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-25 21:34:07,066 - INFO - 192.168.2.191 - - [25/Oct/2025 21:34:07] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-25 21:34:07,086 - INFO - 192.168.2.191 - - [25/Oct/2025 21:34:07] "[35m[1mPOST /api/tipos-reporte HTTP/1.1[0m" 201 -
+2025-10-25 21:34:07,101 - INFO - 192.168.2.191 - - [25/Oct/2025 21:34:07] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-25 21:34:40,974 - INFO - 192.168.2.191 - - [25/Oct/2025 21:34:40] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-25 21:34:40,985 - INFO - 192.168.2.191 - - [25/Oct/2025 21:34:40] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-25 21:40:27,490 - INFO - 192.168.2.191 - - [25/Oct/2025 21:40:27] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-25 21:40:27,819 - INFO - 192.168.2.191 - - [25/Oct/2025 21:40:27] "POST /api/login HTTP/1.1" 200 -
+2025-10-25 21:40:32,318 - INFO - 192.168.2.191 - - [25/Oct/2025 21:40:32] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-25 21:40:32,327 - INFO - 192.168.2.191 - - [25/Oct/2025 21:40:32] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-25 21:40:36,453 - INFO - 192.168.2.191 - - [25/Oct/2025 21:40:36] "OPTIONS /api/tipos-reporte/5 HTTP/1.1" 200 -
+2025-10-25 21:40:36,485 - INFO - 192.168.2.191 - - [25/Oct/2025 21:40:36] "DELETE /api/tipos-reporte/5 HTTP/1.1" 200 -
+2025-10-25 21:40:36,523 - INFO - 192.168.2.191 - - [25/Oct/2025 21:40:36] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-25 21:40:54,493 - INFO - 192.168.2.191 - - [25/Oct/2025 21:40:54] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-25 21:40:54,503 - INFO - 192.168.2.191 - - [25/Oct/2025 21:40:54] "[35m[1mPOST /api/tipos-reporte HTTP/1.1[0m" 201 -
+2025-10-25 21:40:54,532 - INFO - 192.168.2.191 - - [25/Oct/2025 21:40:54] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-25 21:41:05,566 - INFO - 192.168.2.191 - - [25/Oct/2025 21:41:05] "OPTIONS /api/tipos-reporte/6 HTTP/1.1" 200 -
+2025-10-25 21:41:05,575 - INFO - 192.168.2.191 - - [25/Oct/2025 21:41:05] "DELETE /api/tipos-reporte/6 HTTP/1.1" 200 -
+2025-10-25 21:41:05,581 - INFO - 192.168.2.191 - - [25/Oct/2025 21:41:05] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-25 21:41:05,589 - INFO - 192.168.2.191 - - [25/Oct/2025 21:41:05] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-25 22:33:56,515 - INFO - 127.0.0.1 - - [25/Oct/2025 22:33:56] "POST /api/login HTTP/1.1" 200 -
+2025-10-25 22:35:30,771 - INFO - 127.0.0.1 - - [25/Oct/2025 22:35:30] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-25 22:44:07,665 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/reportes_model.py', reloading
+2025-10-25 22:44:07,971 - INFO -  * Restarting with stat
+2025-10-25 22:48:21,603 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-10-25 22:48:21,603 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-25 22:48:21,605 - INFO -  * Restarting with stat
+2025-10-25 22:48:21,978 - WARNING -  * Debugger is active!
+2025-10-25 22:48:21,988 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 22:48:43,421 - INFO - 127.0.0.1 - - [25/Oct/2025 22:48:43] "POST /api/login HTTP/1.1" 200 -
+2025-10-25 22:49:00,105 - INFO - 127.0.0.1 - - [25/Oct/2025 22:49:00] "[35m[1mGET /api/reportes HTTP/1.1[0m" 500 -
+2025-10-25 22:52:29,440 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/reportes_model.py', reloading
+2025-10-25 22:52:29,507 - INFO -  * Restarting with stat
+2025-10-25 22:52:29,913 - WARNING -  * Debugger is active!
+2025-10-25 22:52:29,921 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 22:52:30,942 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/reportes_model.py', reloading
+2025-10-25 22:52:31,010 - INFO -  * Restarting with stat
+2025-10-25 22:52:31,448 - WARNING -  * Debugger is active!
+2025-10-25 22:52:31,457 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 22:52:42,576 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/reportes_model.py', reloading
+2025-10-25 22:52:42,644 - INFO -  * Restarting with stat
+2025-10-25 22:52:43,044 - WARNING -  * Debugger is active!
+2025-10-25 22:52:43,050 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 22:52:55,406 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-10-25 22:52:55,406 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-25 22:52:55,407 - INFO -  * Restarting with stat
+2025-10-25 22:52:55,798 - WARNING -  * Debugger is active!
+2025-10-25 22:52:55,805 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 22:53:07,147 - INFO - 127.0.0.1 - - [25/Oct/2025 22:53:07] "POST /api/login HTTP/1.1" 200 -
+2025-10-25 22:53:18,623 - INFO - 127.0.0.1 - - [25/Oct/2025 22:53:18] "[35m[1mGET /api/reportes HTTP/1.1[0m" 500 -
+2025-10-25 22:54:42,852 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/reportes_model.py', reloading
+2025-10-25 22:54:42,963 - INFO -  * Restarting with stat
+2025-10-25 22:54:43,584 - WARNING -  * Debugger is active!
+2025-10-25 22:54:43,592 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 22:54:46,628 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/reportes_model.py', reloading
+2025-10-25 22:54:46,702 - INFO -  * Restarting with stat
+2025-10-25 22:54:47,085 - WARNING -  * Debugger is active!
+2025-10-25 22:54:47,092 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 22:55:02,907 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-10-25 22:55:02,907 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-25 22:55:02,908 - INFO -  * Restarting with stat
+2025-10-25 22:55:03,281 - WARNING -  * Debugger is active!
+2025-10-25 22:55:03,288 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 22:55:13,092 - INFO - 127.0.0.1 - - [25/Oct/2025 22:55:13] "POST /api/login HTTP/1.1" 200 -
+2025-10-25 22:55:26,691 - INFO - 127.0.0.1 - - [25/Oct/2025 22:55:26] "[35m[1mGET /api/reportes HTTP/1.1[0m" 500 -
+2025-10-25 22:56:33,228 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/reportes_model.py', reloading
+2025-10-25 22:56:33,296 - INFO -  * Restarting with stat
+2025-10-25 22:56:33,701 - WARNING -  * Debugger is active!
+2025-10-25 22:56:33,708 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 22:56:47,949 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-10-25 22:56:47,949 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-25 22:56:47,950 - INFO -  * Restarting with stat
+2025-10-25 22:56:48,348 - WARNING -  * Debugger is active!
+2025-10-25 22:56:48,358 - INFO -  * Debugger PIN: 149-262-596
+2025-10-25 22:58:10,798 - INFO - 127.0.0.1 - - [25/Oct/2025 22:58:10] "POST /api/login HTTP/1.1" 200 -
+2025-10-25 22:58:22,258 - INFO - 127.0.0.1 - - [25/Oct/2025 22:58:22] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-26 00:07:14,570 - INFO - 192.168.2.191 - - [26/Oct/2025 00:07:14] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-26 00:07:14,917 - INFO - 192.168.2.191 - - [26/Oct/2025 00:07:14] "POST /api/login HTTP/1.1" 200 -
+2025-10-26 00:07:18,105 - INFO - 192.168.2.191 - - [26/Oct/2025 00:07:18] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-26 00:07:18,120 - INFO - 192.168.2.191 - - [26/Oct/2025 00:07:18] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-26 00:07:43,495 - INFO - 192.168.2.191 - - [26/Oct/2025 00:07:43] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-26 00:07:43,505 - INFO - 192.168.2.191 - - [26/Oct/2025 00:07:43] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-26 00:07:43,522 - INFO - 192.168.2.191 - - [26/Oct/2025 00:07:43] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-10-26 00:07:43,526 - INFO - 192.168.2.191 - - [26/Oct/2025 00:07:43] "GET /api/usuarios HTTP/1.1" 200 -
+2025-10-26 00:07:43,538 - INFO - 192.168.2.191 - - [26/Oct/2025 00:07:43] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-26 00:07:43,542 - INFO - 192.168.2.191 - - [26/Oct/2025 00:07:43] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-26 10:06:37,707 - INFO - 192.168.2.191 - - [26/Oct/2025 10:06:37] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-26 10:06:38,019 - INFO - 192.168.2.191 - - [26/Oct/2025 10:06:38] "POST /api/login HTTP/1.1" 200 -
+2025-10-26 10:06:41,545 - INFO - 192.168.2.191 - - [26/Oct/2025 10:06:41] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-26 10:06:41,557 - INFO - 192.168.2.191 - - [26/Oct/2025 10:06:41] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-26 10:06:54,601 - INFO - 192.168.2.191 - - [26/Oct/2025 10:06:54] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-26 10:06:54,607 - INFO - 192.168.2.191 - - [26/Oct/2025 10:06:54] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-26 10:06:54,622 - INFO - 192.168.2.191 - - [26/Oct/2025 10:06:54] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-10-26 10:06:54,626 - INFO - 192.168.2.191 - - [26/Oct/2025 10:06:54] "GET /api/usuarios HTTP/1.1" 200 -
+2025-10-26 10:06:54,640 - INFO - 192.168.2.191 - - [26/Oct/2025 10:06:54] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-26 10:06:54,643 - INFO - 192.168.2.191 - - [26/Oct/2025 10:06:54] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-26 10:09:58,776 - INFO - 192.168.2.191 - - [26/Oct/2025 10:09:58] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-26 10:09:58,785 - INFO - 192.168.2.191 - - [26/Oct/2025 10:09:58] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-26 10:10:06,615 - INFO - 192.168.2.191 - - [26/Oct/2025 10:10:06] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-26 10:10:06,621 - INFO - 192.168.2.191 - - [26/Oct/2025 10:10:06] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-26 10:10:06,635 - INFO - 192.168.2.191 - - [26/Oct/2025 10:10:06] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-10-26 10:10:06,641 - INFO - 192.168.2.191 - - [26/Oct/2025 10:10:06] "GET /api/usuarios HTTP/1.1" 200 -
+2025-10-26 10:10:06,652 - INFO - 192.168.2.191 - - [26/Oct/2025 10:10:06] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-26 10:10:06,655 - INFO - 192.168.2.191 - - [26/Oct/2025 10:10:06] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-26 10:11:11,774 - INFO - 192.168.2.191 - - [26/Oct/2025 10:11:11] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-26 10:11:11,792 - INFO - 192.168.2.191 - - [26/Oct/2025 10:11:11] "[35m[1mPOST /api/reportes HTTP/1.1[0m" 201 -
+2025-10-26 10:11:11,827 - INFO - 192.168.2.191 - - [26/Oct/2025 10:11:11] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-26 10:12:03,383 - INFO - 192.168.2.191 - - [26/Oct/2025 10:12:03] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-26 10:12:03,389 - INFO - 192.168.2.191 - - [26/Oct/2025 10:12:03] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-26 10:12:03,403 - INFO - 192.168.2.191 - - [26/Oct/2025 10:12:03] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-10-26 10:12:03,407 - INFO - 192.168.2.191 - - [26/Oct/2025 10:12:03] "GET /api/usuarios HTTP/1.1" 200 -
+2025-10-26 10:12:03,416 - INFO - 192.168.2.191 - - [26/Oct/2025 10:12:03] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-26 10:12:03,419 - INFO - 192.168.2.191 - - [26/Oct/2025 10:12:03] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-26 10:12:17,816 - INFO - 192.168.2.191 - - [26/Oct/2025 10:12:17] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-26 10:12:17,825 - INFO - 192.168.2.191 - - [26/Oct/2025 10:12:17] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-26 13:54:09,444 - INFO - 127.0.0.1 - - [26/Oct/2025 13:54:09] "POST /api/login HTTP/1.1" 200 -
+2025-10-26 13:55:04,126 - INFO - 127.0.0.1 - - [26/Oct/2025 13:55:04] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-26 13:59:37,422 - INFO - 192.168.2.191 - - [26/Oct/2025 13:59:37] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-26 13:59:37,757 - INFO - 192.168.2.191 - - [26/Oct/2025 13:59:37] "POST /api/login HTTP/1.1" 200 -
+2025-10-26 13:59:45,545 - INFO - 192.168.2.191 - - [26/Oct/2025 13:59:45] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-26 13:59:45,566 - INFO - 192.168.2.191 - - [26/Oct/2025 13:59:45] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-26 22:07:39,301 - INFO - 192.168.2.191 - - [26/Oct/2025 22:07:39] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-26 22:07:39,663 - INFO - 192.168.2.191 - - [26/Oct/2025 22:07:39] "POST /api/login HTTP/1.1" 200 -
+2025-10-26 22:07:44,188 - INFO - 192.168.2.191 - - [26/Oct/2025 22:07:44] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-26 22:07:44,234 - INFO - 192.168.2.191 - - [26/Oct/2025 22:07:44] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-26 22:11:25,038 - INFO - 192.168.2.191 - - [26/Oct/2025 22:11:25] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-26 22:11:25,487 - INFO - 192.168.2.191 - - [26/Oct/2025 22:11:25] "POST /api/login HTTP/1.1" 200 -
+2025-10-26 22:11:28,308 - INFO - 192.168.2.191 - - [26/Oct/2025 22:11:28] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-26 22:11:28,331 - INFO - 192.168.2.191 - - [26/Oct/2025 22:11:28] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-26 22:11:28,354 - INFO - 192.168.2.191 - - [26/Oct/2025 22:11:28] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-26 22:11:28,390 - INFO - 192.168.2.191 - - [26/Oct/2025 22:11:28] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-26 22:11:28,402 - INFO - 192.168.2.191 - - [26/Oct/2025 22:11:28] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-26 22:11:28,411 - INFO - 192.168.2.191 - - [26/Oct/2025 22:11:28] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-26 22:23:16,517 - INFO - 192.168.2.191 - - [26/Oct/2025 22:23:16] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-26 22:23:16,850 - INFO - 192.168.2.191 - - [26/Oct/2025 22:23:16] "POST /api/login HTTP/1.1" 200 -
+2025-10-26 22:23:20,243 - INFO - 192.168.2.191 - - [26/Oct/2025 22:23:20] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-26 22:23:20,257 - INFO - 192.168.2.191 - - [26/Oct/2025 22:23:20] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-26 22:23:20,295 - INFO - 192.168.2.191 - - [26/Oct/2025 22:23:20] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-26 22:23:20,309 - INFO - 192.168.2.191 - - [26/Oct/2025 22:23:20] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-26 22:23:20,318 - INFO - 192.168.2.191 - - [26/Oct/2025 22:23:20] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-26 22:23:20,339 - INFO - 192.168.2.191 - - [26/Oct/2025 22:23:20] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-26 22:23:43,367 - INFO - 192.168.2.191 - - [26/Oct/2025 22:23:43] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-26 22:23:43,377 - INFO - 192.168.2.191 - - [26/Oct/2025 22:23:43] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-26 22:23:43,390 - INFO - 192.168.2.191 - - [26/Oct/2025 22:23:43] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-26 22:23:43,396 - INFO - 192.168.2.191 - - [26/Oct/2025 22:23:43] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-26 22:23:43,411 - INFO - 192.168.2.191 - - [26/Oct/2025 22:23:43] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-26 22:23:43,414 - INFO - 192.168.2.191 - - [26/Oct/2025 22:23:43] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-27 07:58:15,381 - INFO - 192.168.1.220 - - [27/Oct/2025 07:58:15] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-27 07:58:15,745 - INFO - 192.168.1.220 - - [27/Oct/2025 07:58:15] "POST /api/login HTTP/1.1" 200 -
+2025-10-27 07:58:21,297 - INFO - 192.168.1.220 - - [27/Oct/2025 07:58:21] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-27 07:58:21,308 - INFO - 192.168.1.220 - - [27/Oct/2025 07:58:21] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-27 07:58:21,344 - INFO - 192.168.1.220 - - [27/Oct/2025 07:58:21] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-27 07:58:21,355 - INFO - 192.168.1.220 - - [27/Oct/2025 07:58:21] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-27 07:58:21,374 - INFO - 192.168.1.220 - - [27/Oct/2025 07:58:21] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-27 07:58:21,380 - INFO - 192.168.1.220 - - [27/Oct/2025 07:58:21] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-27 08:03:44,369 - INFO - 192.168.1.220 - - [27/Oct/2025 08:03:44] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-27 08:03:44,853 - INFO - 192.168.1.220 - - [27/Oct/2025 08:03:44] "POST /api/login HTTP/1.1" 200 -
+2025-10-27 08:03:48,486 - INFO - 192.168.1.220 - - [27/Oct/2025 08:03:48] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-27 08:03:48,498 - INFO - 192.168.1.220 - - [27/Oct/2025 08:03:48] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-27 08:03:48,545 - INFO - 192.168.1.220 - - [27/Oct/2025 08:03:48] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-27 08:03:48,553 - INFO - 192.168.1.220 - - [27/Oct/2025 08:03:48] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-27 08:03:48,569 - INFO - 192.168.1.220 - - [27/Oct/2025 08:03:48] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-27 08:03:48,599 - INFO - 192.168.1.220 - - [27/Oct/2025 08:03:48] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-27 08:19:52,783 - INFO - 192.168.1.220 - - [27/Oct/2025 08:19:52] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-27 08:19:53,216 - INFO - 192.168.1.220 - - [27/Oct/2025 08:19:53] "POST /api/login HTTP/1.1" 200 -
+2025-10-27 08:19:58,306 - INFO - 192.168.1.220 - - [27/Oct/2025 08:19:58] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-27 08:19:58,324 - INFO - 192.168.1.220 - - [27/Oct/2025 08:19:58] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-27 08:19:58,372 - INFO - 192.168.1.220 - - [27/Oct/2025 08:19:58] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-27 08:19:58,383 - INFO - 192.168.1.220 - - [27/Oct/2025 08:19:58] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-27 08:19:58,396 - INFO - 192.168.1.220 - - [27/Oct/2025 08:19:58] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-27 08:19:58,505 - INFO - 192.168.1.220 - - [27/Oct/2025 08:19:58] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-29 22:09:48,156 - INFO - 192.168.2.191 - - [29/Oct/2025 22:09:48] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-29 22:09:48,589 - INFO - 192.168.2.191 - - [29/Oct/2025 22:09:48] "POST /api/login HTTP/1.1" 200 -
+2025-10-29 22:09:54,084 - INFO - 192.168.2.191 - - [29/Oct/2025 22:09:54] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-29 22:09:54,121 - INFO - 192.168.2.191 - - [29/Oct/2025 22:09:54] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-29 22:09:54,146 - INFO - 192.168.2.191 - - [29/Oct/2025 22:09:54] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-29 22:09:54,155 - INFO - 192.168.2.191 - - [29/Oct/2025 22:09:54] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-29 22:09:54,167 - INFO - 192.168.2.191 - - [29/Oct/2025 22:09:54] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-29 22:09:54,176 - INFO - 192.168.2.191 - - [29/Oct/2025 22:09:54] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-29 22:13:58,287 - INFO - 127.0.0.1 - - [29/Oct/2025 22:13:58] "POST /api/login HTTP/1.1" 200 -
+2025-10-29 22:14:19,209 - INFO - 127.0.0.1 - - [29/Oct/2025 22:14:19] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-29 22:24:45,461 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-10-29 22:24:45,462 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-29 22:24:45,463 - INFO -  * Restarting with stat
+2025-10-29 22:24:45,855 - WARNING -  * Debugger is active!
+2025-10-29 22:24:45,870 - INFO -  * Debugger PIN: 149-262-596
+2025-10-29 22:25:02,410 - INFO - 127.0.0.1 - - [29/Oct/2025 22:25:02] "POST /api/login HTTP/1.1" 200 -
+2025-10-29 22:25:16,238 - INFO - 127.0.0.1 - - [29/Oct/2025 22:25:16] "[35m[1mGET /api/reportes HTTP/1.1[0m" 500 -
+2025-10-29 22:31:04,529 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/reportes_model.py', reloading
+2025-10-29 22:31:04,657 - INFO -  * Restarting with stat
+2025-10-29 22:31:05,935 - WARNING -  * Debugger is active!
+2025-10-29 22:31:05,961 - INFO -  * Debugger PIN: 149-262-596
+2025-10-29 22:31:19,428 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-10-29 22:31:19,428 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-29 22:31:19,429 - INFO -  * Restarting with stat
+2025-10-29 22:31:19,837 - WARNING -  * Debugger is active!
+2025-10-29 22:31:19,844 - INFO -  * Debugger PIN: 149-262-596
+2025-10-29 22:31:53,957 - INFO - 127.0.0.1 - - [29/Oct/2025 22:31:53] "POST /api/login HTTP/1.1" 200 -
+2025-10-29 22:32:05,890 - INFO - 127.0.0.1 - - [29/Oct/2025 22:32:05] "[35m[1mGET /api/reportes HTTP/1.1[0m" 500 -
+2025-10-29 22:36:36,846 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/reportes_model.py', reloading
+2025-10-29 22:36:36,914 - INFO -  * Restarting with stat
+2025-10-29 22:36:37,430 - WARNING -  * Debugger is active!
+2025-10-29 22:36:37,438 - INFO -  * Debugger PIN: 149-262-596
+2025-10-29 22:36:46,532 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/reportes_model.py', reloading
+2025-10-29 22:36:46,599 - INFO -  * Restarting with stat
+2025-10-29 22:36:47,055 - WARNING -  * Debugger is active!
+2025-10-29 22:36:47,062 - INFO -  * Debugger PIN: 149-262-596
+2025-10-29 22:36:48,084 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/reportes_model.py', reloading
+2025-10-29 22:36:48,198 - INFO -  * Restarting with stat
+2025-10-29 22:36:48,756 - WARNING -  * Debugger is active!
+2025-10-29 22:36:48,763 - INFO -  * Debugger PIN: 149-262-596
+2025-10-29 22:36:56,856 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/reportes_model.py', reloading
+2025-10-29 22:36:56,927 - INFO -  * Restarting with stat
+2025-10-29 22:36:57,338 - WARNING -  * Debugger is active!
+2025-10-29 22:36:57,345 - INFO -  * Debugger PIN: 149-262-596
+2025-10-29 22:36:58,369 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/reportes_model.py', reloading
+2025-10-29 22:36:58,431 - INFO -  * Restarting with stat
+2025-10-29 22:36:58,846 - WARNING -  * Debugger is active!
+2025-10-29 22:36:58,853 - INFO -  * Debugger PIN: 149-262-596
+2025-10-29 22:37:08,303 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-10-29 22:37:08,303 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-29 22:37:08,305 - INFO -  * Restarting with stat
+2025-10-29 22:37:08,688 - WARNING -  * Debugger is active!
+2025-10-29 22:37:08,695 - INFO -  * Debugger PIN: 149-262-596
+2025-10-29 22:37:24,855 - INFO - 127.0.0.1 - - [29/Oct/2025 22:37:24] "POST /api/login HTTP/1.1" 200 -
+2025-10-29 22:37:36,786 - INFO - 127.0.0.1 - - [29/Oct/2025 22:37:36] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-29 22:44:50,400 - INFO - 192.168.2.191 - - [29/Oct/2025 22:44:50] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-29 22:44:50,749 - INFO - 192.168.2.191 - - [29/Oct/2025 22:44:50] "POST /api/login HTTP/1.1" 200 -
+2025-10-29 22:44:54,004 - INFO - 192.168.2.191 - - [29/Oct/2025 22:44:54] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-29 22:44:54,013 - INFO - 192.168.2.191 - - [29/Oct/2025 22:44:54] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-29 22:44:54,058 - INFO - 192.168.2.191 - - [29/Oct/2025 22:44:54] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-29 22:44:54,064 - INFO - 192.168.2.191 - - [29/Oct/2025 22:44:54] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-29 22:44:54,082 - INFO - 192.168.2.191 - - [29/Oct/2025 22:44:54] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-29 22:44:54,099 - INFO - 192.168.2.191 - - [29/Oct/2025 22:44:54] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-29 22:50:04,053 - INFO - 192.168.2.191 - - [29/Oct/2025 22:50:04] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-29 22:50:04,394 - INFO - 192.168.2.191 - - [29/Oct/2025 22:50:04] "POST /api/login HTTP/1.1" 200 -
+2025-10-29 22:50:07,375 - INFO - 192.168.2.191 - - [29/Oct/2025 22:50:07] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-29 22:50:07,383 - INFO - 192.168.2.191 - - [29/Oct/2025 22:50:07] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-29 22:50:07,438 - INFO - 192.168.2.191 - - [29/Oct/2025 22:50:07] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-29 22:50:07,453 - INFO - 192.168.2.191 - - [29/Oct/2025 22:50:07] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-29 22:50:07,495 - INFO - 192.168.2.191 - - [29/Oct/2025 22:50:07] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-29 22:50:07,528 - INFO - 192.168.2.191 - - [29/Oct/2025 22:50:07] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-29 22:56:05,711 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/reportes_model.py', reloading
+2025-10-29 22:56:05,837 - INFO -  * Restarting with stat
+2025-10-29 22:56:06,464 - WARNING -  * Debugger is active!
+2025-10-29 22:56:06,473 - INFO -  * Debugger PIN: 149-262-596
+2025-10-29 22:56:19,409 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-10-29 22:56:19,409 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-29 22:56:19,410 - INFO -  * Restarting with stat
+2025-10-29 22:56:19,789 - WARNING -  * Debugger is active!
+2025-10-29 22:56:19,797 - INFO -  * Debugger PIN: 149-262-596
+2025-10-29 22:57:21,554 - INFO - 192.168.2.191 - - [29/Oct/2025 22:57:21] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-29 22:57:21,910 - INFO - 192.168.2.191 - - [29/Oct/2025 22:57:21] "POST /api/login HTTP/1.1" 200 -
+2025-10-29 22:57:24,454 - INFO - 192.168.2.191 - - [29/Oct/2025 22:57:24] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-29 22:57:24,480 - INFO - 192.168.2.191 - - [29/Oct/2025 22:57:24] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-29 22:57:24,526 - INFO - 192.168.2.191 - - [29/Oct/2025 22:57:24] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-29 22:57:24,531 - INFO - 192.168.2.191 - - [29/Oct/2025 22:57:24] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-29 22:57:24,549 - INFO - 192.168.2.191 - - [29/Oct/2025 22:57:24] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-29 22:57:24,556 - INFO - 192.168.2.191 - - [29/Oct/2025 22:57:24] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-29 23:03:45,004 - INFO - 192.168.2.191 - - [29/Oct/2025 23:03:45] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-29 23:03:45,370 - INFO - 192.168.2.191 - - [29/Oct/2025 23:03:45] "POST /api/login HTTP/1.1" 200 -
+2025-10-29 23:03:48,623 - INFO - 192.168.2.191 - - [29/Oct/2025 23:03:48] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-29 23:03:48,635 - INFO - 192.168.2.191 - - [29/Oct/2025 23:03:48] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-29 23:03:48,675 - INFO - 192.168.2.191 - - [29/Oct/2025 23:03:48] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-29 23:03:48,679 - INFO - 192.168.2.191 - - [29/Oct/2025 23:03:48] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-29 23:03:48,689 - INFO - 192.168.2.191 - - [29/Oct/2025 23:03:48] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-29 23:03:48,695 - INFO - 192.168.2.191 - - [29/Oct/2025 23:03:48] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-29 23:03:56,934 - INFO - 192.168.2.191 - - [29/Oct/2025 23:03:56] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-29 23:03:56,939 - INFO - 192.168.2.191 - - [29/Oct/2025 23:03:56] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-29 23:03:56,952 - INFO - 192.168.2.191 - - [29/Oct/2025 23:03:56] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-10-29 23:03:56,956 - INFO - 192.168.2.191 - - [29/Oct/2025 23:03:56] "GET /api/usuarios HTTP/1.1" 200 -
+2025-10-29 23:03:56,970 - INFO - 192.168.2.191 - - [29/Oct/2025 23:03:56] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-29 23:03:56,975 - INFO - 192.168.2.191 - - [29/Oct/2025 23:03:56] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-30 19:39:27,117 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-10-30 19:39:27,118 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-30 19:39:27,124 - INFO -  * Restarting with stat
+2025-10-30 19:39:27,541 - WARNING -  * Debugger is active!
+2025-10-30 19:39:27,554 - INFO -  * Debugger PIN: 149-262-596
+2025-10-30 19:44:31,026 - INFO - 127.0.0.1 - - [30/Oct/2025 19:44:31] "[35m[1mPOST /api/login HTTP/1.1[0m" 500 -
+2025-10-30 19:50:41,419 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/config.py', reloading
+2025-10-30 19:50:41,533 - INFO -  * Restarting with stat
+2025-10-30 19:50:42,148 - WARNING -  * Debugger is active!
+2025-10-30 19:50:42,156 - INFO -  * Debugger PIN: 149-262-596
+2025-10-30 19:50:44,189 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/config.py', reloading
+2025-10-30 19:50:44,267 - INFO -  * Restarting with stat
+2025-10-30 19:50:44,696 - WARNING -  * Debugger is active!
+2025-10-30 19:50:44,703 - INFO -  * Debugger PIN: 149-262-596
+2025-10-30 19:50:47,749 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/database/connection.py', reloading
+2025-10-30 19:50:47,835 - INFO -  * Restarting with stat
+2025-10-30 19:50:48,268 - WARNING -  * Debugger is active!
+2025-10-30 19:50:48,276 - INFO -  * Debugger PIN: 149-262-596
+2025-10-30 19:50:51,319 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/database/connection.py', reloading
+2025-10-30 19:50:51,390 - INFO -  * Restarting with stat
+2025-10-30 19:50:51,814 - WARNING -  * Debugger is active!
+2025-10-30 19:50:51,820 - INFO -  * Debugger PIN: 149-262-596
+2025-10-30 19:51:02,930 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-10-30 19:51:02,931 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-30 19:51:02,932 - INFO -  * Restarting with stat
+2025-10-30 19:51:03,351 - WARNING -  * Debugger is active!
+2025-10-30 19:51:03,359 - INFO -  * Debugger PIN: 149-262-596
+2025-10-30 19:51:19,448 - INFO - 127.0.0.1 - - [30/Oct/2025 19:51:19] "POST /api/login HTTP/1.1" 200 -
+2025-10-30 19:52:09,579 - INFO - 127.0.0.1 - - [30/Oct/2025 19:52:09] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-30 19:53:42,975 - INFO - 192.168.2.191 - - [30/Oct/2025 19:53:42] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-30 19:53:43,306 - INFO - 192.168.2.191 - - [30/Oct/2025 19:53:43] "POST /api/login HTTP/1.1" 200 -
+2025-10-30 19:53:46,339 - INFO - 192.168.2.191 - - [30/Oct/2025 19:53:46] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-30 19:53:46,345 - INFO - 192.168.2.191 - - [30/Oct/2025 19:53:46] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-30 19:53:46,406 - INFO - 192.168.2.191 - - [30/Oct/2025 19:53:46] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-30 19:53:46,410 - INFO - 192.168.2.191 - - [30/Oct/2025 19:53:46] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-30 19:53:46,459 - INFO - 192.168.2.191 - - [30/Oct/2025 19:53:46] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-30 19:53:46,464 - INFO - 192.168.2.191 - - [30/Oct/2025 19:53:46] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-30 19:59:19,165 - INFO - 192.168.2.191 - - [30/Oct/2025 19:59:19] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-30 19:59:19,745 - INFO - 192.168.2.191 - - [30/Oct/2025 19:59:19] "POST /api/login HTTP/1.1" 200 -
+2025-10-30 19:59:22,427 - INFO - 192.168.2.191 - - [30/Oct/2025 19:59:22] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-30 19:59:22,432 - INFO - 192.168.2.191 - - [30/Oct/2025 19:59:22] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-30 19:59:22,481 - INFO - 192.168.2.191 - - [30/Oct/2025 19:59:22] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-30 19:59:22,485 - INFO - 192.168.2.191 - - [30/Oct/2025 19:59:22] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-30 19:59:22,494 - INFO - 192.168.2.191 - - [30/Oct/2025 19:59:22] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-30 19:59:22,501 - INFO - 192.168.2.191 - - [30/Oct/2025 19:59:22] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-30 21:29:34,054 - INFO - 192.168.2.191 - - [30/Oct/2025 21:29:34] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-30 21:29:34,462 - INFO - 192.168.2.191 - - [30/Oct/2025 21:29:34] "POST /api/login HTTP/1.1" 200 -
+2025-10-30 21:29:46,091 - INFO - 192.168.2.191 - - [30/Oct/2025 21:29:46] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-30 21:29:46,099 - INFO - 192.168.2.191 - - [30/Oct/2025 21:29:46] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-30 21:29:46,137 - INFO - 192.168.2.191 - - [30/Oct/2025 21:29:46] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-30 21:29:46,143 - INFO - 192.168.2.191 - - [30/Oct/2025 21:29:46] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-30 21:29:46,157 - INFO - 192.168.2.191 - - [30/Oct/2025 21:29:46] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-30 21:29:46,165 - INFO - 192.168.2.191 - - [30/Oct/2025 21:29:46] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-31 08:42:15,656 - INFO - 192.168.2.191 - - [31/Oct/2025 08:42:15] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-31 08:42:16,068 - INFO - 192.168.2.191 - - [31/Oct/2025 08:42:16] "POST /api/login HTTP/1.1" 200 -
+2025-10-31 08:42:18,762 - INFO - 192.168.2.191 - - [31/Oct/2025 08:42:18] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-31 08:42:18,773 - INFO - 192.168.2.191 - - [31/Oct/2025 08:42:18] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-31 08:42:18,817 - INFO - 192.168.2.191 - - [31/Oct/2025 08:42:18] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-31 08:42:18,822 - INFO - 192.168.2.191 - - [31/Oct/2025 08:42:18] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-31 08:42:18,831 - INFO - 192.168.2.191 - - [31/Oct/2025 08:42:18] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-31 08:42:18,838 - INFO - 192.168.2.191 - - [31/Oct/2025 08:42:18] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-31 08:45:25,091 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/app.py', reloading
+2025-10-31 08:45:25,271 - INFO -  * Restarting with stat
+2025-10-31 08:45:25,940 - WARNING -  * Debugger is active!
+2025-10-31 08:45:25,949 - INFO -  * Debugger PIN: 149-262-596
+2025-10-31 08:45:34,030 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/app.py', reloading
+2025-10-31 08:45:34,093 - INFO -  * Restarting with stat
+2025-10-31 08:45:34,490 - WARNING -  * Debugger is active!
+2025-10-31 08:45:34,497 - INFO -  * Debugger PIN: 149-262-596
+2025-10-31 08:45:47,722 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-10-31 08:45:47,722 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-31 08:45:47,724 - INFO -  * Restarting with stat
+2025-10-31 08:45:48,195 - WARNING -  * Debugger is active!
+2025-10-31 08:45:48,201 - INFO -  * Debugger PIN: 149-262-596
+2025-10-31 08:48:34,787 - INFO - 192.168.2.191 - - [31/Oct/2025 08:48:34] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-31 08:50:49,869 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/app.py', reloading
+2025-10-31 08:50:49,957 - INFO -  * Restarting with stat
+2025-10-31 08:50:50,391 - WARNING -  * Debugger is active!
+2025-10-31 08:50:50,398 - INFO -  * Debugger PIN: 149-262-596
+2025-10-31 08:51:01,545 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/app.py', reloading
+2025-10-31 08:51:01,654 - INFO -  * Restarting with stat
+2025-10-31 08:51:02,036 - WARNING -  * Debugger is active!
+2025-10-31 08:51:02,043 - INFO -  * Debugger PIN: 149-262-596
+2025-10-31 08:51:55,327 - INFO - 192.168.2.191 - - [31/Oct/2025 08:51:55] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-31 08:51:55,643 - INFO - 192.168.2.191 - - [31/Oct/2025 08:51:55] "POST /api/login HTTP/1.1" 200 -
+2025-10-31 08:51:58,940 - INFO - 192.168.2.191 - - [31/Oct/2025 08:51:58] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-31 08:51:58,946 - INFO - 192.168.2.191 - - [31/Oct/2025 08:51:58] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-31 08:51:58,993 - INFO - 192.168.2.191 - - [31/Oct/2025 08:51:58] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-31 08:51:58,999 - INFO - 192.168.2.191 - - [31/Oct/2025 08:51:58] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-31 08:51:59,005 - INFO - 192.168.2.191 - - [31/Oct/2025 08:51:59] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-31 08:51:59,008 - INFO - 192.168.2.191 - - [31/Oct/2025 08:51:59] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-31 08:54:28,405 - INFO - 127.0.0.1 - - [31/Oct/2025 08:54:28] "[31m[1mGET /api/seguimientos HTTP/1.1[0m" 401 -
+2025-10-31 08:54:41,847 - INFO - 127.0.0.1 - - [31/Oct/2025 08:54:41] "OPTIONS /api/seguimientos HTTP/1.1" 200 -
+2025-10-31 08:55:41,644 - INFO - 127.0.0.1 - - [31/Oct/2025 08:55:41] "[31m[1mGET /api/seguimientos HTTP/1.1[0m" 401 -
+2025-10-31 08:55:41,852 - INFO - 127.0.0.1 - - [31/Oct/2025 08:55:41] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-10-31 19:27:21,866 - INFO - 127.0.0.1 - - [31/Oct/2025 19:27:21] "POST /api/login HTTP/1.1" 200 -
+2025-10-31 19:27:54,830 - INFO - 192.168.2.191 - - [31/Oct/2025 19:27:54] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-10-31 19:27:55,177 - INFO - 192.168.2.191 - - [31/Oct/2025 19:27:55] "POST /api/login HTTP/1.1" 200 -
+2025-10-31 19:28:17,381 - INFO - 192.168.2.191 - - [31/Oct/2025 19:28:17] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-10-31 19:28:17,384 - INFO - 192.168.2.191 - - [31/Oct/2025 19:28:17] "GET /api/usuarios HTTP/1.1" 200 -
+2025-10-31 19:28:44,734 - INFO - 192.168.2.191 - - [31/Oct/2025 19:28:44] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-10-31 19:28:44,740 - INFO - 192.168.2.191 - - [31/Oct/2025 19:28:44] "GET /api/usuarios HTTP/1.1" 200 -
+2025-10-31 19:28:49,558 - INFO - 192.168.2.191 - - [31/Oct/2025 19:28:49] "GET /api/usuarios HTTP/1.1" 200 -
+2025-10-31 19:29:01,722 - INFO - 192.168.2.191 - - [31/Oct/2025 19:29:01] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-31 19:29:01,727 - INFO - 192.168.2.191 - - [31/Oct/2025 19:29:01] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-31 19:29:15,756 - INFO - 192.168.2.191 - - [31/Oct/2025 19:29:15] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-10-31 19:29:15,760 - INFO - 192.168.2.191 - - [31/Oct/2025 19:29:15] "GET /api/grupos HTTP/1.1" 200 -
+2025-10-31 19:29:18,752 - INFO - 192.168.2.191 - - [31/Oct/2025 19:29:18] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-31 19:29:18,756 - INFO - 192.168.2.191 - - [31/Oct/2025 19:29:18] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-31 19:29:20,470 - INFO - 192.168.2.191 - - [31/Oct/2025 19:29:20] "GET /api/grupos HTTP/1.1" 200 -
+2025-10-31 19:29:23,804 - INFO - 192.168.2.191 - - [31/Oct/2025 19:29:23] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-31 19:29:23,809 - INFO - 192.168.2.191 - - [31/Oct/2025 19:29:23] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-31 19:29:34,763 - INFO - 192.168.2.191 - - [31/Oct/2025 19:29:34] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-10-31 19:29:34,769 - INFO - 192.168.2.191 - - [31/Oct/2025 19:29:34] "GET /api/grupos HTTP/1.1" 200 -
+2025-10-31 19:29:54,792 - INFO - 192.168.2.191 - - [31/Oct/2025 19:29:54] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-10-31 19:29:54,796 - INFO - 192.168.2.191 - - [31/Oct/2025 19:29:54] "GET /api/grupos HTTP/1.1" 200 -
+2025-10-31 19:29:58,459 - INFO - 192.168.2.191 - - [31/Oct/2025 19:29:58] "GET /api/grupos HTTP/1.1" 200 -
+2025-10-31 19:30:07,735 - INFO - 192.168.2.191 - - [31/Oct/2025 19:30:07] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-31 19:30:07,739 - INFO - 192.168.2.191 - - [31/Oct/2025 19:30:07] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-31 19:31:11,104 - INFO - 192.168.2.191 - - [31/Oct/2025 19:31:11] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-10-31 19:31:11,112 - INFO - 192.168.2.191 - - [31/Oct/2025 19:31:11] "GET /api/reportes HTTP/1.1" 200 -
+2025-10-31 19:31:11,137 - INFO - 192.168.2.191 - - [31/Oct/2025 19:31:11] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-31 19:31:11,142 - INFO - 192.168.2.191 - - [31/Oct/2025 19:31:11] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-31 19:31:11,151 - INFO - 192.168.2.191 - - [31/Oct/2025 19:31:11] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-31 19:31:11,159 - INFO - 192.168.2.191 - - [31/Oct/2025 19:31:11] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-31 19:33:20,548 - INFO - 192.168.2.191 - - [31/Oct/2025 19:33:20] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-10-31 19:33:20,552 - INFO - 192.168.2.191 - - [31/Oct/2025 19:33:20] "GET /api/alumnos HTTP/1.1" 200 -
+2025-10-31 19:33:20,576 - INFO - 192.168.2.191 - - [31/Oct/2025 19:33:20] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-10-31 19:33:20,581 - INFO - 192.168.2.191 - - [31/Oct/2025 19:33:20] "GET /api/usuarios HTTP/1.1" 200 -
+2025-10-31 19:33:20,595 - INFO - 192.168.2.191 - - [31/Oct/2025 19:33:20] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-10-31 19:33:20,599 - INFO - 192.168.2.191 - - [31/Oct/2025 19:33:20] "GET /api/tipos-reporte HTTP/1.1" 200 -

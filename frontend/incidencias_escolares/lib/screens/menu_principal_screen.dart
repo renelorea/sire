@@ -6,7 +6,7 @@ class MenuPrincipalScreen extends StatelessWidget {
     _OpcionMenu('Alumnos', Icons.school, '/alumnos'),
     _OpcionMenu('Grupos', Icons.group, '/grupos'),
     _OpcionMenu('Tipos de Reporte', Icons.report, '/tipos_reporte'),
-    _OpcionMenu('Reportes', Icons.assignment, '/reportes'),
+    _OpcionMenu('Incidencias', Icons.assignment, '/reportes'),
   ];
 
   @override

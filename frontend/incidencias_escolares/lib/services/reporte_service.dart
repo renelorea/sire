@@ -6,13 +6,21 @@ import '../models/reporte.dart';
 
 class ReporteService {
   Future<List<Reporte>> obtenerReportes() async {
-    final response = await http.get(
-      Uri.parse('$apiBaseUrl/reportes'),
-      headers: {'Authorization': 'Bearer $jwtToken'},
-    );
-    final List data = jsonDecode(response.body);
-    return data.map((e) => Reporte.fromJson(e)).toList();
+  final response = await http.get(
+    Uri.parse('$apiBaseUrl/reportes'),
+    headers: {'Authorization': 'Bearer $jwtToken'},
+  );
+
+  final List data = jsonDecode(response.body);
+
+  // 👇 Log para ver el contenido crudo
+  print('📦 Datos recibidos del backend:');
+  for (var item in data) {
+    print(item); // Puedes usar jsonEncode(item) si quieres verlo como string
   }
+
+  return data.map((e) => Reporte.fromJson(e)).toList();
+}
 
   Future<void> crearReporte(Reporte reporte) async {
     await http.post(

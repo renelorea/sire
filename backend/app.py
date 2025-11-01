@@ -10,6 +10,7 @@ from controllers.grupos_controller import grupos_bp
 from controllers.tipos_reporte_controller import tipos_bp
 from controllers.reportes_controller import reportes_bp
 from auth.routes import auth_bp
+from controllers.seguimiento_controller import seguimiento_bp
 import logging
 
 # Configuración básica
@@ -23,9 +24,14 @@ logging.basicConfig(
 app = Flask(__name__)
 app.config.from_object(Config)
 
-CORS(app)
+# Desarrollo: permitir todas las origins para /api/* (cambiar a dominios específicos en prod)
+CORS(app, resources={r"/api/*": {"origins": "*"}},
+     supports_credentials=True,
+     allow_headers=["Content-Type", "Authorization", "Access-Control-Allow-Origin"])
+
 JWTManager(app)
 mysql.init_app(app)
+
 
 app.config['SWAGGER'] = {
     'title': 'API Incidencias Escolares',
@@ -49,6 +55,7 @@ app.register_blueprint(alumnos_bp)
 app.register_blueprint(grupos_bp)
 app.register_blueprint(tipos_bp)
 app.register_blueprint(reportes_bp)
+app.register_blueprint(seguimiento_bp)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

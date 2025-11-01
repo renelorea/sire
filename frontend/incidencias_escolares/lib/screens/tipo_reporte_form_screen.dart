@@ -16,12 +16,16 @@ class _TipoReporteFormScreenState extends State<TipoReporteFormScreen> {
   final _descripcionController = TextEditingController();
   final _service = TipoReporteService();
 
+  String _gravedadSeleccionada = 'Leve';
+  final List<String> _gravedades = ['Leve', 'Moderada', 'Grave'];
+
   @override
   void initState() {
     super.initState();
     if (widget.tipo != null) {
       _nombreController.text = widget.tipo!.nombre;
       _descripcionController.text = widget.tipo!.descripcion;
+      _gravedadSeleccionada = widget.tipo!.gravedad ?? 'Leve';
     }
   }
 
@@ -31,6 +35,7 @@ class _TipoReporteFormScreenState extends State<TipoReporteFormScreen> {
         id: widget.tipo?.id ?? 0,
         nombre: _nombreController.text,
         descripcion: _descripcionController.text,
+        gravedad: _gravedadSeleccionada,
       );
       if (widget.tipo == null) {
         await _service.crearTipo(nuevo);
@@ -44,7 +49,9 @@ class _TipoReporteFormScreenState extends State<TipoReporteFormScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.tipo == null ? 'Nuevo Tipo de Reporte' : 'Editar Tipo de Reporte')),
+      appBar: AppBar(
+        title: Text(widget.tipo == null ? 'Nuevo Tipo de Reporte' : 'Editar Tipo de Reporte'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -61,10 +68,34 @@ class _TipoReporteFormScreenState extends State<TipoReporteFormScreen> {
                 decoration: InputDecoration(labelText: 'Descripción'),
                 validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
               ),
+              DropdownButtonFormField<String>(
+                value: _gravedadSeleccionada,
+                decoration: InputDecoration(labelText: 'Gravedad'),
+                items: _gravedades.map((nivel) {
+                  return DropdownMenuItem(
+                    value: nivel,
+                    child: Text(nivel),
+                  );
+                }).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    _gravedadSeleccionada = value!;
+                  });
+                },
+                validator: (value) => value == null ? 'Selecciona una gravedad' : null,
+              ),
               SizedBox(height: 20),
               widget.tipo == null
-                ? ElevatedButton(onPressed: _guardar, child: Text('Guardar'), style: ElevatedButton.styleFrom(backgroundColor: Colors.green))
-                : ElevatedButton(onPressed: _guardar, child: Text('Actualizar'), style: ElevatedButton.styleFrom(backgroundColor: Colors.blue)),
+                  ? ElevatedButton(
+                      onPressed: _guardar,
+                      child: Text('Guardar'),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                    )
+                  : ElevatedButton(
+                      onPressed: _guardar,
+                      child: Text('Actualizar'),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                    ),
             ],
           ),
         ),

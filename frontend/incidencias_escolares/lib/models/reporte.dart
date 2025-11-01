@@ -1,38 +1,54 @@
+import 'alumno.dart';
+import 'usuario.dart';
+import 'tipo_reporte.dart';
+
 class Reporte {
   final int id;
-  final String titulo;
-  final String descripcion;
-  final String fecha;
-  final int alumnoId;
-  final int grupoId;
-  final int tipoReporteId;
+  final String folio;
+  final String descripcionHechos;
+  final String? accionesTomadas;
+  final String fechaIncidencia;
+  final String fechaCreacion;
+  final String estatus;
+
+  final Alumno alumno;
+  final Usuario usuario;
+  final TipoReporte tipoReporte;
 
   Reporte({
     required this.id,
-    required this.titulo,
-    required this.descripcion,
-    required this.fecha,
-    required this.alumnoId,
-    required this.grupoId,
-    required this.tipoReporteId,
+    required this.folio,
+    required this.descripcionHechos,
+    this.accionesTomadas,
+    required this.fechaIncidencia,
+    required this.fechaCreacion,
+    required this.estatus,
+    required this.alumno,
+    required this.usuario,
+    required this.tipoReporte,
   });
 
   factory Reporte.fromJson(Map<String, dynamic> json) => Reporte(
-    id: json['id'] ?? 0,
-    titulo: json['titulo'] ?? '',
-    descripcion: json['descripcion'] ?? '',
-    fecha: json['fecha'] ?? '',
-    alumnoId: json['alumno_id'] ?? 0,
-    grupoId: json['grupo_id'] ?? 0,
-    tipoReporteId: json['tipo_reporte_id'] ?? 0,
+    id: json['id_reporte'] ?? 0,
+    folio: json['folio'] ?? '',
+    descripcionHechos: json['descripcion_hechos'] ?? '',
+    accionesTomadas: json['acciones_tomadas'],
+    fechaIncidencia: json['fecha_incidencia'] ?? '',
+    fechaCreacion: json['fecha_creacion'] ?? '',
+    estatus: json['estatus'] ?? 'Abierto',
+    alumno: Alumno.fromJson(json['alumno']),
+    usuario: Usuario.fromJson(json['usuario']),
+    tipoReporte: TipoReporte.fromJson(json['tipo_reporte']),
   );
 
   Map<String, dynamic> toJson() => {
-    'titulo': titulo,
-    'descripcion': descripcion,
-    'fecha': fecha,
-    'alumno_id': alumnoId,
-    'grupo_id': grupoId,
-    'tipo_reporte_id': tipoReporteId,
+    'folio': folio,
+    'descripcion_hechos': descripcionHechos,
+    'acciones_tomadas': accionesTomadas,
+    'fecha_incidencia': fechaIncidencia,
+    'estatus': estatus,
+    'id_alumno': alumno.id,
+    'id_usuario_que_reporta': usuario.id,
+    'id_tipo_reporte': tipoReporte.id,
   };
 }

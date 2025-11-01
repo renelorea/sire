@@ -109,3 +109,28 @@ def listar_todos():
       200:
         description: Lista de tipos de reporte
     """
+    return find_all_tipos()
+
+@tipos_bp.route('/api/grupos/<int:id>', methods=['GET'])
+@jwt_required()
+def obtener_por_id(id):
+    """
+    Obtener grupo por ID
+    ---
+    tags:
+      - Grupos
+    security:
+      - Bearer: []
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+    responses:
+      200:
+        description: Grupo encontrado
+      404:
+        description: Grupo no encontrado
+    """
+    return find_tipo_by_id(id)
