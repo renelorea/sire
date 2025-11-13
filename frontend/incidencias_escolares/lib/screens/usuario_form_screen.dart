@@ -71,7 +71,23 @@ void _actualizarUsuario() async {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.usuario == null ? 'Nuevo Usuario' : 'Editar Usuario')),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF2E7D32), Colors.grey.shade200],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        title: Text(
+          widget.usuario == null ? 'Nuevo Usuario' : 'Editar Usuario',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -130,4 +146,66 @@ void _actualizarUsuario() async {
       ),
     );
   }
+}
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF2E7D32), Colors.grey.shade200],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        title: Text('Incidencias'),
+      ),
+      body: Center(
+        child: Text('Bienvenido a la app de incidencias'),
+      ),
+    );
+  }
+}
+
+class TiposReporteScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF2E7D32), Colors.grey.shade200],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        title: Text('Tipos de Reporte'),
+      ),
+      body: Center(
+        child: Text('Selecciona un tipo de reporte'),
+      ),
+    );
+  }
+}
+
+void main() {
+  runApp(MaterialApp(
+    title: 'Incidencias',
+    initialRoute: '/',
+    routes: {
+      '/': (context) => HomeScreen(), // ajusta según tu app
+      '/tipos_reporte': (context) => TiposReporteScreen(),
+      // otras rutas...
+    },
+  ));
 }

@@ -8,6 +8,8 @@ class Alumno {
   final String amaterno;
   final String? fechaNacimiento;
   final Grupo grupo;
+  final String sexo;
+
 
   Alumno({
     required this.id,
@@ -17,6 +19,7 @@ class Alumno {
     required this.amaterno,
     required this.fechaNacimiento,
     required this.grupo,
+    required this.sexo,
   });
 
   factory Alumno.fromJson(Map<String, dynamic> json) => Alumno(
@@ -26,6 +29,7 @@ class Alumno {
     apaterno: json['apellido_paterno'] ?? '',
     amaterno: json['apellido_materno'] ?? '',
     fechaNacimiento: json['fecha_nacimiento'],
+    sexo: json['sexo'] ?? '',
     grupo: Grupo.fromJson(json['grupo'] ?? {}),
   );
 
@@ -36,6 +40,7 @@ class Alumno {
     'apellido_paterno': apaterno,
     'apellido_materno': amaterno,
     'fecha_nacimiento': fechaNacimiento,
+    'sexo': sexo,
     'id_grupo': grupo.id,
   };
 }

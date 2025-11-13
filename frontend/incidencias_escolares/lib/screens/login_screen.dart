@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 import '../models/login_response.dart';
 import '../config/global.dart';
+import 'menu_principal_screen.dart';
+import 'reportes_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -14,18 +16,38 @@ class _LoginScreenState extends State<LoginScreen> {
   final _authService = AuthService();
   String? _error;
 
-  void _login() async {
-    final loginResponse = await _authService.login(
-      _correoController.text,
-      _contrasenaController.text,
-    );
+  @override
+  void initState() {
+    super.initState();
+  }
 
-    if (loginResponse != null) {
-      jwtToken = loginResponse.token;
-      usuarioRol = loginResponse.usuario.rol;
-      Navigator.pushReplacementNamed(context, '/menu');
-    } else {
-      setState(() => _error = 'Credenciales inválidas');
+  @override
+  void dispose() {
+    _correoController.dispose();
+    _contrasenaController.dispose();
+    super.dispose();
+  }
+
+  void _login() async {
+    setState(() => _error = null);
+    try {
+      final loginResponse = await _authService.login(
+        _correoController.text.trim(),
+        _contrasenaController.text,
+      );
+      print('loginResponse: $loginResponse');
+      if (loginResponse != null) {
+        jwtToken = loginResponse.token;
+        usuarioRol = loginResponse.usuario?.rol ?? '';
+        print('token set, rol=$usuarioRol');
+        Navigator.pushReplacementNamed(context, '/menu');
+      } else {
+        setState(() => _error = 'Credenciales inválidas');
+        print('Login failed: loginResponse == null');
+      }
+    } catch (e, st) {
+      print('Error en _login: $e\n$st');
+      setState(() => _error = 'Error al conectar: ${e.toString()}');
     }
   }
 
@@ -76,6 +98,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   border: OutlineInputBorder(),
                 ),
               ),
+              SizedBox(height: 16),
 
               // ⚠️ Error visual
               if (_error != null)
@@ -102,6 +125,26 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Incidencias Escolares',
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => LoginScreen(),
+        '/menu': (context) => MenuPrincipalScreen(),
+        '/reportes': (context) => ReportesScreen(),
+        // agrega más rutas aquí según tus pantallas
+      },
+      // opcional:
+      theme: ThemeData(primarySwatch: Colors.green),
     );
   }
 }

@@ -6,39 +6,62 @@ import 'screens/alumnos_screen.dart';
 import 'screens/grupos_screen.dart';
 import 'screens/tipos_reporte_screen.dart';
 import 'screens/reportes_screen.dart';
+import 'config/global.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
-  final ThemeData appTheme = ThemeData(
-    primaryColor: Colors.green[700],
-    scaffoldBackgroundColor: Colors.grey[100],
-    appBarTheme: AppBarTheme(
-      backgroundColor: Colors.green[700],
-      foregroundColor: Colors.white,
-    ),
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.green[600],
-        foregroundColor: Colors.white,
-      ),
-    ),
-  );
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Incidencias Escolares',
-      theme: appTheme,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => LoginScreen(),
-        '/menu': (context) => MenuPrincipalScreen(),
-        '/usuarios': (context) => UsuariosScreen(),
-        '/alumnos': (context) => AlumnosScreen(),
-        '/grupos': (context) => GruposScreen(),
-        '/tipos_reporte': (context) => TiposReporteScreen(),
-        '/reportes': (context) => ReportesScreen(),
+    return ValueListenableBuilder<bool>(
+      valueListenable: appBusy,
+      builder: (context, busy, _) {
+        return MaterialApp(
+          title: 'Incidencias Escolares',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.green,
+          ),
+          builder: (context, child) {
+            return Stack(
+              children: [
+                if (child != null) child,
+                if (busy)
+                  Positioned.fill(
+                    child: AbsorbPointer(
+                      absorbing: true,
+                      child: Container(
+                        color: Colors.black45,
+                        alignment: Alignment.center,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CircularProgressIndicator(),
+                            SizedBox(height: 12),
+                            Text('Procesando...', style: TextStyle(color: Colors.white)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            );
+          },
+          home: LoginScreen(),
+          // Opcional: rutas nombradas para navegación global
+          routes: {
+            '/login': (_) => LoginScreen(),
+            '/menu': (_) => MenuPrincipalScreen(),
+            '/alumnos': (_) => AlumnosScreen(),
+            '/usuarios': (_) => UsuariosScreen(),
+            '/grupos': (_) => GruposScreen(),
+            '/tipos-reporte': (_) => TiposReporteScreen(),
+            '/tipos_reporte': (_) => TiposReporteScreen(), // alias para llamadas con guion_bajo
+            '/reportes': (_) => ReportesScreen(),
+          },
+        );
       },
     );
   }

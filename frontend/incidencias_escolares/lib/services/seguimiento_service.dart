@@ -1,16 +1,20 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../config/api_config.dart';
+import '../config/global.dart'; // <-- agregado para obtener jwtToken
 import '../models/seguimiento.dart';
 
 class SeguimientoService {
   // Ajusta esta URL al backend real
-  final String baseUrl = 'http://localhost:3000/api';
-
+  
   Future<bool> crearSeguimiento(Seguimiento s, {String? nuevoEstatusReporte}) async {
-    final url = Uri.parse('$baseUrl/seguimientos');
+    final url = Uri.parse('$apiBaseUrl/seguimientos');
     final resp = await http.post(
       url,
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Authorization': 'Bearer $jwtToken',
+        'Content-Type': 'application/json',
+      },
       body: jsonEncode(s.toJson()),
     );
 
@@ -28,10 +32,13 @@ class SeguimientoService {
   }
 
   Future<bool> _actualizarEstatusReporte(int idReporte, String estatus) async {
-    final url = Uri.parse('$baseUrl/reportes/$idReporte/estatus');
+    final url = Uri.parse('$apiBaseUrl/reportes/$idReporte/estatus');
     final resp = await http.put(
       url,
-      headers: {'Content-Type': 'application/json'},
+      headers: {
+        'Authorization': 'Bearer $jwtToken',
+        'Content-Type': 'application/json',
+      },
       body: jsonEncode({'estatus': estatus}),
     );
     if (resp.statusCode == 200) return true;

@@ -50,7 +50,21 @@ class _TipoReporteFormScreenState extends State<TipoReporteFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.tipo == null ? 'Nuevo Tipo de Reporte' : 'Editar Tipo de Reporte'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF2E7D32), Colors.grey.shade200],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        title: Text(
+          widget.tipo == null ? 'Nuevo Tipo de Incidencia' : 'Editar Tipo de Incidencia',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

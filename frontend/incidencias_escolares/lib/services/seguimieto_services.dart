@@ -5,7 +5,7 @@ import '../config/global.dart';
 import '../models/seguimiento.dart';
 
 class SeguimientoService {
-  Future<List<SeguimientoEvidencia>> obtenerSeguimientos() async {
+  Future<List<Seguimiento>> obtenerSeguimientos() async {
     final response = await http.get(
       Uri.parse('$apiBaseUrl/seguimientos'),
       headers: {'Authorization': 'Bearer $jwtToken'},
@@ -13,13 +13,13 @@ class SeguimientoService {
 
     if (response.statusCode == 200) {
       final List data = jsonDecode(response.body);
-      return data.map((e) => SeguimientoEvidencia.fromJson(e)).toList();
+      return data.map((e) => Seguimiento.fromJson(e)).toList();
     } else {
       throw Exception('Error al obtener seguimientos');
     }
   }
 
-  Future<SeguimientoEvidencia> obtenerSeguimientoPorId(int id) async {
+  Future<Seguimiento> obtenerSeguimientoPorId(int id) async {
     final response = await http.get(
       Uri.parse('$apiBaseUrl/seguimientos/$id'),
       headers: {'Authorization': 'Bearer $jwtToken'},
@@ -27,14 +27,14 @@ class SeguimientoService {
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
-      return SeguimientoEvidencia.fromJson(data);
+      return Seguimiento.fromJson(data);
     } else {
       throw Exception('Seguimiento no encontrado');
     }
   }
 
-  Future<void> crearSeguimiento(SeguimientoEvidencia seguimiento) async {
-    await http.post(
+  Future<void> crearSeguimiento(Seguimiento seguimiento) async {
+    final resp = await http.post(
       Uri.parse('$apiBaseUrl/seguimientos'),
       headers: {
         'Authorization': 'Bearer $jwtToken',
@@ -42,10 +42,14 @@ class SeguimientoService {
       },
       body: jsonEncode(seguimiento.toJson()),
     );
+
+    if (resp.statusCode != 201 && resp.statusCode != 200) {
+      throw Exception('Error al crear seguimiento: ${resp.statusCode} ${resp.body}');
+    }
   }
 
-  Future<void> editarSeguimiento(SeguimientoEvidencia seguimiento) async {
-    await http.put(
+  Future<void> editarSeguimiento(Seguimiento seguimiento) async {
+    final resp = await http.put(
       Uri.parse('$apiBaseUrl/seguimientos/${seguimiento.id}'),
       headers: {
         'Authorization': 'Bearer $jwtToken',
@@ -53,12 +57,20 @@ class SeguimientoService {
       },
       body: jsonEncode(seguimiento.toJson()),
     );
+
+    if (resp.statusCode != 200) {
+      throw Exception('Error al editar seguimiento: ${resp.statusCode} ${resp.body}');
+    }
   }
 
   Future<void> eliminarSeguimiento(int id) async {
-    await http.delete(
+    final resp = await http.delete(
       Uri.parse('$apiBaseUrl/seguimientos/$id'),
       headers: {'Authorization': 'Bearer $jwtToken'},
     );
+
+    if (resp.statusCode != 200) {
+      throw Exception('Error al eliminar seguimiento: ${resp.statusCode} ${resp.body}');
+    }
   }
 }

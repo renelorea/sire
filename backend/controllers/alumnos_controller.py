@@ -1,6 +1,7 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify, make_response
 from flask_jwt_extended import jwt_required
-from models.alumnos_model import alta_alumno, baja_alumno, cambio_alumno, find_all_alumnos, find_alumno_by_id
+from models.alumnos_model import alta_alumno, baja_alumno, cambio_alumno, find_all_alumnos, find_alumno_by_id, importar_alumnos
+import logging
 
 alumnos_bp = Blueprint('alumnos_bp', __name__)
 
@@ -146,3 +147,31 @@ def obtener_por_id(id):
         description: Alumno no encontrado
     """
     return find_alumno_by_id(id)
+
+@alumnos_bp.route('/api/importar-alumnos', methods=['POST'])
+@jwt_required()
+def importar_alumnos_route():
+    """
+    Importar alumnos desde un archivo Excel (.xls/.xlsx).
+    Espera un multipart/form-data con el campo 'file'.
+    """
+    if 'file' not in request.files:
+        return make_response(jsonify({'error': 'Archivo no proporcionado (campo "file")'}), 400)
+
+    f = request.files['file']
+    if f.filename == '':
+        return make_response(jsonify({'error': 'Nombre de archivo vacío'}), 400)
+
+    try:
+        import io
+        import pandas as pd  # requiere pandas + openpyxl en el entorno
+        # pandas puede leer directamente el stream
+        stream = io.BytesIO(f.read())
+        df = pd.read_excel(stream)
+        records = df.fillna('').to_dict(orient='records')  # normaliza NaN -> ''
+        inserted = importar_alumnos(records)
+        logging.info(f'[alumnos.import] inserted={inserted} total={len(records)}')
+        return jsonify({'inserted': inserted, 'total': len(records)}), 201
+    except Exception as e:
+        logging.exception('[alumnos.import] error al importar')
+        return make_response(jsonify({'error': str(e)}), 500)

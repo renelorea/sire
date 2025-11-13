@@ -33,7 +33,21 @@ class _TiposReporteScreenState extends State<TiposReporteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Tipos de Reporte')),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white), // flecha de regreso en blanco
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF2E7D32), Colors.grey.shade200],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        title: Text('Tipos de Incidencia', style: TextStyle(color: Colors.white)),
+      ),
       body: FutureBuilder<List<TipoReporte>>(
         future: _tipos,
         builder: (context, snapshot) {

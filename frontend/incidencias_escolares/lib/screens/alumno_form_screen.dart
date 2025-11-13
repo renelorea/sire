@@ -22,6 +22,7 @@ class _AlumnoFormScreenState extends State<AlumnoFormScreen> {
   final _fechaController = TextEditingController();
   Grupo? _grupoSeleccionado;
   List<Grupo> _grupos = [];
+  String _sexo = 'O';
 
   final _alumnoService = AlumnoService();
   final _grupoService = GrupoService();
@@ -30,80 +31,113 @@ class _AlumnoFormScreenState extends State<AlumnoFormScreen> {
   void initState() {
     super.initState();
     _inicializarFormulario();
+    if (widget.alumno != null) {
+      // si el modelo tiene campos no-null, usar directos; sino usar ?? ''
+      _matriculaController.text = widget.alumno!.matricula ?? '';
+      _nombreController.text = widget.alumno!.nombre;
+      _apaternoController.text = widget.alumno!.apaterno;
+      _amaternoController.text = widget.alumno!.amaterno ?? '';
+      _fechaController.text = widget.alumno!.fechaNacimiento ?? '';
+      _sexo = widget.alumno!.sexo ?? 'O';
+      _grupoSeleccionado = widget.alumno!.grupo;
+    }
   }
 
   void _inicializarFormulario() async {
     final lista = await _grupoService.obtenerGrupos();
-    Grupo? grupoInicial;
-
-    if (widget.alumno != null) {
-      _matriculaController.text = widget.alumno!.matricula;
-      _nombreController.text = widget.alumno!.nombre;
-      _apaternoController.text = widget.alumno!.apaterno;
-      _amaternoController.text = widget.alumno!.amaterno;
-      _fechaController.text = widget.alumno!.fechaNacimiento ?? '';
-
+    Grupo grupoInicial;
+    if (widget.alumno != null && widget.alumno!.grupo != null) {
       grupoInicial = lista.firstWhere(
-        (g) => g.id == widget.alumno!.grupo.id,
-        orElse: () => Grupo(
-          id: 0,
-          descripcion: 'Sin grupo',
-          grado: 0,
-          ciclo: '',
-          idTutor: 0,
-        ),
+        (g) => g.id == widget.alumno!.grupo!.id,
+        orElse: () => lista.isNotEmpty
+            ? lista.first
+            : Grupo(id: 0, descripcion: '', grado: 0, ciclo: '', idTutor: 0),
       );
-
+    } else {
+      grupoInicial = lista.isNotEmpty
+          ? lista.first
+          : Grupo(id: 0, descripcion: '', grado: 0, ciclo: '', idTutor: 0);
     }
-
     setState(() {
       _grupos = lista;
-      _grupoSeleccionado = grupoInicial;
+      // si no hay grupos reales, mantener null para forzar selección
+      _grupoSeleccionado = lista.isNotEmpty ? grupoInicial : null;
     });
   }
 
   void _seleccionarFecha() async {
-  final fecha = await showDatePicker(
-    context: context,
-    initialDate: DateTime.now(),
-    firstDate: DateTime(1990),
-    lastDate: DateTime(2100),
-  );
-  if (fecha != null) {
-    final formato = DateFormat('yyyy-MM-dd');
-    setState(() {
-      _fechaController.text = formato.format(fecha);
-    });
+    final fecha = await showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(1990),
+      lastDate: DateTime(2100),
+    );
+    if (fecha != null) {
+      final formato = DateFormat('yyyy-MM-dd');
+      setState(() {
+        _fechaController.text = formato.format(fecha);
+      });
+    }
   }
-}
-
 
   void _guardar() async {
-    if (_formKey.currentState!.validate() && _grupoSeleccionado != null) {
-      final nuevo = Alumno(
-        id: widget.alumno?.id ?? 0,
-        matricula: _matriculaController.text,
-        nombre: _nombreController.text,
-        apaterno: _apaternoController.text,
-        amaterno: _amaternoController.text,
-        fechaNacimiento: _fechaController.text,
-        grupo: _grupoSeleccionado!,
-      );
-
-      if (widget.alumno == null) {
-        await _alumnoService.crearAlumno(nuevo);
-      } else {
-        await _alumnoService.editarAlumno(nuevo);
-      }
-
-      Navigator.pop(context);
+    if (!_formKey.currentState!.validate()) return;
+    if (_grupoSeleccionado == null) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Selecciona un grupo')));
+      return;
     }
+
+    // si el modelo espera valores no-null, se usan assert/checked values
+    final nuevo = Alumno(
+      id: widget.alumno?.id ?? 0,
+      matricula: _matriculaController.text,
+      nombre: _nombreController.text,
+      apaterno: _apaternoController.text,
+      amaterno: _amaternoController.text,
+      fechaNacimiento: _fechaController.text,
+      grupo: _grupoSeleccionado!, // validado arriba
+      sexo: _sexo,
+    );
+
+    if (widget.alumno == null) {
+      await _alumnoService.crearAlumno(nuevo);
+    } else {
+      await _alumnoService.editarAlumno(nuevo);
+    }
+
+    Navigator.pop(context, true);
+  }
+
+  @override
+  void dispose() {
+    _matriculaController.dispose();
+    _nombreController.dispose();
+    _apaternoController.dispose();
+    _amaternoController.dispose();
+    _fechaController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.alumno == null ? 'Nuevo Alumno' : 'Editar Alumno')),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF2E7D32), Colors.grey.shade200],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        title: Text(
+          widget.alumno == null ? 'Nuevo Alumno' : 'Editar Alumno',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -113,17 +147,17 @@ class _AlumnoFormScreenState extends State<AlumnoFormScreen> {
               TextFormField(
                 controller: _matriculaController,
                 decoration: InputDecoration(labelText: 'Matrícula'),
-                validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
+                validator: (value) => (value == null || value.isEmpty) ? 'Campo requerido' : null,
               ),
               TextFormField(
                 controller: _nombreController,
                 decoration: InputDecoration(labelText: 'Nombre'),
-                validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
+                validator: (value) => (value == null || value.isEmpty) ? 'Campo requerido' : null,
               ),
               TextFormField(
                 controller: _apaternoController,
                 decoration: InputDecoration(labelText: 'Apellido Paterno'),
-                validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
+                validator: (value) => (value == null || value.isEmpty) ? 'Campo requerido' : null,
               ),
               TextFormField(
                 controller: _amaternoController,
@@ -139,32 +173,32 @@ class _AlumnoFormScreenState extends State<AlumnoFormScreen> {
                     onPressed: _seleccionarFecha,
                   ),
                 ),
-                validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
+                validator: (value) => (value == null || value.isEmpty) ? 'Campo requerido' : null,
               ),
               DropdownButtonFormField<Grupo>(
                 value: _grupoSeleccionado,
-                items: _grupos.map((g) {
-                  return DropdownMenuItem(
-                    value: g,
-                    child: Text('${g.descripcion} • ${g.grado}° • ${g.ciclo}'),
-                  );
-                }).toList(),
+                items: _grupos.map((g) => DropdownMenuItem(value: g, child: Text('${g.descripcion} • ${g.grado}° • ${g.ciclo}'))).toList(),
                 onChanged: (grupo) => setState(() => _grupoSeleccionado = grupo),
                 decoration: InputDecoration(labelText: 'Grupo'),
                 validator: (value) => value == null ? 'Selecciona un grupo' : null,
               ),
+              DropdownButtonFormField<String>(
+                value: _sexo,
+                decoration: InputDecoration(labelText: 'Sexo'),
+                items: [
+                  DropdownMenuItem(value: 'M', child: Text('Masculino')),
+                  DropdownMenuItem(value: 'F', child: Text('Femenino')),
+                  DropdownMenuItem(value: 'O', child: Text('Otro / No especificado')),
+                ],
+                onChanged: (v) => setState(() => _sexo = v ?? 'O'),
+                validator: (v) => (v == null || v.isEmpty) ? 'Seleccione sexo' : null,
+              ),
               SizedBox(height: 20),
-              widget.alumno == null
-                ? ElevatedButton(
-                    onPressed: _guardar,
-                    child: Text('Guardar'),
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                  )
-                : ElevatedButton(
-                    onPressed: _guardar,
-                    child: Text('Actualizar'),
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                  ),
+              ElevatedButton(
+                onPressed: _guardar,
+                child: Text(widget.alumno == null ? 'Guardar' : 'Actualizar'),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+              ),
             ],
           ),
         ),

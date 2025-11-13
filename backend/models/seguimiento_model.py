@@ -3,6 +3,8 @@ from database.connection import mysql
 from MySQLdb.cursors import DictCursor
 from datetime import date
 
+import logging
+
 def crear_seguimiento(data):
     """
     Inserta un seguimiento en la tabla y devuelve el registro insertado (dict) o None en error.
@@ -137,6 +139,29 @@ def actualizar_estatus_reporte(id_reporte, nuevo_estatus):
         return affected > 0
     except Exception as e:
         print('Error actualizar_estatus_reporte:', e)
+        try:
+            cursor.close()
+        except:
+            pass
+        return False
+
+
+def actualizar_estatus(id_reporte, nuevo_estatus):
+    """
+    Actualiza el campo 'estatus' en reportes_incidencias.
+    Retorna True si se actualizó (filas afectadas > 0), False en caso contrario.
+    """
+    try:
+        cursor = mysql.connection.cursor()
+        sql = "UPDATE reportes_incidencias SET estatus = %s WHERE id_reporte = %s"
+        cursor.execute(sql, (nuevo_estatus, id_reporte))
+        mysql.connection.commit()
+        affected = cursor.rowcount
+        cursor.close()
+        logging.info(f'[reportes_model.actualizar_estatus] id={id_reporte} affected={affected}')
+        return affected > 0
+    except Exception as e:
+        logging.error(f'[reportes_model.actualizar_estatus] error: {e}')
         try:
             cursor.close()
         except:
