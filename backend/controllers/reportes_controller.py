@@ -1,12 +1,23 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required
 from models.reportes_model import (
     alta_reporte,
     baja_reporte,
     cambio_reporte,
     find_all_reportes,
-    find_reporte_by_id
+    find_reporte_by_id,
+    find_reportes_filtered
 )
+import io
+import os
+import smtplib
+from email.message import EmailMessage
+import pandas as pd
+from dotenv import load_dotenv
+import logging
+
+load_dotenv()
+logger = logging.getLogger(__name__)
 
 reportes_bp = Blueprint('reportes_bp', __name__)
 
@@ -155,3 +166,111 @@ def obtener_por_id(id):
         description: Reporte no encontrado
     """
     return find_reporte_by_id(id)
+
+@reportes_bp.route('/api/reportes/reporte', methods=['GET'])
+@jwt_required()
+def reporte_buscar():
+    """
+    Buscar reportes filtrando por grupo o por nombre/apellido del alumno.
+    Query params (opcionales): grupo, nombre, apellido_paterno, apellido_materno
+    """
+    grupo = request.args.get('grupo')
+    nombre = request.args.get('nombre')
+    apellido_paterno = request.args.get('apellido_paterno')
+    apellido_materno = request.args.get('apellido_materno')
+    email_to = request.args.get('email')  # si se proporciona, se enviará el Excel por correo
+
+    # Obtener datos desde el modelo
+    resp = find_reportes_filtered(
+        grupo=grupo,
+        nombre=nombre,
+        apellido_paterno=apellido_paterno,
+        apellido_materno=apellido_materno
+    )
+    # find_reportes_filtered devuelve (jsonify(list), status) o jsonify(list)
+    if isinstance(resp, tuple):
+        data_list = resp[0].get_json()
+    else:
+        try:
+            data_list = resp.get_json()
+        except Exception:
+            data_list = resp
+
+    # Si se pidió envío por correo, generar Excel y enviar
+    if email_to:
+        rows = []
+        for r in data_list:
+            alumno = r.get('alumno', {}) or {}
+            grupo_obj = alumno.get('grupo', {}) or {}
+            usuario = r.get('usuario', {}) or {}
+            tipo = r.get('tipo_reporte', {}) or {}
+            rows.append({
+                "id_reporte": r.get("id_reporte"),
+                "folio": r.get("folio"),
+                "fecha_incidencia": r.get("fecha_incidencia"),
+                "estatus": r.get("estatus"),
+                "descripcion_hechos": r.get("descripcion_hechos"),
+                "acciones_tomadas": r.get("acciones_tomadas"),
+                "alumno_id": alumno.get("id_alumno"),
+                "alumno_matricula": alumno.get("matricula"),
+                "alumno_nombre": alumno.get("nombre"),
+                "alumno_apellido_paterno": alumno.get("apellido_paterno"),
+                "alumno_apellido_materno": alumno.get("apellido_materno"),
+                "grupo_id": grupo_obj.get("id_grupo"),
+                "grupo_grado": grupo_obj.get("grado"),
+                "grupo_nombre": grupo_obj.get("grupo"),
+                "grupo_ciclo": grupo_obj.get("ciclo_escolar"),
+                "usuario_id": usuario.get("id_usuario"),
+                "usuario_nombre": usuario.get("nombre"),
+                "tipo_reporte": tipo.get("nombre")
+            })
+
+        try:
+            df = pd.DataFrame(rows)
+            output = io.BytesIO()
+            df.to_excel(output, index=False, sheet_name='Reportes')
+            output.seek(0)
+            excel_bytes = output.read()
+        except Exception as e:
+            logger.exception("Error generando Excel")
+            return jsonify({"msg": f"Error generando Excel: {e}"}), 500
+
+        # Leer configuración SMTP desde variables de entorno
+        smtp_host = os.getenv('SMTP_HOST')
+        smtp_port = int(os.getenv('SMTP_PORT', '587'))
+        smtp_user = os.getenv('SMTP_USER')
+        smtp_pass = os.getenv('SMTP_PASS')
+        email_from = os.getenv('EMAIL_FROM', smtp_user)
+        if not smtp_host or not smtp_user or not smtp_pass:
+            return jsonify({"msg": "Configuración SMTP incompleta"}), 500
+
+        try:
+            msg = EmailMessage()
+            msg['Subject'] = 'Reporte de incidencias (Excel)'
+            msg['From'] = email_from
+            msg['To'] = email_to
+            msg.set_content('Adjunto se envía el reporte de incidencias en formato Excel.')
+            msg.add_attachment(excel_bytes,
+                               maintype='application',
+                               subtype='vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                               filename='reportes_incidencias.xlsx')
+
+            if smtp_port == 465:
+                smtp = smtplib.SMTP_SSL(smtp_host, smtp_port, timeout=30)
+                smtp.login(smtp_user, smtp_pass)
+                smtp.send_message(msg)
+                smtp.quit()
+            else:
+                smtp = smtplib.SMTP(smtp_host, smtp_port, timeout=30)
+                smtp.starttls()
+                smtp.login(smtp_user, smtp_pass)
+                smtp.send_message(msg)
+                smtp.quit()
+        except Exception as e:
+            logger.exception("Error enviando correo")
+            return jsonify({"msg": f"Error enviando correo: {e}"}), 500
+
+        return jsonify({"msg": f"Correo enviado a {email_to}", "count": len(rows)}), 200
+
+    # Si no se solicitó email, devolver los datos normalmente
+    return jsonify(data_list), 200

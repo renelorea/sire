@@ -57,6 +57,7 @@ class _UsuariosScreenState extends State<UsuariosScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white), // flecha de regreso en blanco
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(

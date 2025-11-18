@@ -5,3 +5,15 @@ pip install -r requirements.txt
 
 
 python app.py
+
+
+SMTP_HOST=smtp.gmail.com
+export SMTP_PORT=587
+export SMTP_USER=perrillo1981@gmail.com
+export SMTP_PASS="qiuj fsca izzl hcfy"
+export EMAIL_FROM="perrillo1981@gmail.com"
+
+srv734.hstgr.io
+u893431309_incidencias
+u893431309_usercon
+NTf^C=f8

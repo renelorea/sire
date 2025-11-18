@@ -78,8 +78,13 @@ class _MenuPrincipalScreenState extends State<MenuPrincipalScreen> {
       _OpcionMenu('Grupos', Icons.group, '/grupos'),
       _OpcionMenu('Tipos de Incidencia', Icons.report, '/tipos_reporte'),
       _OpcionMenu('Incidencias', Icons.assignment, '/reportes'),
+      _OpcionMenu('Reporte Incidencias', Icons.insert_drive_file_outlined, '/reporte_incidencias'),
     ];
-    final soloIncidencias = [_OpcionMenu('Incidencias', Icons.assignment, '/reportes')];
+    // opción visible para todos: acceso a la pantalla de consulta/exportación de reportes
+    final soloIncidencias = [
+      _OpcionMenu('Incidencias', Icons.assignment, '/reportes'),
+      _OpcionMenu('Reporte Incidencias', Icons.insert_drive_file_outlined, '/reporte_incidencias'),
+    ];
 
     if (_permisos.any((p) => p.toLowerCase() == 'manage_all' || p.toLowerCase() == 'admin')) {
       _opciones = todas;
@@ -122,18 +127,27 @@ class _MenuPrincipalScreenState extends State<MenuPrincipalScreen> {
         backgroundColor: Colors.green[700],
         elevation: 2,
         titleSpacing: 0,
-        title: Row(
+        title: Stack(
+          alignment: Alignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: Image.asset(
-                'assets/images/headerc2.png',
-                height: 40,
-                fit: BoxFit.contain,
-                errorBuilder: (_, __, ___) => SizedBox(width: 40, height: 40),
+            // logo a la izquierda
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Image.asset(
+                  'assets/images/headerc2.png',
+                  height: 40,
+                  fit: BoxFit.contain,
+                  errorBuilder: (_, __, ___) => SizedBox(width: 40, height: 40),
+                ),
               ),
             ),
-            Expanded(
+            // título centrado (ahora en posición fija)
+            Positioned(
+              left: 72.0, // <-- ajusta este valor para mover el texto a la derecha/izquierda
+              top: 0,
+              bottom: 0,
               child: Center(
                 child: Text(
                   'Sistema de Incidencias Escolares',

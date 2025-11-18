@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:file_selector/file_selector.dart' as fs;
+import 'dart:io';
+import 'dart:typed_data';
+import 'dart:convert';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:pdf/pdf.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
-import 'dart:convert';
 import 'dart:developer' as developer;
 import '../models/alumno.dart';
 import '../services/alumno_service.dart';
 import '../models/grupo.dart';
 import '../services/grupo_service.dart';
 import 'alumno_form_screen.dart';
-import 'import_alumnos_screen.dart';
 import '../config/api_config.dart';
 import '../config/global.dart';
+import 'package:path_provider/path_provider.dart';
 
 class AlumnosScreen extends StatefulWidget {
   @override
@@ -27,6 +31,7 @@ class _AlumnosScreenState extends State<AlumnosScreen> {
   List<Grupo> _grupos = [];
   Grupo? _filtroGrupo;
   bool _uploading = false;
+  bool _exporting = false;
 
   @override
   void initState() {
@@ -64,14 +69,12 @@ class _AlumnosScreenState extends State<AlumnosScreen> {
   }
 
   Future<void> _pickAndUploadExcel() async {
-    final res = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['xlsx', 'xls'],
-      withData: true, // importante para web => file.bytes estará disponible
-    );
-    if (res == null) return;
-
-    final file = res.files.single;
+    // Si quieres seguir permitiendo import desde diálogo en móvil/escritorio
+    final fs.XTypeGroup group = fs.XTypeGroup(label: 'excel', extensions: ['xlsx', 'xls']);
+    final fs.XFile? picked = await fs.openFile(acceptedTypeGroups: [group]);
+    if (picked == null) return;
+    final fileBytes = await picked.readAsBytes();
+    final fileName = picked.name;
 
     // marcar busy global y estado local de upload (icono)
     setBusy(true);
@@ -79,7 +82,7 @@ class _AlumnosScreenState extends State<AlumnosScreen> {
       _uploading = true;
     });
 
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Subiendo ${file.name}...')));
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Subiendo ${fileName}...')));
 
     try {
       final uri = Uri.parse('$apiBaseUrl/importar-alumnos');
@@ -89,30 +92,18 @@ class _AlumnosScreenState extends State<AlumnosScreen> {
       }
 
       // determinar contentType por extensión
-      String lower = file.name.toLowerCase();
+      String lower = fileName.toLowerCase();
       final contentType = lower.endsWith('.xls')
           ? MediaType('application', 'vnd.ms-excel')
           : MediaType('application', 'vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 
-      // En web file.path suele ser null -> preferir bytes cuando estén disponibles
-      if (file.bytes != null && file.bytes!.isNotEmpty) {
-        developer.log('Subiendo desde bytes (web/desktop). name=${file.name} size=${file.size}', name: 'AlumnosScreen');
-        request.files.add(http.MultipartFile.fromBytes(
-          'file',
-          file.bytes!,
-          filename: file.name,
-          contentType: contentType,
-        ));
-      } else if (file.path != null && file.path!.isNotEmpty) {
-        developer.log('Subiendo desde path: ${file.path}', name: 'AlumnosScreen');
-        request.files.add(await http.MultipartFile.fromPath(
-          'file',
-          file.path!,
-          contentType: contentType,
-        ));
-      } else {
-        throw Exception('No se pudo leer el archivo seleccionado (ni bytes ni path disponibles)');
-      }
+      developer.log('Subiendo desde bytes (file_selector). name=$fileName size=${fileBytes.length}', name: 'AlumnosScreen');
+      request.files.add(http.MultipartFile.fromBytes(
+        'file',
+        fileBytes,
+        filename: fileName,
+        contentType: contentType,
+      ));
 
       final streamed = await request.send();
       final respStr = await streamed.stream.bytesToString();
@@ -156,6 +147,7 @@ class _AlumnosScreenState extends State<AlumnosScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white), // flecha de regreso en blanco
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -173,6 +165,11 @@ class _AlumnosScreenState extends State<AlumnosScreen> {
                 : Icon(Icons.file_upload),
             onPressed: _uploading ? null : _pickAndUploadExcel,
             tooltip: 'Importar Excel',
+          ),
+          IconButton(
+            icon: _exporting ? SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white)) : Icon(Icons.share),
+            onPressed: _exporting ? null : _mostrarOpcionesExportar,
+            tooltip: 'Exportar',
           ),
           IconButton(
             icon: Icon(Icons.add),
@@ -278,5 +275,114 @@ class _AlumnosScreenState extends State<AlumnosScreen> {
         backgroundColor: Colors.green,
       ),
     );
+  }
+
+  void _mostrarOpcionesExportar() {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: Icon(Icons.picture_as_pdf),
+                title: Text('Exportar listado (PDF)'),
+                onTap: () {
+                  Navigator.pop(context);
+                  _exportarListadoPdf();
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.grid_on),
+                title: Text('Exportar listado (CSV)'),
+                onTap: () {
+                  Navigator.pop(context);
+                  _exportarListadoCsv();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _exportarListadoPdf() async {
+    setState(() => _exporting = true);
+    try {
+      final doc = pw.Document();
+      final List<Alumno> lista = _filtroGrupo == null ? _todos : _todos.where((a) => a.grupo?.id == _filtroGrupo!.id).toList();
+      doc.addPage(
+        pw.MultiPage(
+          pageFormat: PdfPageFormat.a4,
+          build: (pw.Context ctx) {
+            return [
+              pw.Header(level: 0, child: pw.Text('Listado de Alumnos', style: pw.TextStyle(fontSize: 18))),
+              pw.SizedBox(height: 8),
+              pw.Table.fromTextArray(
+                headers: ['Nombre', 'Apellido', 'Grupo', 'Ciclo'],
+                data: lista.map((a) => [
+                  a.nombre ?? '',
+                  a.apaterno ?? '',
+                  a.grupo?.descripcion ?? '',
+                  a.grupo?.ciclo ?? ''
+                ]).toList(),
+              ),
+            ];
+          },
+        ),
+      );
+      final bytes = await doc.save();
+      await _guardarBytesComoArchivo(bytes, 'listado_alumnos.pdf');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('PDF generado y guardado')));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error exportando PDF: $e')));
+    } finally {
+      setState(() => _exporting = false);
+    }
+  }
+
+  Future<void> _exportarListadoCsv() async {
+    setState(() => _exporting = true);
+    try {
+      final lista = _filtroGrupo == null ? _todos : _todos.where((a) => a.grupo?.id == _filtroGrupo!.id).toList();
+      final sb = StringBuffer();
+      sb.writeln('Nombre,Apellido,Grupo,Ciclo');
+      for (final a in lista) {
+        final row = [
+          (a.nombre ?? '').replaceAll('"', '""'),
+          (a.apaterno ?? '').replaceAll('"', '""'),
+          (a.grupo?.descripcion ?? '').replaceAll('"', '""'),
+          (a.grupo?.ciclo ?? '').replaceAll('"', '""'),
+        ];
+        sb.writeln('"${row.join('","')}"');
+      }
+      final bytes = utf8.encode(sb.toString());
+      await _guardarBytesComoArchivo(Uint8List.fromList(bytes), 'listado_alumnos.csv');
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('CSV generado y guardado')));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error exportando CSV: $e')));
+    } finally {
+      setState(() => _exporting = false);
+    }
+  }
+
+  Future<void> _guardarBytesComoArchivo(Uint8List bytes, String suggestedName) async {
+    try {
+      // Directorio por defecto (app documents). En Android intenta usar external si existe.
+      Directory dir = await getApplicationDocumentsDirectory();
+      if (Platform.isAndroid) {
+        final external = await getExternalStorageDirectory();
+        if (external != null) dir = external;
+      }
+
+      final filePath = '${dir.path}/$suggestedName';
+      final file = File(filePath);
+      await file.writeAsBytes(bytes);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Archivo guardado en $filePath')));
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('No se pudo guardar el archivo: $e')));
+    }
   }
 }

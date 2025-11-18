@@ -6,6 +6,7 @@ import 'screens/alumnos_screen.dart';
 import 'screens/grupos_screen.dart';
 import 'screens/tipos_reporte_screen.dart';
 import 'screens/reportes_screen.dart';
+import 'screens/reporte_incidencias_screen.dart';
 import 'config/global.dart';
 
 void main() {
@@ -60,6 +61,7 @@ class MyApp extends StatelessWidget {
             '/tipos-reporte': (_) => TiposReporteScreen(),
             '/tipos_reporte': (_) => TiposReporteScreen(), // alias para llamadas con guion_bajo
             '/reportes': (_) => ReportesScreen(),
+            '/reporte_incidencias': (context) => const ReporteIncidenciasScreen(),
           },
         );
       },

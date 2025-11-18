@@ -766,3 +766,365 @@ MySQLdb.IntegrityError: (1048, "Column 'id_grupo' cannot be null")
 2025-11-13 00:17:53,280 - INFO - 192.168.2.191 - - [13/Nov/2025 00:17:53] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
 2025-11-13 00:17:53,285 - INFO - 192.168.2.191 - - [13/Nov/2025 00:17:53] "GET /api/tipos-reporte HTTP/1.1" 200 -
 2025-11-13 00:17:58,237 - INFO - 192.168.2.191 - - [13/Nov/2025 00:17:58] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-11-13 19:59:19,033 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-11-13 19:59:19,039 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-13 19:59:19,041 - INFO -  * Restarting with stat
+2025-11-13 19:59:19,478 - WARNING -  * Debugger is active!
+2025-11-13 19:59:19,493 - INFO -  * Debugger PIN: 149-262-596
+2025-11-13 20:21:10,456 - INFO - 192.168.2.191 - - [13/Nov/2025 20:21:10] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-11-13 20:21:10,998 - INFO - 192.168.2.191 - - [13/Nov/2025 20:21:10] "POST /api/login HTTP/1.1" 200 -
+2025-11-13 20:21:33,101 - INFO - 192.168.2.191 - - [13/Nov/2025 20:21:33] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-11-13 20:21:33,260 - INFO - 192.168.2.191 - - [13/Nov/2025 20:21:33] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-13 20:21:39,995 - INFO - 192.168.2.191 - - [13/Nov/2025 20:21:39] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-11-13 20:21:39,999 - INFO - 192.168.2.191 - - [13/Nov/2025 20:21:39] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:21:40,045 - INFO - 192.168.2.191 - - [13/Nov/2025 20:21:40] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-13 20:21:40,070 - INFO - 192.168.2.191 - - [13/Nov/2025 20:21:40] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:21:44,110 - INFO - 192.168.2.191 - - [13/Nov/2025 20:21:44] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-11-13 20:21:44,123 - INFO - 192.168.2.191 - - [13/Nov/2025 20:21:44] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-11-13 20:21:53,290 - INFO - 192.168.2.191 - - [13/Nov/2025 20:21:53] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-11-13 20:21:53,312 - INFO - 192.168.2.191 - - [13/Nov/2025 20:21:53] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-13 20:22:01,050 - INFO - 192.168.2.191 - - [13/Nov/2025 20:22:01] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-11-13 20:22:01,059 - INFO - 192.168.2.191 - - [13/Nov/2025 20:22:01] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-11-13 20:22:37,474 - INFO - 192.168.2.191 - - [13/Nov/2025 20:22:37] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-11-13 20:22:37,475 - INFO - 192.168.2.191 - - [13/Nov/2025 20:22:37] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:22:37,534 - INFO - 192.168.2.191 - - [13/Nov/2025 20:22:37] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:22:37,541 - INFO - 192.168.2.191 - - [13/Nov/2025 20:22:37] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-13 20:22:42,415 - INFO - 192.168.2.191 - - [13/Nov/2025 20:22:42] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-11-13 20:22:42,450 - INFO - 192.168.2.191 - - [13/Nov/2025 20:22:42] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-13 20:22:55,634 - INFO - 192.168.2.191 - - [13/Nov/2025 20:22:55] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-11-13 20:22:55,639 - INFO - 192.168.2.191 - - [13/Nov/2025 20:22:55] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:22:55,648 - INFO - 192.168.2.191 - - [13/Nov/2025 20:22:55] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:22:55,683 - INFO - 192.168.2.191 - - [13/Nov/2025 20:22:55] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-13 20:24:54,908 - INFO - 192.168.2.191 - - [13/Nov/2025 20:24:54] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-11-13 20:24:54,915 - INFO - 192.168.2.191 - - [13/Nov/2025 20:24:54] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-13 20:25:00,334 - INFO - 192.168.2.191 - - [13/Nov/2025 20:25:00] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-11-13 20:25:00,340 - INFO - 192.168.2.191 - - [13/Nov/2025 20:25:00] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-11-13 20:25:40,760 - INFO - 192.168.2.191 - - [13/Nov/2025 20:25:40] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:25:40,768 - INFO - 192.168.2.191 - - [13/Nov/2025 20:25:40] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:26:14,116 - INFO - 192.168.2.191 - - [13/Nov/2025 20:26:14] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-11-13 20:26:14,118 - INFO - 192.168.2.191 - - [13/Nov/2025 20:26:14] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:26:14,137 - INFO - 192.168.2.191 - - [13/Nov/2025 20:26:14] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-13 20:26:14,141 - INFO - 192.168.2.191 - - [13/Nov/2025 20:26:14] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:26:16,528 - INFO - 192.168.2.191 - - [13/Nov/2025 20:26:16] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:26:27,028 - INFO - 192.168.2.191 - - [13/Nov/2025 20:26:27] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-11-13 20:26:27,039 - INFO - 192.168.2.191 - - [13/Nov/2025 20:26:27] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-13 20:26:31,969 - INFO - 192.168.2.191 - - [13/Nov/2025 20:26:31] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:26:31,987 - INFO - 192.168.2.191 - - [13/Nov/2025 20:26:31] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:27:25,262 - INFO - 192.168.2.191 - - [13/Nov/2025 20:27:25] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:27:25,277 - INFO - 192.168.2.191 - - [13/Nov/2025 20:27:25] "[35m[1mPOST /api/grupos HTTP/1.1[0m" 201 -
+2025-11-13 20:27:25,311 - INFO - 192.168.2.191 - - [13/Nov/2025 20:27:25] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:27:34,780 - INFO - 192.168.2.191 - - [13/Nov/2025 20:27:34] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:27:34,812 - INFO - 192.168.2.191 - - [13/Nov/2025 20:27:34] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:28:05,391 - INFO - 192.168.2.191 - - [13/Nov/2025 20:28:05] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-11-13 20:28:05,392 - INFO - 192.168.2.191 - - [13/Nov/2025 20:28:05] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:28:05,405 - INFO - 192.168.2.191 - - [13/Nov/2025 20:28:05] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-13 20:28:05,407 - INFO - 192.168.2.191 - - [13/Nov/2025 20:28:05] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-13 20:28:08,014 - INFO - 192.168.2.191 - - [13/Nov/2025 20:28:08] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-14 18:30:00,813 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:00] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-11-14 18:30:01,164 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:01] "[31m[1mPOST /api/login HTTP/1.1[0m" 401 -
+2025-11-14 18:30:10,258 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:10] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-11-14 18:30:10,721 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:10] "POST /api/login HTTP/1.1" 200 -
+2025-11-14 18:30:16,782 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:16] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-11-14 18:30:16,919 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:16] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-14 18:30:34,721 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:34] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-11-14 18:30:34,725 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:34] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-14 18:30:34,745 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:34] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-14 18:30:34,754 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:34] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-14 18:30:40,653 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:40] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-14 18:30:40,662 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:40] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-14 18:30:50,410 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:50] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-11-14 18:30:50,437 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:50] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-11-14 18:30:55,483 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:55] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-11-14 18:30:55,523 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:55] "GET /api/reportes HTTP/1.1" 200 -
+2025-11-14 18:30:55,554 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:55] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-11-14 18:30:55,621 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:55] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-14 18:30:55,643 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:55] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-11-14 18:30:55,652 - INFO - 192.168.2.191 - - [14/Nov/2025 18:30:55] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-11-14 18:31:03,162 - INFO - 192.168.2.191 - - [14/Nov/2025 18:31:03] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-11-14 18:31:03,170 - INFO - 192.168.2.191 - - [14/Nov/2025 18:31:03] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-14 18:31:15,697 - INFO - 192.168.2.191 - - [14/Nov/2025 18:31:15] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-11-14 18:31:15,705 - INFO - 192.168.2.191 - - [14/Nov/2025 18:31:15] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-14 18:37:38,411 - INFO - 192.168.2.191 - - [14/Nov/2025 18:37:38] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-11-14 18:37:38,776 - INFO - 192.168.2.191 - - [14/Nov/2025 18:37:38] "POST /api/login HTTP/1.1" 200 -
+2025-11-14 18:37:41,348 - INFO - 192.168.2.191 - - [14/Nov/2025 18:37:41] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-11-14 18:37:41,364 - INFO - 192.168.2.191 - - [14/Nov/2025 18:37:41] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-14 18:37:47,763 - INFO - 192.168.2.191 - - [14/Nov/2025 18:37:47] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-11-14 18:37:47,770 - INFO - 192.168.2.191 - - [14/Nov/2025 18:37:47] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-14 18:37:51,923 - INFO - 192.168.2.191 - - [14/Nov/2025 18:37:51] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-11-14 18:37:51,925 - INFO - 192.168.2.191 - - [14/Nov/2025 18:37:51] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-14 18:37:51,935 - INFO - 192.168.2.191 - - [14/Nov/2025 18:37:51] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-14 18:37:51,939 - INFO - 192.168.2.191 - - [14/Nov/2025 18:37:51] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-14 19:08:39,596 - INFO - 192.168.2.191 - - [14/Nov/2025 19:08:39] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-11-14 19:08:39,932 - INFO - 192.168.2.191 - - [14/Nov/2025 19:08:39] "POST /api/login HTTP/1.1" 200 -
+2025-11-14 19:08:46,975 - INFO - 192.168.2.191 - - [14/Nov/2025 19:08:46] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-11-14 19:08:46,981 - INFO - 192.168.2.191 - - [14/Nov/2025 19:08:46] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-14 19:08:46,995 - INFO - 192.168.2.191 - - [14/Nov/2025 19:08:46] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-14 19:08:46,999 - INFO - 192.168.2.191 - - [14/Nov/2025 19:08:46] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-14 19:08:53,046 - INFO - 192.168.2.191 - - [14/Nov/2025 19:08:53] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-11-14 19:08:53,050 - INFO - 192.168.2.191 - - [14/Nov/2025 19:08:53] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-14 19:08:56,485 - INFO - 192.168.2.191 - - [14/Nov/2025 19:08:56] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-11-14 19:08:56,490 - INFO - 192.168.2.191 - - [14/Nov/2025 19:08:56] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-14 19:08:56,503 - INFO - 192.168.2.191 - - [14/Nov/2025 19:08:56] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-14 19:08:56,504 - INFO - 192.168.2.191 - - [14/Nov/2025 19:08:56] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-14 19:09:00,302 - INFO - 192.168.2.191 - - [14/Nov/2025 19:09:00] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-11-14 19:09:00,308 - INFO - 192.168.2.191 - - [14/Nov/2025 19:09:00] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-14 19:12:27,612 - INFO - 192.168.2.191 - - [14/Nov/2025 19:12:27] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-14 19:12:27,623 - INFO - 192.168.2.191 - - [14/Nov/2025 19:12:27] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-14 19:12:30,413 - INFO - 192.168.2.191 - - [14/Nov/2025 19:12:30] "OPTIONS /api/tipos-reporte HTTP/1.1" 200 -
+2025-11-14 19:12:30,424 - INFO - 192.168.2.191 - - [14/Nov/2025 19:12:30] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-11-14 19:12:33,859 - INFO - 192.168.2.191 - - [14/Nov/2025 19:12:33] "OPTIONS /api/reportes HTTP/1.1" 200 -
+2025-11-14 19:12:33,873 - INFO - 192.168.2.191 - - [14/Nov/2025 19:12:33] "GET /api/reportes HTTP/1.1" 200 -
+2025-11-14 19:12:33,904 - INFO - 192.168.2.191 - - [14/Nov/2025 19:12:33] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-11-14 19:12:33,908 - INFO - 192.168.2.191 - - [14/Nov/2025 19:12:33] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-14 19:12:33,933 - INFO - 192.168.2.191 - - [14/Nov/2025 19:12:33] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-11-14 19:22:02,870 - INFO - 192.168.2.191 - - [14/Nov/2025 19:22:02] "OPTIONS /api/login HTTP/1.1" 200 -
+2025-11-14 19:22:03,320 - INFO - 192.168.2.191 - - [14/Nov/2025 19:22:03] "POST /api/login HTTP/1.1" 200 -
+2025-11-14 19:27:31,323 - INFO - 192.168.2.191 - - [14/Nov/2025 19:27:31] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-11-14 19:27:31,329 - INFO - 192.168.2.191 - - [14/Nov/2025 19:27:31] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-14 19:27:49,047 - INFO - 192.168.2.191 - - [14/Nov/2025 19:27:49] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-11-14 19:27:49,077 - INFO - 192.168.2.191 - - [14/Nov/2025 19:27:49] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-14 19:28:12,811 - INFO - 192.168.2.191 - - [14/Nov/2025 19:28:12] "OPTIONS /api/usuarios HTTP/1.1" 200 -
+2025-11-14 19:28:12,814 - INFO - 192.168.2.191 - - [14/Nov/2025 19:28:12] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-14 19:28:14,715 - INFO - 192.168.2.191 - - [14/Nov/2025 19:28:14] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-14 19:28:24,270 - INFO - 192.168.2.191 - - [14/Nov/2025 19:28:24] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-14 19:28:24,271 - INFO - 192.168.2.191 - - [14/Nov/2025 19:28:24] "OPTIONS /api/alumnos HTTP/1.1" 200 -
+2025-11-14 19:28:24,284 - INFO - 192.168.2.191 - - [14/Nov/2025 19:28:24] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-14 19:28:24,308 - INFO - 192.168.2.191 - - [14/Nov/2025 19:28:24] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-14 19:28:43,006 - INFO - 192.168.2.191 - - [14/Nov/2025 19:28:43] "OPTIONS /api/grupos HTTP/1.1" 200 -
+2025-11-14 19:28:43,018 - INFO - 192.168.2.191 - - [14/Nov/2025 19:28:43] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-15 08:18:45,100 - INFO - 192.168.2.191 - - [15/Nov/2025 08:18:45] "POST /api/login HTTP/1.1" 200 -
+2025-11-15 08:18:54,682 - INFO - 192.168.2.191 - - [15/Nov/2025 08:18:54] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-15 08:19:14,640 - INFO - 192.168.2.191 - - [15/Nov/2025 08:19:14] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-15 08:19:14,642 - INFO - 192.168.2.191 - - [15/Nov/2025 08:19:14] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-15 08:19:28,993 - INFO - 192.168.2.191 - - [15/Nov/2025 08:19:28] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-15 08:19:36,262 - INFO - 192.168.2.191 - - [15/Nov/2025 08:19:36] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-15 08:19:42,926 - INFO - 192.168.2.191 - - [15/Nov/2025 08:19:42] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-15 08:19:42,928 - INFO - 192.168.2.191 - - [15/Nov/2025 08:19:42] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-17 10:24:10,789 - INFO - 192.168.2.191 - - [17/Nov/2025 10:24:10] "[31m[1mGET /api/usuarios HTTP/1.1[0m" 401 -
+2025-11-17 10:27:06,104 - INFO - 192.168.2.191 - - [17/Nov/2025 10:27:06] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 10:27:08,650 - INFO - 192.168.2.191 - - [17/Nov/2025 10:27:08] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-17 10:49:31,010 - INFO - 192.168.2.191 - - [17/Nov/2025 10:49:31] "[31m[1mGET /api/usuarios HTTP/1.1[0m" 401 -
+2025-11-17 10:50:09,580 - INFO - 192.168.2.191 - - [17/Nov/2025 10:50:09] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 10:50:13,203 - INFO - 192.168.2.191 - - [17/Nov/2025 10:50:13] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-17 10:50:13,210 - INFO - 192.168.2.191 - - [17/Nov/2025 10:50:13] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-17 10:50:16,579 - INFO - 192.168.2.191 - - [17/Nov/2025 10:50:16] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-17 10:52:31,750 - INFO - 192.168.2.191 - - [17/Nov/2025 10:52:31] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-17 10:52:31,752 - INFO - 192.168.2.191 - - [17/Nov/2025 10:52:31] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-17 17:57:17,191 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/reportes_model.py', reloading
+2025-11-17 17:57:18,797 - INFO -  * Restarting with stat
+2025-11-17 17:57:20,010 - WARNING -  * Debugger is active!
+2025-11-17 17:57:20,026 - INFO -  * Debugger PIN: 149-262-596
+2025-11-17 17:57:23,071 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/reportes_model.py', reloading
+2025-11-17 17:57:23,135 - INFO -  * Restarting with stat
+2025-11-17 17:57:23,547 - WARNING -  * Debugger is active!
+2025-11-17 17:57:23,556 - INFO -  * Debugger PIN: 149-262-596
+2025-11-17 18:00:31,382 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/reportes_controller.py', reloading
+2025-11-17 18:00:31,480 - INFO -  * Restarting with stat
+2025-11-17 18:00:32,016 - WARNING -  * Debugger is active!
+2025-11-17 18:00:32,023 - INFO -  * Debugger PIN: 149-262-596
+2025-11-17 18:00:35,062 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/reportes_controller.py', reloading
+2025-11-17 18:00:35,134 - INFO -  * Restarting with stat
+2025-11-17 18:00:35,515 - WARNING -  * Debugger is active!
+2025-11-17 18:00:35,522 - INFO -  * Debugger PIN: 149-262-596
+2025-11-17 18:01:09,237 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-11-17 18:01:09,237 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 18:01:09,238 - INFO -  * Restarting with stat
+2025-11-17 18:01:09,626 - WARNING -  * Debugger is active!
+2025-11-17 18:01:09,632 - INFO -  * Debugger PIN: 149-262-596
+2025-11-17 18:03:02,757 - INFO - 127.0.0.1 - - [17/Nov/2025 18:03:02] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 18:06:38,793 - INFO - 127.0.0.1 - - [17/Nov/2025 18:06:38] "GET /api/reportes/reporte?grupo=3 HTTP/1.1" 200 -
+2025-11-17 18:06:53,314 - INFO - 127.0.0.1 - - [17/Nov/2025 18:06:53] "GET /api/reportes/reporte?grupo=1 HTTP/1.1" 200 -
+2025-11-17 18:37:31,883 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-11-17 18:37:31,883 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 18:37:31,884 - INFO -  * Restarting with stat
+2025-11-17 18:37:32,572 - WARNING -  * Debugger is active!
+2025-11-17 18:37:32,587 - INFO -  * Debugger PIN: 149-262-596
+2025-11-17 18:46:22,110 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-11-17 18:46:22,111 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 18:46:22,112 - INFO -  * Restarting with stat
+2025-11-17 18:46:22,790 - WARNING -  * Debugger is active!
+2025-11-17 18:46:22,799 - INFO -  * Debugger PIN: 149-262-596
+2025-11-17 18:59:26,490 - INFO - 127.0.0.1 - - [17/Nov/2025 18:59:26] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 19:00:56,627 - ERROR - Error enviando correo
+Traceback (most recent call last):
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/reportes_controller.py", line 266, in reporte_buscar
+    smtp.login(smtp_user, smtp_pass)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.13/smtplib.py", line 750, in login
+    raise last_exception
+  File "/opt/anaconda3/lib/python3.13/smtplib.py", line 739, in login
+    (code, resp) = self.auth(
+                   ~~~~~~~~~^
+        authmethod, getattr(self, method_name),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        initial_response_ok=initial_response_ok)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.13/smtplib.py", line 662, in auth
+    raise SMTPAuthenticationError(code, resp)
+smtplib.SMTPAuthenticationError: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 46e09a7af769-7c73a28428bsm6143410a34.1 - gsmtp')
+2025-11-17 19:00:56,635 - INFO - 127.0.0.1 - - [17/Nov/2025 19:00:56] "[35m[1mGET /api/reportes/reporte?grupo=1&email=segundoacren81@hotmail.com HTTP/1.1[0m" 500 -
+2025-11-17 19:03:26,569 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-11-17 19:03:26,569 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 19:03:26,570 - INFO -  * Restarting with stat
+2025-11-17 19:03:27,234 - WARNING -  * Debugger is active!
+2025-11-17 19:03:27,245 - INFO -  * Debugger PIN: 149-262-596
+2025-11-17 19:04:03,957 - INFO - 127.0.0.1 - - [17/Nov/2025 19:04:03] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 19:04:26,801 - ERROR - Error enviando correo
+Traceback (most recent call last):
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/reportes_controller.py", line 266, in reporte_buscar
+    smtp.login(smtp_user, smtp_pass)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.13/smtplib.py", line 750, in login
+    raise last_exception
+  File "/opt/anaconda3/lib/python3.13/smtplib.py", line 739, in login
+    (code, resp) = self.auth(
+                   ~~~~~~~~~^
+        authmethod, getattr(self, method_name),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        initial_response_ok=initial_response_ok)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.13/smtplib.py", line 662, in auth
+    raise SMTPAuthenticationError(code, resp)
+smtplib.SMTPAuthenticationError: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 586e51a60fabf-3e85206082asm6516551fac.10 - gsmtp')
+2025-11-17 19:04:26,807 - INFO - 127.0.0.1 - - [17/Nov/2025 19:04:26] "[35m[1mGET /api/reportes/reporte?grupo=1&email=segundoacren81@hotmail.com HTTP/1.1[0m" 500 -
+2025-11-17 19:11:32,304 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-11-17 19:11:32,304 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 19:11:32,306 - INFO -  * Restarting with stat
+2025-11-17 19:11:32,964 - WARNING -  * Debugger is active!
+2025-11-17 19:11:32,975 - INFO -  * Debugger PIN: 149-262-596
+2025-11-17 19:11:48,051 - INFO - 127.0.0.1 - - [17/Nov/2025 19:11:48] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 19:12:07,522 - ERROR - Error enviando correo
+Traceback (most recent call last):
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/reportes_controller.py", line 266, in reporte_buscar
+    smtp.login(smtp_user, smtp_pass)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.13/smtplib.py", line 750, in login
+    raise last_exception
+  File "/opt/anaconda3/lib/python3.13/smtplib.py", line 739, in login
+    (code, resp) = self.auth(
+                   ~~~~~~~~~^
+        authmethod, getattr(self, method_name),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        initial_response_ok=initial_response_ok)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.13/smtplib.py", line 662, in auth
+    raise SMTPAuthenticationError(code, resp)
+smtplib.SMTPAuthenticationError: (534, b'5.7.9 Application-specific password required. For more information, go to\n5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor 46e09a7af769-7c73a283c36sm6131056a34.3 - gsmtp')
+2025-11-17 19:12:07,528 - INFO - 127.0.0.1 - - [17/Nov/2025 19:12:07] "[35m[1mGET /api/reportes/reporte?grupo=1&email=segundoacren81@hotmail.com HTTP/1.1[0m" 500 -
+2025-11-17 19:15:14,931 - INFO - 127.0.0.1 - - [17/Nov/2025 19:15:14] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 19:15:40,488 - ERROR - Error enviando correo
+Traceback (most recent call last):
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/reportes_controller.py", line 266, in reporte_buscar
+    smtp.login(smtp_user, smtp_pass)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.13/smtplib.py", line 750, in login
+    raise last_exception
+  File "/opt/anaconda3/lib/python3.13/smtplib.py", line 739, in login
+    (code, resp) = self.auth(
+                   ~~~~~~~~~^
+        authmethod, getattr(self, method_name),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        initial_response_ok=initial_response_ok)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.13/smtplib.py", line 662, in auth
+    raise SMTPAuthenticationError(code, resp)
+smtplib.SMTPAuthenticationError: (534, b'5.7.9 Application-specific password required. For more information, go to\n5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor 5614622812f47-4508a6df248sm4751034b6e.22 - gsmtp')
+2025-11-17 19:15:40,494 - INFO - 127.0.0.1 - - [17/Nov/2025 19:15:40] "[35m[1mGET /api/reportes/reporte?grupo=1&email=segundoacren81@hotmail.com HTTP/1.1[0m" 500 -
+2025-11-17 19:17:23,267 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-11-17 19:17:23,268 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 19:17:23,269 - INFO -  * Restarting with stat
+2025-11-17 19:17:23,985 - WARNING -  * Debugger is active!
+2025-11-17 19:17:23,996 - INFO -  * Debugger PIN: 149-262-596
+2025-11-17 19:17:43,416 - INFO - 127.0.0.1 - - [17/Nov/2025 19:17:43] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 19:17:57,670 - ERROR - Error enviando correo
+Traceback (most recent call last):
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/reportes_controller.py", line 266, in reporte_buscar
+    smtp.login(smtp_user, smtp_pass)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.13/smtplib.py", line 750, in login
+    raise last_exception
+  File "/opt/anaconda3/lib/python3.13/smtplib.py", line 739, in login
+    (code, resp) = self.auth(
+                   ~~~~~~~~~^
+        authmethod, getattr(self, method_name),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        initial_response_ok=initial_response_ok)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.13/smtplib.py", line 662, in auth
+    raise SMTPAuthenticationError(code, resp)
+smtplib.SMTPAuthenticationError: (534, b'5.7.9 Application-specific password required. For more information, go to\n5.7.9  https://support.google.com/mail/?p=InvalidSecondFactor 586e51a60fabf-3e8522b1594sm6553191fac.17 - gsmtp')
+2025-11-17 19:17:57,677 - INFO - 127.0.0.1 - - [17/Nov/2025 19:17:57] "[35m[1mGET /api/reportes/reporte?grupo=1&email=segundoacren81@hotmail.com HTTP/1.1[0m" 500 -
+2025-11-17 19:21:19,643 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-11-17 19:21:19,643 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 19:21:19,644 - INFO -  * Restarting with stat
+2025-11-17 19:21:20,315 - WARNING -  * Debugger is active!
+2025-11-17 19:21:20,325 - INFO -  * Debugger PIN: 149-262-596
+2025-11-17 19:21:34,002 - INFO - 127.0.0.1 - - [17/Nov/2025 19:21:34] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 19:21:49,368 - INFO - 127.0.0.1 - - [17/Nov/2025 19:21:49] "GET /api/reportes/reporte?grupo=1&email=segundoacren81@hotmail.com HTTP/1.1" 200 -
+2025-11-17 20:26:41,747 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-11-17 20:26:41,748 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 20:26:41,751 - INFO -  * Restarting with stat
+2025-11-17 20:26:42,443 - WARNING -  * Debugger is active!
+2025-11-17 20:26:42,454 - INFO -  * Debugger PIN: 149-262-596
+2025-11-17 20:26:47,566 - INFO - 192.168.2.191 - - [17/Nov/2025 20:26:47] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 20:37:31,788 - INFO - 192.168.2.191 - - [17/Nov/2025 20:37:31] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 20:37:35,097 - INFO - 192.168.2.191 - - [17/Nov/2025 20:37:35] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-17 20:37:49,202 - INFO - 192.168.2.191 - - [17/Nov/2025 20:37:49] "[33mGET /api/api/reportes/reporte?grupo=1 HTTP/1.1[0m" 404 -
+2025-11-17 20:38:28,896 - INFO - 192.168.2.191 - - [17/Nov/2025 20:38:28] "[33mGET /api/api/reportes/reporte?grupo=1&email=segundoacren81@hotmail.com HTTP/1.1[0m" 404 -
+2025-11-17 20:38:34,987 - INFO - 192.168.2.191 - - [17/Nov/2025 20:38:34] "[33mGET /api/api/reportes/reporte?grupo=1&email=segundoacren81@hotmail.com HTTP/1.1[0m" 404 -
+2025-11-17 20:55:49,161 - INFO - 192.168.2.191 - - [17/Nov/2025 20:55:49] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 20:55:56,085 - INFO - 192.168.2.191 - - [17/Nov/2025 20:55:56] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-17 20:56:49,913 - INFO - 192.168.2.191 - - [17/Nov/2025 20:56:49] "[33mGET /api/api/reportes/reporte?grupo=1&email=segundoacren81@hotmail.com HTTP/1.1[0m" 404 -
+2025-11-17 21:00:26,410 - INFO - 192.168.2.191 - - [17/Nov/2025 21:00:26] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 21:00:28,790 - INFO - 192.168.2.191 - - [17/Nov/2025 21:00:28] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-17 21:01:08,729 - INFO - 192.168.2.191 - - [17/Nov/2025 21:01:08] "GET /api/reportes/reporte?grupo=1&email=segundoacren81@hotmail.com HTTP/1.1" 200 -
+2025-11-17 21:01:47,359 - INFO - 192.168.2.191 - - [17/Nov/2025 21:01:47] "GET /api/reportes/reporte?grupo=1 HTTP/1.1" 200 -
+2025-11-17 21:03:59,666 - INFO - 192.168.2.191 - - [17/Nov/2025 21:03:59] "GET /api/reportes/reporte?grupo=1&nombre=juan&apellido_paterno=perez&apellido_materno=garcia HTTP/1.1" 200 -
+2025-11-17 21:04:18,010 - INFO - 192.168.2.191 - - [17/Nov/2025 21:04:18] "GET /api/reportes/reporte?grupo=1&nombre=juan&apellido_paterno=perez&apellido_materno=garcia&email=segundoacren81@hotmail.com HTTP/1.1" 200 -
+2025-11-17 21:13:14,707 - INFO - 192.168.2.191 - - [17/Nov/2025 21:13:14] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 21:16:50,233 - INFO - 192.168.2.191 - - [17/Nov/2025 21:16:50] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 21:22:46,309 - INFO - 192.168.2.191 - - [17/Nov/2025 21:22:46] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 21:50:08,802 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-11-17 21:50:08,802 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-17 21:50:08,804 - INFO -  * Restarting with stat
+2025-11-17 21:50:09,491 - WARNING -  * Debugger is active!
+2025-11-17 21:50:09,503 - INFO -  * Debugger PIN: 149-262-596
+2025-11-17 21:50:57,820 - INFO - 192.168.2.191 - - [17/Nov/2025 21:50:57] "POST /api/login HTTP/1.1" 200 -
+2025-11-17 21:51:15,320 - INFO - 192.168.2.191 - - [17/Nov/2025 21:51:15] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-17 21:51:19,423 - INFO - 192.168.2.191 - - [17/Nov/2025 21:51:19] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-17 21:51:19,431 - INFO - 192.168.2.191 - - [17/Nov/2025 21:51:19] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-17 21:51:22,524 - INFO - 192.168.2.191 - - [17/Nov/2025 21:51:22] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-17 21:51:24,976 - INFO - 192.168.2.191 - - [17/Nov/2025 21:51:24] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-11-17 21:51:27,916 - INFO - 192.168.2.191 - - [17/Nov/2025 21:51:27] "GET /api/reportes HTTP/1.1" 200 -
+2025-11-17 21:51:28,300 - INFO - 192.168.2.191 - - [17/Nov/2025 21:51:28] "GET /api/alumnos HTTP/1.1" 200 -
+2025-11-17 21:51:28,675 - INFO - 192.168.2.191 - - [17/Nov/2025 21:51:28] "GET /api/tipos-reporte HTTP/1.1" 200 -

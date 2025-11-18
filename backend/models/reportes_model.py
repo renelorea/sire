@@ -125,7 +125,7 @@ def find_reporte_by_id(id):
                a.fecha_nacimiento, g.id_grupo, g.grado AS grupo_grado, g.Descripcion AS grupo_nombre, g.ciclo_escolar,
                
                -- Usuario que reporta
-               u.id_usuario, u.nombres AS usuario_nombre, u.apellido_paterno AS usuario_apaterno, u.apellido_materno AS usuario_amaterno,
+               u.id_usuario, u.nombres AS usuario_nombre, u.apellido_paterno AS usuario_apatero, u.apellido_materno AS usuario_amaterno,
                u.email AS email, u.rol AS usuario_rol, u.activo AS usuario_activo,
                
                -- Tipo de reporte
@@ -168,7 +168,7 @@ def find_reporte_by_id(id):
         "usuario": {
             "id_usuario": r["id_usuario"],
             "nombre": r["usuario_nombre"],
-            "apellido_paterno": r["usuario_apaterno"],
+            "apellido_paterno": r["usuario_apatero"],
             "apellido_materno": r["usuario_amaterno"],
             "email": r["email"],
             "rol": r["usuario_rol"],
@@ -183,3 +183,99 @@ def find_reporte_by_id(id):
     }
 
     return jsonify(reporte), 200
+
+def find_reportes_filtered(grupo=None, nombre=None, apellido_paterno=None, apellido_materno=None):
+    """
+    Busca reportes en reportes_incidencias filtrando opcionalmente por:
+      - grupo: id de grupo (numérico) o texto en la descripción del grupo
+      - nombre: búsqueda parcial en alumnos.nombres
+      - apellido_paterno: búsqueda parcial en alumnos.apellido_paterno
+      - apellido_materno: búsqueda parcial en alumnos.apellido_materno
+    Devuelve la misma estructura JSON que find_all_reportes.
+    """
+    cursor = mysql.connection.cursor(DictCursor)
+    sql = """
+        SELECT r.*, 
+               a.id_alumno, a.matricula, a.nombres AS alumno_nombre, a.apellido_paterno AS alumno_apaterno, a.apellido_materno AS alumno_amaterno,
+               a.fecha_nacimiento, g.id_grupo, g.grado AS grupo_grado, g.Descripcion AS grupo_nombre, g.ciclo_escolar,
+               u.id_usuario, u.nombres AS usuario_nombre, u.apellido_paterno AS usuario_apaterno, u.apellido_materno AS usuario_amaterno,
+               u.email AS email, u.rol AS usuario_rol, u.activo AS usuario_activo,
+               t.id_tipo_reporte, t.nombre AS tipo_nombre, t.descripcion AS tipo_descripcion, t.gravedad AS tipo_gravedad
+        FROM reportes_incidencias r
+        JOIN alumnos a ON r.id_alumno = a.id_alumno
+        LEFT JOIN grupos g ON a.id_grupo = g.id_grupo
+        LEFT JOIN usuarios u ON r.id_usuario_que_reporta = u.id_usuario
+        LEFT JOIN tipos_reporte t ON r.id_tipo_reporte = t.id_tipo_reporte
+        WHERE 1=1
+    """
+    params = []
+
+    if grupo:
+        if str(grupo).isdigit():
+            sql += " AND g.id_grupo = %s"
+            params.append(int(grupo))
+        else:
+            sql += " AND LOWER(g.Descripcion) LIKE %s"
+            params.append(f"%{grupo.lower()}%")
+
+    if nombre:
+        sql += " AND LOWER(a.nombres) LIKE %s"
+        params.append(f"%{nombre.lower()}%")
+
+    if apellido_paterno:
+        sql += " AND LOWER(a.apellido_paterno) LIKE %s"
+        params.append(f"%{apellido_paterno.lower()}%")
+
+    if apellido_materno:
+        sql += " AND LOWER(a.apellido_materno) LIKE %s"
+        params.append(f"%{apellido_materno.lower()}%")
+
+    sql += " ORDER BY r.fecha_incidencia DESC"
+
+    cursor.execute(sql, tuple(params))
+    rows = cursor.fetchall()
+    cursor.close()
+
+    reportes = []
+    for r in rows:
+        reporte = {
+            "id_reporte": r.get("id_reporte"),
+            "folio": r.get("folio"),
+            "descripcion_hechos": r.get("descripcion_hechos"),
+            "acciones_tomadas": r.get("acciones_tomadas"),
+            "fecha_incidencia": r.get("fecha_incidencia"),
+            "fecha_creacion": r.get("fecha_creacion"),
+            "estatus": r.get("estatus"),
+            "alumno": {
+                "id_alumno": r.get("id_alumno"),
+                "matricula": r.get("matricula"),
+                "nombre": r.get("alumno_nombre"),
+                "apellido_paterno": r.get("alumno_apaterno"),
+                "apellido_materno": r.get("alumno_amaterno"),
+                "fecha_nacimiento": r.get("fecha_nacimiento"),
+                "grupo": {
+                    "id_grupo": r.get("id_grupo"),
+                    "grado": r.get("grupo_grado"),
+                    "grupo": r.get("grupo_nombre"),
+                    "ciclo_escolar": r.get("ciclo_escolar")
+                }
+            },
+            "usuario": {
+                "id_usuario": r.get("id_usuario"),
+                "nombre": r.get("usuario_nombre"),
+                "apellido_paterno": r.get("usuario_apaterno"),
+                "apellido_materno": r.get("usuario_amaterno"),
+                "email": r.get("email"),
+                "rol": r.get("usuario_rol"),
+                "activo": r.get("usuario_activo")
+            },
+            "tipo_reporte": {
+                "id_tipo_reporte": r.get("id_tipo_reporte"),
+                "nombre": r.get("tipo_nombre"),
+                "descripcion": r.get("tipo_descripcion"),
+                "gravedad": r.get("tipo_gravedad")
+            }
+        }
+        reportes.append(reporte)
+
+    return jsonify(reportes), 200
