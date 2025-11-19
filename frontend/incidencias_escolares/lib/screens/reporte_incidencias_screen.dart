@@ -13,9 +13,6 @@ class ReporteIncidenciasScreen extends StatefulWidget {
 }
 
 class _ReporteIncidenciasScreenState extends State<ReporteIncidenciasScreen> {
-  final TextEditingController _nombreCtrl = TextEditingController();
-  final TextEditingController _apPaternoCtrl = TextEditingController();
-  final TextEditingController _apMaternoCtrl = TextEditingController();
   final TextEditingController _emailCtrl = TextEditingController();
 
   bool _loading = false;
@@ -23,6 +20,10 @@ class _ReporteIncidenciasScreenState extends State<ReporteIncidenciasScreen> {
 
   List<Map<String, dynamic>> _grupos = [];
   Map<String, dynamic>? _grupoSeleccionado;
+
+  // lista de alumnos del grupo seleccionado
+  List<Map<String, dynamic>> _alumnosDelGrupo = [];
+  Map<String, dynamic>? _alumnoSeleccionado;
 
   final ReporteService _reporteService = ReporteService();
 
@@ -48,11 +49,56 @@ class _ReporteIncidenciasScreenState extends State<ReporteIncidenciasScreen> {
           });
         }
       } else {
-        // no bloquear la pantalla si falla; mostrar mensaje breve
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error cargando grupos (${resp.statusCode})')));
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error cargando grupos: $e')));
+    }
+  }
+
+  Future<void> _cargarAlumnosDelGrupo(String grupoId) async {
+    try {
+      final uri = Uri.parse('$apiBaseUrl/grupos/$grupoId/alumnos');
+      final resp = await http.get(uri, headers: {
+        'Authorization': 'Bearer $jwtToken',
+        'Accept': 'application/json',
+      });
+      if (resp.statusCode == 200) {
+        final data = json.decode(resp.body);
+        if (data is List) {
+          setState(() {
+            _alumnosDelGrupo = data.map((e) => e as Map<String, dynamic>).toList();
+            _alumnoSeleccionado = null;
+          });
+          return;
+        }
+      }
+      // fallback
+      final fallback = Uri.parse('$apiBaseUrl/alumnos').replace(queryParameters: {'grupo': grupoId});
+      final resp2 = await http.get(fallback, headers: {
+        'Authorization': 'Bearer $jwtToken',
+        'Accept': 'application/json',
+      });
+      if (resp2.statusCode == 200) {
+        final data = json.decode(resp2.body);
+        if (data is List) {
+          setState(() {
+            _alumnosDelGrupo = data.map((e) => e as Map<String, dynamic>).toList();
+            _alumnoSeleccionado = null;
+          });
+        }
+      } else {
+        setState(() {
+          _alumnosDelGrupo = [];
+          _alumnoSeleccionado = null;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _alumnosDelGrupo = [];
+        _alumnoSeleccionado = null;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error cargando alumnos del grupo: $e')));
     }
   }
 
@@ -68,11 +114,27 @@ class _ReporteIncidenciasScreenState extends State<ReporteIncidenciasScreen> {
           ? (_grupoSeleccionado!['id_grupo'] ?? _grupoSeleccionado!['id'])?.toString()
           : null;
 
+      final alumnoId = _alumnoSeleccionado != null
+          ? (_alumnoSeleccionado!['id'] ?? _alumnoSeleccionado!['id_alumno'])?.toString()
+          : null;
+
+      Map<String, String>? alumnoData;
+      if (_alumnoSeleccionado != null) {
+        alumnoData = {
+          'id': (_alumnoSeleccionado!['id'] ?? _alumnoSeleccionado!['id_alumno'])?.toString() ?? '',
+          'nombre': (_alumnoSeleccionado!['nombres'] ?? _alumnoSeleccionado!['nombre'])?.toString() ?? '',
+          'apellido_paterno': (_alumnoSeleccionado!['apellido_paterno'] ?? '')?.toString() ?? '',
+          'apellido_materno': (_alumnoSeleccionado!['apellido_materno'] ?? '')?.toString() ?? '',
+          'matricula': (_alumnoSeleccionado!['matricula'] ?? '')?.toString() ?? '',
+        };
+      } else {
+        alumnoData = null;
+      }
+
       final result = await _reporteService.consultar(
         grupo: grupoId,
-        nombre: _nombreCtrl.text.isNotEmpty ? _nombreCtrl.text : null,
-        apellidoPaterno: _apPaternoCtrl.text.isNotEmpty ? _apPaternoCtrl.text : null,
-        apellidoMaterno: _apMaternoCtrl.text.isNotEmpty ? _apMaternoCtrl.text : null,
+        alumno: alumnoId,
+        alumnoData: alumnoData,
         email: enviarEmail && _emailCtrl.text.isNotEmpty ? _emailCtrl.text : null,
       );
 
@@ -127,9 +189,6 @@ class _ReporteIncidenciasScreenState extends State<ReporteIncidenciasScreen> {
 
   @override
   void dispose() {
-    _nombreCtrl.dispose();
-    _apPaternoCtrl.dispose();
-    _apMaternoCtrl.dispose();
     _emailCtrl.dispose();
     super.dispose();
   }
@@ -164,20 +223,46 @@ class _ReporteIncidenciasScreenState extends State<ReporteIncidenciasScreen> {
                 child: Text(label.toString()),
               );
             }).toList(),
-            onChanged: (v) => setState(() => _grupoSeleccionado = v),
+            onChanged: (v) async {
+              setState(() {
+                _grupoSeleccionado = v;
+                _alumnosDelGrupo = [];
+                _alumnoSeleccionado = null;
+              });
+              final gid = v != null ? (v['id_grupo'] ?? v['id'])?.toString() : null;
+              if (gid != null) await _cargarAlumnosDelGrupo(gid);
+            },
             isExpanded: true,
           ),
           const SizedBox(height: 8),
-          TextField(controller: _nombreCtrl, decoration: const InputDecoration(labelText: 'Nombre')),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              Expanded(child: TextField(controller: _apPaternoCtrl, decoration: const InputDecoration(labelText: 'Apellido paterno'))),
-              const SizedBox(width: 8),
-              Expanded(child: TextField(controller: _apMaternoCtrl, decoration: const InputDecoration(labelText: 'Apellido materno'))),
-            ],
-          ),
-          const SizedBox(height: 8),
+          // Si hay alumnos del grupo, mostrar dropdown para seleccionar alumno (incluye opción vacía)
+          if (_alumnosDelGrupo.isNotEmpty) ...[
+            DropdownButtonFormField<Map<String, dynamic>?>(
+              value: _alumnoSeleccionado,
+              decoration: const InputDecoration(labelText: 'Alumno'),
+              items: <DropdownMenuItem<Map<String, dynamic>?>>[
+                const DropdownMenuItem<Map<String, dynamic>?>(
+                  value: null,
+                  child: Text('-- Ninguno --'),
+                ),
+                ..._alumnosDelGrupo.map((a) {
+                  final label = '${a['nombres'] ?? a['nombre'] ?? ''} ${a['apellido_paterno'] ?? ''} ${a['apellido_materno'] ?? ''}'.trim();
+                  return DropdownMenuItem<Map<String, dynamic>?>(
+                    value: a,
+                    child: Text(label.isEmpty ? (a['matricula']?.toString() ?? 'Alumno') : label),
+                  );
+                }).toList(),
+              ],
+              onChanged: (Map<String, dynamic>? v) => setState(() => _alumnoSeleccionado = v),
+              isExpanded: true,
+            ),
+            const SizedBox(height: 8),
+          ] else ...[
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 8.0),
+              child: Text('Selecciona un grupo para ver sus alumnos. La búsqueda por nombre/apellidos fue deshabilitada.'),
+            ),
+          ],
           TextField(controller: _emailCtrl, decoration: const InputDecoration(labelText: 'Email (para enviar Excel)')),
           const SizedBox(height: 12),
           Row(

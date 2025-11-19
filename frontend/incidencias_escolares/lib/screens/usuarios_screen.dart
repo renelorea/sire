@@ -10,7 +10,7 @@ class UsuariosScreen extends StatefulWidget {
 
 class _UsuariosScreenState extends State<UsuariosScreen> {
   final _service = UsuarioService();
-  late Future<List<Usuario>> _usuarios;
+  Future<List<Usuario>> _usuarios = Future.value([]);
   List<Usuario> _todos = [];
   final List<String> _roles = ['Todos', 'Profesor', 'Administrador'];
   String _filtroRol = 'Todos';

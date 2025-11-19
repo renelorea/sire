@@ -17,3 +17,18 @@ srv734.hstgr.io
 u893431309_incidencias
 u893431309_usercon
 NTf^C=f8
+
+# This file contains the WSGI configuration required to serve up your
+# web application at http://<your-username>.pythonanywhere.com/
+# It works by setting the variable 'application' to a WSGI handler of some
+# description.
+#
+# The below has been auto-generated for your Flask project
+
+import sys
+path = '/home/perrillo19811/backend/backend'
+if path not in sys.path:
+    sys.path.append(path)
+
+from app import app as application  # Asegúrate que 'app' es el nombre de tu objeto Flask
+import sys

@@ -1,6 +1,7 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify, current_app
 from flask_jwt_extended import jwt_required
 from models.grupos_model import alta_grupo, baja_grupo, cambio_grupo, find_all_grupos, find_grupo_by_id
+from models.alumnos_model import find_alumnos_by_grupo
 
 grupos_bp = Blueprint('grupos_bp', __name__)
 
@@ -136,3 +137,16 @@ def obtener_por_id(id):
         description: Grupo no encontrado
     """
     return find_grupo_by_id(id)
+
+@grupos_bp.route('/api/grupos/<int:id>/alumnos', methods=['GET'])
+@jwt_required()
+def obtener_alumnos_por_grupo(id):
+    """
+    Listar alumnos de un grupo
+    """
+    try:
+        return find_alumnos_by_grupo(id)
+    except Exception as e:
+        # registrar error en el logger de la app y devolver JSON con status 500
+        current_app.logger.exception("Error en find_alumnos_by_grupo(id=%s): %s", id, e)
+        return jsonify({"error": "Error interno al obtener alumnos del grupo", "detail": str(e)}), 500

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/grupo.dart';
 import '../services/grupo_service.dart';
 import 'grupo_form_screen.dart';
+import 'login_screen.dart';
 
 class GruposScreen extends StatefulWidget {
   @override
@@ -10,7 +11,8 @@ class GruposScreen extends StatefulWidget {
 
 class _GruposScreenState extends State<GruposScreen> {
   final _service = GrupoService();
-  late Future<List<Grupo>> _grupos;
+  // Inicializar para que el FutureBuilder no lea una variable no inicializada
+  Future<List<Grupo>> _grupos = Future.value([]);
   List<Grupo> _todos = [];
   List<String> _ciclos = [];
   String? _filtroCiclo;
@@ -21,14 +23,39 @@ class _GruposScreenState extends State<GruposScreen> {
     _cargarGrupos();
   }
 
-  Future<void> _cargarGrupos() async {
-    final grupos = await _service.obtenerGrupos();
-    final ciclos = grupos.map((g) => g.ciclo).toSet().toList()..sort();
-    setState(() {
-      _todos = grupos;
-      _ciclos = ciclos;
-      _aplicarFiltro();
+  void _handleUnauthorized() {
+    // muestra mensaje y redirige al login limpiando la pila
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Sesión expirada. Por favor inicia sesión de nuevo.')),
+    );
+    Future.delayed(const Duration(milliseconds: 800), () {
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (_) => LoginScreen()),
+        (route) => false,
+      );
     });
+  }
+
+  Future<void> _cargarGrupos() async {
+    try {
+      final grupos = await _service.obtenerGrupos();
+      final ciclos = grupos.map((g) => g.ciclo).toSet().toList()..sort();
+      setState(() {
+        _todos = grupos;
+        _ciclos = ciclos;
+        _aplicarFiltro();
+      });
+    } catch (e) {
+      final msg = e.toString().toLowerCase();
+      if (msg.contains('401') || msg.contains('no autorizado') || msg.contains('unauthorized')) {
+        _handleUnauthorized();
+        return;
+      }
+      // error genérico: mostrar mensaje y mantener estado actual
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error cargando grupos: ${e.toString()}')),
+      );
+    }
   }
 
   void _aplicarFiltro() {
@@ -40,11 +67,22 @@ class _GruposScreenState extends State<GruposScreen> {
     }
   }
 
-  void _refrescar() => setState(() => _grupos = _service.obtenerGrupos());
+  void _refrescar() => _cargarGrupos();
 
   void _eliminar(int id) async {
-    await _service.eliminarGrupo(id);
-    await _cargarGrupos();
+    try {
+      await _service.eliminarGrupo(id);
+      await _cargarGrupos();
+    } catch (e) {
+      final msg = e.toString().toLowerCase();
+      if (msg.contains('401') || msg.contains('no autorizado') || msg.contains('unauthorized')) {
+        _handleUnauthorized();
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error eliminando grupo: ${e.toString()}')),
+      );
+    }
   }
 
   @override
@@ -130,6 +168,14 @@ class _GruposScreenState extends State<GruposScreen> {
                       );
                     },
                   );
+                } else if (snapshot.hasError) {
+                  final msg = snapshot.error.toString().toLowerCase();
+                  if (msg.contains('401') || msg.contains('no autorizado') || msg.contains('unauthorized')) {
+                    // si FutureBuilder muestra error de autorización, redirigir
+                    WidgetsBinding.instance.addPostFrameCallback((_) => _handleUnauthorized());
+                    return Center(child: Text('Redirigiendo a login...'));
+                  }
+                  return Center(child: Text('Error cargando grupos'));
                 }
                 return Center(child: CircularProgressIndicator());
               },

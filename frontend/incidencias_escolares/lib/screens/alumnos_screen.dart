@@ -24,7 +24,8 @@ class AlumnosScreen extends StatefulWidget {
 
 class _AlumnosScreenState extends State<AlumnosScreen> {
   final _service = AlumnoService();
-  late Future<List<Alumno>> _alumnos;
+  // Inicializa para que el FutureBuilder no intente leer una variable no inicializada
+  Future<List<Alumno>> _alumnos = Future.value([]);
   List<Alumno> _todos = [];
 
   final _grupoService = GrupoService();

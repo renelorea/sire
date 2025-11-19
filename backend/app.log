@@ -1128,3 +1128,154 @@ smtplib.SMTPAuthenticationError: (534, b'5.7.9 Application-specific password req
 2025-11-17 21:51:27,916 - INFO - 192.168.2.191 - - [17/Nov/2025 21:51:27] "GET /api/reportes HTTP/1.1" 200 -
 2025-11-17 21:51:28,300 - INFO - 192.168.2.191 - - [17/Nov/2025 21:51:28] "GET /api/alumnos HTTP/1.1" 200 -
 2025-11-17 21:51:28,675 - INFO - 192.168.2.191 - - [17/Nov/2025 21:51:28] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-11-19 00:26:20,016 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/alumnos_model.py', reloading
+2025-11-19 00:26:22,277 - INFO -  * Restarting with stat
+2025-11-19 00:26:34,546 - WARNING -  * Debugger is active!
+2025-11-19 00:26:34,563 - INFO -  * Debugger PIN: 149-262-596
+2025-11-19 00:28:38,795 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/alumnos_model.py', reloading
+2025-11-19 00:28:38,934 - INFO -  * Restarting with stat
+2025-11-19 00:28:39,665 - WARNING -  * Debugger is active!
+2025-11-19 00:28:39,675 - INFO -  * Debugger PIN: 149-262-596
+2025-11-19 00:29:13,348 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/grupos_controller.py', reloading
+2025-11-19 00:29:13,481 - INFO -  * Restarting with stat
+2025-11-19 00:29:14,203 - WARNING -  * Debugger is active!
+2025-11-19 00:29:14,210 - INFO -  * Debugger PIN: 149-262-596
+2025-11-19 00:29:20,333 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/grupos_controller.py', reloading
+2025-11-19 00:29:20,555 - INFO -  * Restarting with stat
+2025-11-19 00:29:21,389 - WARNING -  * Debugger is active!
+2025-11-19 00:29:21,399 - INFO -  * Debugger PIN: 149-262-596
+2025-11-19 00:37:21,146 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-11-19 00:37:21,146 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-19 00:37:21,147 - INFO -  * Restarting with stat
+2025-11-19 00:37:21,817 - WARNING -  * Debugger is active!
+2025-11-19 00:37:21,827 - INFO -  * Debugger PIN: 149-262-596
+2025-11-19 00:39:52,790 - INFO - 192.168.2.121 - - [19/Nov/2025 00:39:52] "POST /api/login HTTP/1.1" 200 -
+2025-11-19 00:40:01,402 - INFO - 192.168.2.121 - - [19/Nov/2025 00:40:01] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-19 00:40:06,234 - INFO - 192.168.2.121 - - [19/Nov/2025 00:40:06] "[35m[1mGET /api/grupos/2/alumnos HTTP/1.1[0m" 500 -
+2025-11-19 00:40:06,676 - INFO - 192.168.2.121 - - [19/Nov/2025 00:40:06] "GET /api/alumnos?grupo=2 HTTP/1.1" 200 -
+2025-11-19 00:40:17,786 - INFO - 192.168.2.121 - - [19/Nov/2025 00:40:17] "GET /api/reportes/reporte?grupo=2&alumno=2 HTTP/1.1" 200 -
+2025-11-19 00:40:42,068 - INFO - 192.168.2.121 - - [19/Nov/2025 00:40:42] "[35m[1mGET /api/grupos/3/alumnos HTTP/1.1[0m" 500 -
+2025-11-19 00:40:42,468 - INFO - 192.168.2.121 - - [19/Nov/2025 00:40:42] "GET /api/alumnos?grupo=3 HTTP/1.1" 200 -
+2025-11-19 00:40:44,229 - INFO - 192.168.2.121 - - [19/Nov/2025 00:40:44] "[35m[1mGET /api/grupos/1/alumnos HTTP/1.1[0m" 500 -
+2025-11-19 00:40:44,777 - INFO - 192.168.2.121 - - [19/Nov/2025 00:40:44] "GET /api/alumnos?grupo=1 HTTP/1.1" 200 -
+2025-11-19 00:41:08,877 - INFO - 192.168.2.121 - - [19/Nov/2025 00:41:08] "GET /api/usuarios HTTP/1.1" 200 -
+2025-11-19 08:02:24,265 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.107:5000
+2025-11-19 08:02:24,265 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-19 08:02:24,267 - INFO -  * Restarting with stat
+2025-11-19 08:02:25,022 - WARNING -  * Debugger is active!
+2025-11-19 08:02:25,033 - INFO -  * Debugger PIN: 149-262-596
+2025-11-19 08:05:55,596 - INFO - 192.168.1.107 - - [19/Nov/2025 08:05:55] "POST /api/login HTTP/1.1" 200 -
+2025-11-19 08:06:01,111 - INFO - 192.168.1.107 - - [19/Nov/2025 08:06:01] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-19 08:06:07,543 - INFO - 192.168.1.107 - - [19/Nov/2025 08:06:07] "[35m[1mGET /api/grupos/1/alumnos HTTP/1.1[0m" 500 -
+2025-11-19 08:06:08,124 - INFO - 192.168.1.107 - - [19/Nov/2025 08:06:08] "GET /api/alumnos?grupo=1 HTTP/1.1" 200 -
+2025-11-19 08:06:18,844 - INFO - 192.168.1.107 - - [19/Nov/2025 08:06:18] "GET /api/reportes/reporte?grupo=1&alumno=1 HTTP/1.1" 200 -
+2025-11-19 08:07:14,978 - INFO - 192.168.1.107 - - [19/Nov/2025 08:07:14] "GET /api/reportes/reporte?grupo=1&alumno=1&email=segundoacren81@hotmail.com HTTP/1.1" 200 -
+2025-11-19 08:12:31,521 - INFO - 127.0.0.1 - - [19/Nov/2025 08:12:31] "POST /api/login HTTP/1.1" 200 -
+2025-11-19 08:13:09,056 - INFO - 127.0.0.1 - - [19/Nov/2025 08:13:09] "POST /api/login HTTP/1.1" 200 -
+2025-11-19 08:13:40,866 - INFO - 127.0.0.1 - - [19/Nov/2025 08:13:40] "[35m[1mGET /api/grupos/1/alumnos HTTP/1.1[0m" 500 -
+2025-11-19 08:19:59,464 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/grupos_controller.py', reloading
+2025-11-19 08:20:00,380 - INFO -  * Restarting with stat
+2025-11-19 08:20:01,504 - WARNING -  * Debugger is active!
+2025-11-19 08:20:01,514 - INFO -  * Debugger PIN: 149-262-596
+2025-11-19 08:20:05,588 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/grupos_controller.py', reloading
+2025-11-19 08:20:05,726 - INFO -  * Restarting with stat
+2025-11-19 08:20:06,466 - WARNING -  * Debugger is active!
+2025-11-19 08:20:06,474 - INFO -  * Debugger PIN: 149-262-596
+2025-11-19 08:20:53,200 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.107:5000
+2025-11-19 08:20:53,201 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-19 08:20:53,202 - INFO -  * Restarting with stat
+2025-11-19 08:20:53,932 - WARNING -  * Debugger is active!
+2025-11-19 08:20:53,941 - INFO -  * Debugger PIN: 149-262-596
+2025-11-19 08:21:01,141 - INFO - 127.0.0.1 - - [19/Nov/2025 08:21:01] "POST /api/login HTTP/1.1" 200 -
+2025-11-19 08:21:14,963 - ERROR - Error en find_alumnos_by_grupo(id=1): (1054, "Unknown column 'id' in 'SELECT'")
+Traceback (most recent call last):
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/grupos_controller.py", line 148, in obtener_alumnos_por_grupo
+    return find_alumnos_by_grupo(id)
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/alumnos_model.py", line 169, in find_alumnos_by_grupo
+    cursor.execute(sql, (grupo_id,))
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'id' in 'SELECT'")
+2025-11-19 08:21:14,967 - INFO - 127.0.0.1 - - [19/Nov/2025 08:21:14] "[35m[1mGET /api/grupos/1/alumnos HTTP/1.1[0m" 500 -
+2025-11-19 08:25:39,843 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/alumnos_model.py', reloading
+2025-11-19 08:25:40,046 - INFO -  * Restarting with stat
+2025-11-19 08:25:41,732 - WARNING -  * Debugger is active!
+2025-11-19 08:25:41,750 - INFO -  * Debugger PIN: 149-262-596
+2025-11-19 08:28:51,492 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/alumnos_model.py', reloading
+2025-11-19 08:28:51,669 - INFO -  * Restarting with stat
+2025-11-19 08:28:52,829 - WARNING -  * Debugger is active!
+2025-11-19 08:28:52,841 - INFO -  * Debugger PIN: 149-262-596
+2025-11-19 08:29:06,628 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.107:5000
+2025-11-19 08:29:06,628 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-19 08:29:06,629 - INFO -  * Restarting with stat
+2025-11-19 08:29:07,325 - WARNING -  * Debugger is active!
+2025-11-19 08:29:07,332 - INFO -  * Debugger PIN: 149-262-596
+2025-11-19 08:29:19,738 - INFO - 127.0.0.1 - - [19/Nov/2025 08:29:19] "POST /api/login HTTP/1.1" 200 -
+2025-11-19 08:30:22,462 - INFO - 127.0.0.1 - - [19/Nov/2025 08:30:22] "GET /api/grupos/1/alumnos HTTP/1.1" 200 -
+2025-11-19 08:30:33,549 - INFO - 127.0.0.1 - - [19/Nov/2025 08:30:33] "GET /api/grupos/2/alumnos HTTP/1.1" 200 -
+2025-11-19 08:30:42,166 - INFO - 127.0.0.1 - - [19/Nov/2025 08:30:42] "GET /api/grupos/3/alumnos HTTP/1.1" 200 -
+2025-11-19 08:30:57,348 - INFO - 192.168.1.107 - - [19/Nov/2025 08:30:57] "[31m[1mGET /api/alumnos HTTP/1.1[0m" 401 -
+2025-11-19 08:30:57,349 - INFO - 192.168.1.107 - - [19/Nov/2025 08:30:57] "[31m[1mGET /api/grupos HTTP/1.1[0m" 401 -
+2025-11-19 08:31:06,251 - INFO - 192.168.1.107 - - [19/Nov/2025 08:31:06] "[31m[1mGET /api/usuarios HTTP/1.1[0m" 401 -
+2025-11-19 08:31:47,423 - INFO - 192.168.1.107 - - [19/Nov/2025 08:31:47] "POST /api/login HTTP/1.1" 200 -
+2025-11-19 08:31:51,394 - INFO - 192.168.1.107 - - [19/Nov/2025 08:31:51] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-19 08:31:55,934 - INFO - 192.168.1.107 - - [19/Nov/2025 08:31:55] "GET /api/grupos/2/alumnos HTTP/1.1" 200 -
+2025-11-19 08:31:58,999 - INFO - 192.168.1.107 - - [19/Nov/2025 08:31:58] "GET /api/grupos/1/alumnos HTTP/1.1" 200 -
+2025-11-19 08:32:03,621 - INFO - 192.168.1.107 - - [19/Nov/2025 08:32:03] "GET /api/reportes/reporte?grupo=1&alumno=1 HTTP/1.1" 200 -
+2025-11-19 08:36:42,558 - INFO - 127.0.0.1 - - [19/Nov/2025 08:36:42] "GET /api/grupos/1/alumnos HTTP/1.1" 200 -
+2025-11-19 08:45:59,208 - INFO - 192.168.1.107 - - [19/Nov/2025 08:45:59] "POST /api/login HTTP/1.1" 200 -
+2025-11-19 08:46:02,499 - INFO - 192.168.1.107 - - [19/Nov/2025 08:46:02] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-19 08:46:09,161 - INFO - 192.168.1.107 - - [19/Nov/2025 08:46:09] "GET /api/grupos/2/alumnos HTTP/1.1" 200 -
+2025-11-19 08:46:16,889 - INFO - 192.168.1.107 - - [19/Nov/2025 08:46:16] "GET /api/grupos/1/alumnos HTTP/1.1" 200 -
+2025-11-19 08:46:22,090 - INFO - 192.168.1.107 - - [19/Nov/2025 08:46:22] "GET /api/reportes/reporte?grupo=1&alumno=1 HTTP/1.1" 200 -
+2025-11-19 08:52:02,471 - INFO - 192.168.1.107 - - [19/Nov/2025 08:52:02] "POST /api/login HTTP/1.1" 200 -
+2025-11-19 08:52:09,246 - INFO - 192.168.1.107 - - [19/Nov/2025 08:52:09] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-19 08:52:13,105 - INFO - 192.168.1.107 - - [19/Nov/2025 08:52:13] "GET /api/grupos/1/alumnos HTTP/1.1" 200 -
+2025-11-19 08:52:16,826 - INFO - 192.168.1.107 - - [19/Nov/2025 08:52:16] "GET /api/reportes/reporte?grupo=1 HTTP/1.1" 200 -
+2025-11-19 08:52:30,123 - INFO - 192.168.1.107 - - [19/Nov/2025 08:52:30] "GET /api/reportes/reporte?grupo=1&alumno=1&alumno_id=1&alumno_nombre=Juan&alumno_apellido_paterno=Pérez&alumno_apellido_materno=García&alumno_matricula=A012345 HTTP/1.1" 200 -
+2025-11-19 09:04:08,068 - INFO - 192.168.1.107 - - [19/Nov/2025 09:04:08] "POST /api/login HTTP/1.1" 200 -
+2025-11-19 09:04:10,915 - INFO - 192.168.1.107 - - [19/Nov/2025 09:04:10] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-19 09:04:18,685 - INFO - 192.168.1.107 - - [19/Nov/2025 09:04:18] "GET /api/grupos/1/alumnos HTTP/1.1" 200 -
+2025-11-19 09:04:26,360 - INFO - 192.168.1.107 - - [19/Nov/2025 09:04:26] "GET /api/reportes/reporte?grupo=1 HTTP/1.1" 200 -
+2025-11-19 09:04:37,230 - INFO - 192.168.1.107 - - [19/Nov/2025 09:04:37] "GET /api/reportes/reporte?grupo=1&alumno=1&alumno_id=1&alumno_nombre=Juan&alumno_apellido_paterno=Pérez&alumno_apellido_materno=García&alumno_matricula=A012345 HTTP/1.1" 200 -
+2025-11-19 09:14:08,997 - INFO - 127.0.0.1 - - [19/Nov/2025 09:14:08] "POST /api/login HTTP/1.1" 200 -
+2025-11-19 09:15:27,371 - INFO - 127.0.0.1 - - [19/Nov/2025 09:15:27] "GET /api/reportes/reporte?grupo=1&alumno=1&alumno_id=1&alumno_nombre=Juan&alumno_apellido_paterno=Pérez&alumno_apellido_materno=García&alumno_matricula=A012345 HTTP/1.1" 200 -
+2025-11-19 09:18:34,607 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/reportes_controller.py', reloading
+2025-11-19 09:18:35,215 - INFO -  * Restarting with stat
+2025-11-19 09:18:36,435 - WARNING -  * Debugger is active!
+2025-11-19 09:18:36,449 - INFO -  * Debugger PIN: 149-262-596
+2025-11-19 09:18:49,892 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.107:5000
+2025-11-19 09:18:49,892 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-19 09:18:49,893 - INFO -  * Restarting with stat
+2025-11-19 09:18:50,596 - WARNING -  * Debugger is active!
+2025-11-19 09:18:50,607 - INFO -  * Debugger PIN: 149-262-596
+2025-11-19 09:19:33,306 - INFO - 192.168.1.107 - - [19/Nov/2025 09:19:33] "POST /api/login HTTP/1.1" 200 -
+2025-11-19 09:19:35,532 - INFO - 192.168.1.107 - - [19/Nov/2025 09:19:35] "GET /api/grupos HTTP/1.1" 200 -
+2025-11-19 09:19:40,193 - INFO - 192.168.1.107 - - [19/Nov/2025 09:19:40] "GET /api/grupos/1/alumnos HTTP/1.1" 200 -
+2025-11-19 09:19:48,172 - INFO - 192.168.1.107 - - [19/Nov/2025 09:19:48] "GET /api/reportes/reporte?grupo=1&alumno=1&alumno_id=1&alumno_nombre=Juan&alumno_apellido_paterno=Pérez&alumno_apellido_materno=García&alumno_matricula=A012345 HTTP/1.1" 200 -
+2025-11-19 09:19:57,826 - INFO - 192.168.1.107 - - [19/Nov/2025 09:19:57] "GET /api/reportes/reporte?grupo=1&alumno=2&alumno_id=2&alumno_nombre=Sofía1&alumno_apellido_paterno=López&alumno_apellido_materno=Mora&alumno_matricula=A012346 HTTP/1.1" 200 -
+2025-11-19 09:20:03,171 - INFO - 192.168.1.107 - - [19/Nov/2025 09:20:03] "GET /api/reportes/reporte?grupo=1&alumno=11&alumno_id=11&alumno_nombre=María&alumno_apellido_paterno=Lopez&alumno_apellido_materno=García&alumno_matricula=2021001 HTTP/1.1" 200 -
+2025-11-19 09:20:08,400 - INFO - 192.168.1.107 - - [19/Nov/2025 09:20:08] "GET /api/reportes/reporte?grupo=1&alumno=2&alumno_id=2&alumno_nombre=Sofía1&alumno_apellido_paterno=López&alumno_apellido_materno=Mora&alumno_matricula=A012346 HTTP/1.1" 200 -
+2025-11-19 09:20:50,800 - INFO - 192.168.1.107 - - [19/Nov/2025 09:20:50] "GET /api/reportes/reporte?grupo=1&alumno=2&alumno_id=2&alumno_nombre=Sofía1&alumno_apellido_paterno=López&alumno_apellido_materno=Mora&alumno_matricula=A012346&email=segundoacren81@hotmail.com HTTP/1.1" 200 -

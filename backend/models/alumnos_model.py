@@ -158,5 +158,20 @@ def importar_alumnos(records):
             pass
         return 0
 
+def find_alumnos_by_grupo(grupo_id):
+    """
+    Retorna lista JSON de alumnos que pertenezcan al grupo `grupo_id`.
+    Implementar según el acceso a BD que ya uses (ej. SQLAlchemy, pymysql, etc.).
+    Ejemplo con cursor raw:
+    """
+    cursor = mysql.connection.cursor()
+    sql = "SELECT id_alumno, nombres, apellido_paterno, apellido_materno, matricula, fecha_nacimiento, sexo FROM alumnos WHERE id_grupo=%s"
+    cursor.execute(sql, (grupo_id,))
+    rows = cursor.fetchall()
+    cols = [desc[0] for desc in cursor.description]
+    data = [dict(zip(cols, row)) for row in rows]
+    cursor.close()
+    return jsonify(data), 200
+
 
 

@@ -175,9 +175,9 @@ def reporte_buscar():
     Query params (opcionales): grupo, nombre, apellido_paterno, apellido_materno
     """
     grupo = request.args.get('grupo')
-    nombre = request.args.get('nombre')
-    apellido_paterno = request.args.get('apellido_paterno')
-    apellido_materno = request.args.get('apellido_materno')
+    nombre = request.args.get('alumno_nombre')
+    apellido_paterno = request.args.get('alumno_apellido_paterno')
+    apellido_materno = request.args.get('alumno_apellido_materno')
     email_to = request.args.get('email')  # si se proporciona, se enviará el Excel por correo
 
     # Obtener datos desde el modelo
