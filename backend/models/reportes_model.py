@@ -1,27 +1,49 @@
-from flask import jsonify
+from flask import jsonify, current_app
 from database.connection import mysql
 from MySQLdb.cursors import DictCursor
+from datetime import datetime
 
 def alta_reporte(datos):
     cursor = mysql.connection.cursor()
-    cursor.execute("""
-        INSERT INTO reportes_incidencias (
-            folio, id_alumno, id_usuario_que_reporta, id_tipo_reporte,
-            descripcion_hechos, acciones_tomadas, fecha_incidencia, estatus
-        ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-    """, (
-        datos['folio'],
-        datos['id_alumno'],
-        datos['id_usuario_que_reporta'],
-        datos['id_tipo_reporte'],
-        datos['descripcion_hechos'],
-        datos.get('acciones_tomadas'),
-        datos['fecha_incidencia'],
-        datos.get('estatus', 'Abierto')
-    ))
-    mysql.connection.commit()
-    cursor.close()
-    return jsonify({"msg": "Reporte creado"}), 201
+    try:
+        # Generar folio si no viene en los datos: formato REP-Año-consecutivo
+        folio = datos.get('folio')
+        if not folio or str(folio).strip() == '':
+            year = datetime.now().year
+            like_pattern = f"REP-{year}-%"
+            cursor.execute(
+                "SELECT MAX(CAST(SUBSTRING_INDEX(folio,'-',-1) AS UNSIGNED)) FROM reportes_incidencias WHERE folio LIKE %s",
+                (like_pattern,)
+            )
+            row = cursor.fetchone()
+            maxn = row[0] if row and row[0] is not None else 0
+            folio = f"REP-{year}-{maxn + 1}"
+
+        cursor.execute("""
+            INSERT INTO reportes_incidencias (
+                folio, id_alumno, id_usuario_que_reporta, id_tipo_reporte,
+                descripcion_hechos, acciones_tomadas, fecha_incidencia, estatus
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        """, (
+            folio,
+            datos['id_alumno'],
+            datos['id_usuario_que_reporta'],
+            datos['id_tipo_reporte'],
+            datos['descripcion_hechos'],
+            datos.get('acciones_tomadas'),
+            datos['fecha_incidencia'],
+            datos.get('estatus', 'Abierto')
+        ))
+        mysql.connection.commit()
+        cursor.close()
+        return jsonify({"msg": "Reporte creado", "folio": folio}), 201
+    except Exception as e:
+        try:
+            cursor.close()
+        except Exception:
+            pass
+        current_app.logger.exception("Error en alta_reporte: %s", e)
+        return jsonify({"error": "Error interno al crear reporte", "detail": str(e)}), 500
 
 def baja_reporte(id):
     cursor = mysql.connection.cursor()
