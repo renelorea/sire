@@ -18,7 +18,8 @@ class _ReportesScreenState extends State<ReportesScreen> {
   Future<List<Reporte>> _reportes = Future.value([]);
   List<Reporte> _todos = [];
 
-  List<Alumno> _alumnos = [];
+  List<Alumno> _alumnos = []; // lista completa
+  List<Alumno> _alumnosFiltrados = []; // lista para el dropdown (filtrada por búsqueda)
   List<TipoReporte> _tipos = [];
   final List<String> _estatuses = ['Abierto', 'En Seguimiento', 'Cerrado'];
 
@@ -26,10 +27,13 @@ class _ReportesScreenState extends State<ReportesScreen> {
   TipoReporte? _filtroTipo;
   String? _filtroEstatus;
 
+  final TextEditingController _alumnoBusquedaCtrl = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     _cargarDatos();
+    _alumnoBusquedaCtrl.addListener(_aplicarFiltroAlumnos);
   }
 
   Future<void> _cargarDatos() async {
@@ -41,6 +45,7 @@ class _ReportesScreenState extends State<ReportesScreen> {
       _todos = reportes;
       _reportes = Future.value(reportes);
       _alumnos = alumnos;
+      _alumnosFiltrados = List.from(alumnos);
       _tipos = tipos;
     });
 
@@ -49,6 +54,25 @@ class _ReportesScreenState extends State<ReportesScreen> {
     for (var r in reportes) {
       print('Folio: ${r.folio}, Alumno: ${r.alumno.id} ${r.alumno.nombre} ${r.alumno.apaterno}, Tipo: ${r.tipoReporte.id} ${r.tipoReporte.nombre}, Estatus: ${r.estatus}');
     }
+  }
+
+  void _aplicarFiltroAlumnos() {
+    final q = _alumnoBusquedaCtrl.text.toLowerCase().trim();
+    setState(() {
+      if (q.isEmpty) {
+        _alumnosFiltrados = List.from(_alumnos);
+      } else {
+        _alumnosFiltrados = _alumnos.where((a) {
+          final full = '${a.nombre} ${a.apaterno} ${a.amaterno} ${a.matricula}'.toLowerCase();
+          return full.contains(q);
+        }).toList();
+      }
+      // si la selección actual no está en la lista filtrada, resetear para evitar error en Dropdown
+      if (_filtroAlumno != null) {
+        final existe = _alumnosFiltrados.any((a) => a.id == _filtroAlumno!.id);
+        if (!existe) _filtroAlumno = null;
+      }
+    });
   }
 
   void _filtrar() {
@@ -74,14 +98,25 @@ class _ReportesScreenState extends State<ReportesScreen> {
       _filtroAlumno = null;
       _filtroTipo = null;
       _filtroEstatus = null;
+      _alumnoBusquedaCtrl.clear();
+      _alumnosFiltrados = List.from(_alumnos);
       _reportes = Future.value(_todos);
     });
+  }
+
+  @override
+  void dispose() {
+    _alumnoBusquedaCtrl.removeListener(_aplicarFiltroAlumnos);
+    _alumnoBusquedaCtrl.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // asegura que la flecha de retorno (íconos del AppBar) sea blanca
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.transparent,
         elevation: 0,
         flexibleSpace: Container(
@@ -101,20 +136,31 @@ class _ReportesScreenState extends State<ReportesScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: Column(
               children: [
+                // Campo de búsqueda para alumnos (nuevo)
+                TextField(
+                  controller: _alumnoBusquedaCtrl,
+                  decoration: InputDecoration(
+                    labelText: 'Buscar alumno',
+                    prefixIcon: Icon(Icons.search),
+                  ),
+                ),
+                const SizedBox(height: 8),
+
                 DropdownButtonFormField<Alumno>(
                   value: _filtroAlumno,
                   decoration: InputDecoration(labelText: 'Filtrar por alumno'),
-                  items: _alumnos.map((a) {
+                  items: _alumnosFiltrados.map((a) {
                     return DropdownMenuItem(
                       value: a,
                       child: Text('${a.nombre} ${a.apaterno}'),
                     );
                   }).toList(),
                   onChanged: (value) {
-                    _filtroAlumno = value;
+                    setState(() => _filtroAlumno = value);
                     _filtrar();
                   },
                 ),
+                const SizedBox(height: 8),
                 DropdownButtonFormField<TipoReporte>(
                   value: _filtroTipo,
                   decoration: InputDecoration(labelText: 'Filtrar por tipo de reporte'),
@@ -125,10 +171,11 @@ class _ReportesScreenState extends State<ReportesScreen> {
                     );
                   }).toList(),
                   onChanged: (value) {
-                    _filtroTipo = value;
+                    setState(() => _filtroTipo = value);
                     _filtrar();
                   },
                 ),
+                const SizedBox(height: 8),
                 DropdownButtonFormField<String>(
                   value: _filtroEstatus,
                   decoration: InputDecoration(labelText: 'Filtrar por estatus'),
@@ -139,7 +186,7 @@ class _ReportesScreenState extends State<ReportesScreen> {
                     );
                   }).toList(),
                   onChanged: (value) {
-                    _filtroEstatus = value;
+                    setState(() => _filtroEstatus = value);
                     _filtrar();
                   },
                 ),

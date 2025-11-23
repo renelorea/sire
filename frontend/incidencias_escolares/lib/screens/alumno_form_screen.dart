@@ -99,13 +99,36 @@ class _AlumnoFormScreenState extends State<AlumnoFormScreen> {
       sexo: _sexo,
     );
 
-    if (widget.alumno == null) {
-      await _alumnoService.crearAlumno(nuevo);
-    } else {
-      await _alumnoService.editarAlumno(nuevo);
-    }
+    try {
+      if (widget.alumno == null) {
+        await _alumnoService.crearAlumno(nuevo);
+      } else {
+        await _alumnoService.editarAlumno(nuevo);
+      }
 
-    Navigator.pop(context, true);
+      // Mostrar diálogo de confirmación
+      await showDialog<void>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(widget.alumno == null ? 'Alumno creado' : 'Alumno actualizado'),
+          content: Text(widget.alumno == null 
+              ? 'El alumno se creó correctamente.' 
+              : 'El alumno se actualizó correctamente.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+
+      Navigator.pop(context, true);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error al guardar el alumno: $e')),
+      );
+    }
   }
 
   @override
@@ -122,6 +145,7 @@ class _AlumnoFormScreenState extends State<AlumnoFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.transparent,
         elevation: 0,
         flexibleSpace: Container(

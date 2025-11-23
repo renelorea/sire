@@ -46,12 +46,34 @@ class _UsuarioFormScreenState extends State<UsuarioFormScreen> {
         contrasena: _contrasenaController.text,
         rol: _rol,
       );
-      await _service.crearUsuario(nuevo);
-      Navigator.pop(context);
+      try {
+        await _service.crearUsuario(nuevo);
+
+        // Mostrar diálogo de confirmación
+        await showDialog<void>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Usuario creado'),
+            content: const Text('El usuario se creó correctamente.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+
+        Navigator.pop(context);
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error al crear el usuario: $e')),
+        );
+      }
     }
   }
 
-void _actualizarUsuario() async {
+  void _actualizarUsuario() async {
     if (_formKey.currentState!.validate()) {
       final nuevo = Usuario(
         id: widget.usuario?.id ?? 0,
@@ -62,16 +84,38 @@ void _actualizarUsuario() async {
         contrasena: _contrasenaController.text,
         rol: _rol,
       );
-      await _service.editUsuario(nuevo);
-      Navigator.pop(context);
+      try {
+        await _service.editUsuario(nuevo);
+
+        // Mostrar diálogo de confirmación
+        await showDialog<void>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Usuario actualizado'),
+            content: const Text('El usuario se actualizó correctamente.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+
+        Navigator.pop(context);
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error al actualizar el usuario: $e')),
+        );
+      }
     }
   }
-  
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.transparent,
         elevation: 0,
         flexibleSpace: Container(
@@ -130,16 +174,16 @@ void _actualizarUsuario() async {
               ),
               SizedBox(height: 20),
               widget.usuario == null
-                ? ElevatedButton(
-                    onPressed: _guardar,
-                    child: Text('Guardar'),
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
-                  )
-                : ElevatedButton(
-                    onPressed: _actualizarUsuario,
-                    child: Text('Actualizar'),
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-                  ),
+                  ? ElevatedButton(
+                      onPressed: _guardar,
+                      child: Text('Guardar'),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                    )
+                  : ElevatedButton(
+                      onPressed: _actualizarUsuario,
+                      child: Text('Actualizar'),
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                    ),
             ],
           ),
         ),

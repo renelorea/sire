@@ -23,7 +23,8 @@ class _ReporteIncidenciasScreenState extends State<ReporteIncidenciasScreen> {
 
   // lista de alumnos del grupo seleccionado
   List<Map<String, dynamic>> _alumnosDelGrupo = [];
-  Map<String, dynamic>? _alumnoSeleccionado;
+  // ahora guardamos sólo el id seleccionado (String) para evitar duplicados en Dropdown
+  String? _alumnoSeleccionadoId;
 
   final ReporteService _reporteService = ReporteService();
 
@@ -68,7 +69,7 @@ class _ReporteIncidenciasScreenState extends State<ReporteIncidenciasScreen> {
         if (data is List) {
           setState(() {
             _alumnosDelGrupo = data.map((e) => e as Map<String, dynamic>).toList();
-            _alumnoSeleccionado = null;
+            _alumnoSeleccionadoId = null;
           });
           return;
         }
@@ -84,19 +85,19 @@ class _ReporteIncidenciasScreenState extends State<ReporteIncidenciasScreen> {
         if (data is List) {
           setState(() {
             _alumnosDelGrupo = data.map((e) => e as Map<String, dynamic>).toList();
-            _alumnoSeleccionado = null;
+            _alumnoSeleccionadoId = null;
           });
         }
       } else {
         setState(() {
           _alumnosDelGrupo = [];
-          _alumnoSeleccionado = null;
+          _alumnoSeleccionadoId = null;
         });
       }
     } catch (e) {
       setState(() {
         _alumnosDelGrupo = [];
-        _alumnoSeleccionado = null;
+        _alumnoSeleccionadoId = null;
       });
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error cargando alumnos del grupo: $e')));
     }
@@ -114,19 +115,22 @@ class _ReporteIncidenciasScreenState extends State<ReporteIncidenciasScreen> {
           ? (_grupoSeleccionado!['id_grupo'] ?? _grupoSeleccionado!['id'])?.toString()
           : null;
 
-      final alumnoId = _alumnoSeleccionado != null
-          ? (_alumnoSeleccionado!['id'] ?? _alumnoSeleccionado!['id_alumno'])?.toString()
-          : null;
+      final alumnoId = _alumnoSeleccionadoId;
 
       Map<String, String>? alumnoData;
-      if (_alumnoSeleccionado != null) {
-        alumnoData = {
-          'id': (_alumnoSeleccionado!['id'] ?? _alumnoSeleccionado!['id_alumno'])?.toString() ?? '',
-          'nombre': (_alumnoSeleccionado!['nombres'] ?? _alumnoSeleccionado!['nombre'])?.toString() ?? '',
-          'apellido_paterno': (_alumnoSeleccionado!['apellido_paterno'] ?? '')?.toString() ?? '',
-          'apellido_materno': (_alumnoSeleccionado!['apellido_materno'] ?? '')?.toString() ?? '',
-          'matricula': (_alumnoSeleccionado!['matricula'] ?? '')?.toString() ?? '',
-        };
+      if (alumnoId != null) {
+        final sel = _alumnosDelGrupo.firstWhere(
+            (a) => (a['id'] ?? a['id_alumno'])?.toString() == alumnoId,
+            orElse: () => <String, dynamic>{});
+        if (sel.isNotEmpty) {
+          alumnoData = {
+            'id': (sel['id'] ?? sel['id_alumno'])?.toString() ?? '',
+            'nombre': (sel['nombres'] ?? sel['nombre'])?.toString() ?? '',
+            'apellido_paterno': (sel['apellido_paterno'] ?? '')?.toString() ?? '',
+            'apellido_materno': (sel['apellido_materno'] ?? '')?.toString() ?? '',
+            'matricula': (sel['matricula'] ?? '')?.toString() ?? '',
+          };
+        }
       } else {
         alumnoData = null;
       }
@@ -227,7 +231,7 @@ class _ReporteIncidenciasScreenState extends State<ReporteIncidenciasScreen> {
               setState(() {
                 _grupoSeleccionado = v;
                 _alumnosDelGrupo = [];
-                _alumnoSeleccionado = null;
+                _alumnoSeleccionadoId = null;
               });
               final gid = v != null ? (v['id_grupo'] ?? v['id'])?.toString() : null;
               if (gid != null) await _cargarAlumnosDelGrupo(gid);
@@ -237,23 +241,25 @@ class _ReporteIncidenciasScreenState extends State<ReporteIncidenciasScreen> {
           const SizedBox(height: 8),
           // Si hay alumnos del grupo, mostrar dropdown para seleccionar alumno (incluye opción vacía)
           if (_alumnosDelGrupo.isNotEmpty) ...[
-            DropdownButtonFormField<Map<String, dynamic>?>(
-              value: _alumnoSeleccionado,
+            // ahora Dropdown usa el id (String) como value para garantizar unicidad
+            DropdownButtonFormField<String?>(
+              value: _alumnoSeleccionadoId,
               decoration: const InputDecoration(labelText: 'Alumno'),
-              items: <DropdownMenuItem<Map<String, dynamic>?>>[
-                const DropdownMenuItem<Map<String, dynamic>?>(
+              items: <DropdownMenuItem<String?>>[
+                const DropdownMenuItem<String?>(
                   value: null,
                   child: Text('-- Ninguno --'),
                 ),
                 ..._alumnosDelGrupo.map((a) {
+                  final idStr = (a['id'] ?? a['id_alumno'])?.toString();
                   final label = '${a['nombres'] ?? a['nombre'] ?? ''} ${a['apellido_paterno'] ?? ''} ${a['apellido_materno'] ?? ''}'.trim();
-                  return DropdownMenuItem<Map<String, dynamic>?>(
-                    value: a,
+                  return DropdownMenuItem<String?>(
+                    value: idStr,
                     child: Text(label.isEmpty ? (a['matricula']?.toString() ?? 'Alumno') : label),
                   );
                 }).toList(),
               ],
-              onChanged: (Map<String, dynamic>? v) => setState(() => _alumnoSeleccionado = v),
+              onChanged: (String? v) => setState(() => _alumnoSeleccionadoId = v),
               isExpanded: true,
             ),
             const SizedBox(height: 8),

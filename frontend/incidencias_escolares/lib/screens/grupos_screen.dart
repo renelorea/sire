@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../models/grupo.dart';
 import '../services/grupo_service.dart';
 import 'grupo_form_screen.dart';
+import 'grupo_detalle_screen.dart';
 import 'login_screen.dart';
 
 class GruposScreen extends StatefulWidget {
@@ -154,6 +155,18 @@ class _GruposScreenState extends State<GruposScreen> {
                         trailing: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            IconButton(
+                              icon: Icon(Icons.info),
+                              tooltip: 'Ver detalles',
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (_) => GrupoDetalleScreen(grupo: g),
+                                  ),
+                                );
+                              },
+                            ),
                             IconButton(icon: Icon(Icons.edit), onPressed: () {
                               Navigator.push(
                                 context,

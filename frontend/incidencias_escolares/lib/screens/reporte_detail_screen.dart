@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../models/reporte.dart';
 import '../models/seguimiento.dart';
 import '../services/seguimiento_service.dart';
@@ -51,6 +52,7 @@ class _ReporteDetailScreenState extends State<ReporteDetailScreen> {
       initialDate: _fecha,
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
+      locale: const Locale('es', 'ES'), // muestra el picker en español
     );
     if (picked != null) setState(() => _fecha = picked);
   }
@@ -77,9 +79,23 @@ class _ReporteDetailScreenState extends State<ReporteDetailScreen> {
     setState(() => _guardando = false);
 
     if (ok) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Seguimiento guardado correctamente')));
+      // Mostrar diálogo de confirmación y luego cerrar pasando true
+      await showDialog<void>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Seguimiento guardado'),
+          content: const Text('El seguimiento se guardó correctamente.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
       Navigator.of(context).pop(true);
     } else {
+      // Mensaje de error
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error al guardar seguimiento')));
     }
   }
@@ -87,8 +103,25 @@ class _ReporteDetailScreenState extends State<ReporteDetailScreen> {
   @override
   Widget build(BuildContext context) {
     final r = widget.reporte;
+    final fechaStr = DateFormat.yMMMMd('es').format(_fecha); // ejemplo: "20 de noviembre de 2025"
+
     return Scaffold(
-      appBar: AppBar(title: Text('Detalle - Folio: ${_getFolio()}')),
+      appBar: AppBar(
+        // flecha de retorno en blanco
+        iconTheme: IconThemeData(color: Colors.white),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF2E7D32), Colors.grey.shade200],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
+        title: Text('Detalle - Folio: ${_getFolio()}', style: TextStyle(color: Colors.white)),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: ListView(
@@ -143,7 +176,7 @@ class _ReporteDetailScreenState extends State<ReporteDetailScreen> {
                   SizedBox(height: 8),
                   Row(
                     children: [
-                      Text('Fecha: ${_fecha.toIso8601String().split('T')[0]}'),
+                      Text('Fecha: $fechaStr'),
                       Spacer(),
                       TextButton(onPressed: _seleccionarFecha, child: Text('Seleccionar fecha')),
                     ],

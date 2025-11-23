@@ -37,12 +37,37 @@ class _TipoReporteFormScreenState extends State<TipoReporteFormScreen> {
         descripcion: _descripcionController.text,
         gravedad: _gravedadSeleccionada,
       );
-      if (widget.tipo == null) {
-        await _service.crearTipo(nuevo);
-      } else {
-        await _service.editarTipo(nuevo);
+
+      try {
+        if (widget.tipo == null) {
+          await _service.crearTipo(nuevo);
+        } else {
+          await _service.editarTipo(nuevo);
+        }
+
+        // Mostrar diálogo de confirmación
+        await showDialog<void>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(widget.tipo == null ? 'Tipo de incidencia creado' : 'Tipo de incidencia actualizado'),
+            content: Text(widget.tipo == null
+                ? 'El tipo de incidencia se creó correctamente.'
+                : 'El tipo de incidencia se actualizó correctamente.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+
+        Navigator.pop(context);
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error al guardar el tipo de incidencia: $e')),
+        );
       }
-      Navigator.pop(context);
     }
   }
 
@@ -50,6 +75,7 @@ class _TipoReporteFormScreenState extends State<TipoReporteFormScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.transparent,
         elevation: 0,
         flexibleSpace: Container(

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:intl/intl.dart';
 import '../models/alumno.dart';
 import '../models/usuario.dart';
 import '../models/tipo_reporte.dart';
@@ -7,6 +10,8 @@ import '../services/alumno_service.dart';
 import '../services/usuario_service.dart';
 import '../services/tipo_reporte_service.dart';
 import '../services/reporte_service.dart';
+import '../config/api_config.dart';
+import '../config/global.dart';
 
 class ReporteFormScreen extends StatefulWidget {
   final Reporte? reporte;
@@ -20,9 +25,11 @@ class _ReporteFormScreenState extends State<ReporteFormScreen> {
   final _formKey = GlobalKey<FormState>();
   final _descripcionController = TextEditingController();
   final _accionesController = TextEditingController();
+  final _alumnoFiltroCtrl = TextEditingController();
   DateTime? _fechaIncidencia;
 
   List<Alumno> _alumnos = [];
+  List<Alumno> _alumnosFiltrados = [];
   List<Usuario> _usuarios = [];
   List<TipoReporte> _tipos = [];
 
@@ -34,6 +41,7 @@ class _ReporteFormScreenState extends State<ReporteFormScreen> {
   void initState() {
     super.initState();
     _cargarDatos();
+    _alumnoFiltroCtrl.addListener(_aplicarFiltroAlumno);
   }
 
   Future<void> _cargarDatos() async {
@@ -43,8 +51,27 @@ class _ReporteFormScreenState extends State<ReporteFormScreen> {
 
     setState(() {
       _alumnos = alumnos;
+      _alumnosFiltrados = List.from(alumnos);
       _usuarios = usuarios;
       _tipos = tipos;
+    });
+  }
+
+  void _aplicarFiltroAlumno() {
+    final q = _alumnoFiltroCtrl.text.toLowerCase();
+    setState(() {
+      if (q.isEmpty) {
+        _alumnosFiltrados = List.from(_alumnos);
+      } else {
+        _alumnosFiltrados = _alumnos.where((a) {
+          final full = '${a.nombre} ${a.apaterno} ${a.amaterno} ${a.matricula}'.toLowerCase();
+          return full.contains(q);
+        }).toList();
+      }
+      if (_alumnoSeleccionado != null) {
+        final existe = _alumnosFiltrados.any((a) => a.id == _alumnoSeleccionado!.id);
+        if (!existe) _alumnoSeleccionado = null;
+      }
     });
   }
 
@@ -67,15 +94,45 @@ class _ReporteFormScreenState extends State<ReporteFormScreen> {
         tipoReporte: _tipoSeleccionado!,
       );
 
-      await ReporteService().crearReporte(nuevo);
-      Navigator.pop(context);
+      try {
+        await ReporteService().crearReporte(nuevo);
+
+        // Mostrar diálogo de confirmación antes de cerrar pantalla
+        await showDialog<void>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Reporte guardado'),
+            content: const Text('El reporte se guardó correctamente.'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+
+        Navigator.pop(context); // cerrar pantalla de formulario
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error al guardar el reporte: $e')),
+        );
+      }
     }
+  }
+
+  @override
+  void dispose() {
+    _alumnoFiltroCtrl.removeListener(_aplicarFiltroAlumno);
+    _alumnoFiltroCtrl.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.transparent,
         elevation: 0,
         flexibleSpace: Container(
@@ -97,10 +154,21 @@ class _ReporteFormScreenState extends State<ReporteFormScreen> {
                 key: _formKey,
                 child: ListView(
                   children: [
+                    // campo de búsqueda para filtrar alumnos
+                    TextField(
+                      controller: _alumnoFiltroCtrl,
+                      decoration: InputDecoration(
+                        labelText: 'Buscar alumno (nombre o matrícula)',
+                        prefixIcon: Icon(Icons.search),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+
+                    // Dropdown Alumno (usa la lista filtrada)
                     DropdownButtonFormField<Alumno>(
                       value: _alumnoSeleccionado,
                       decoration: InputDecoration(labelText: 'Alumno'),
-                      items: _alumnos.map((a) {
+                      items: _alumnosFiltrados.map((a) {
                         return DropdownMenuItem(
                           value: a,
                           child: Text('${a.nombre} ${a.apaterno} ${a.amaterno}'),
@@ -109,6 +177,8 @@ class _ReporteFormScreenState extends State<ReporteFormScreen> {
                       onChanged: (value) => setState(() => _alumnoSeleccionado = value),
                       validator: (value) => value == null ? 'Selecciona un alumno' : null,
                     ),
+                    const SizedBox(height: 12),
+
                     DropdownButtonFormField<Usuario>(
                       value: _usuarioSeleccionado,
                       decoration: InputDecoration(labelText: 'Usuario que reporta'),
@@ -121,6 +191,7 @@ class _ReporteFormScreenState extends State<ReporteFormScreen> {
                       onChanged: (value) => setState(() => _usuarioSeleccionado = value),
                       validator: (value) => value == null ? 'Selecciona un usuario' : null,
                     ),
+                    const SizedBox(height: 12),
                     DropdownButtonFormField<TipoReporte>(
                       value: _tipoSeleccionado,
                       decoration: InputDecoration(labelText: 'Tipo de reporte'),
@@ -133,40 +204,43 @@ class _ReporteFormScreenState extends State<ReporteFormScreen> {
                       onChanged: (value) => setState(() => _tipoSeleccionado = value),
                       validator: (value) => value == null ? 'Selecciona un tipo' : null,
                     ),
+                    const SizedBox(height: 12),
                     TextFormField(
                       controller: _descripcionController,
                       decoration: InputDecoration(labelText: 'Descripción de los hechos'),
                       maxLines: 3,
                       validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
                     ),
+                    const SizedBox(height: 12),
                     TextFormField(
                       controller: _accionesController,
                       decoration: InputDecoration(labelText: 'Acciones tomadas'),
                       maxLines: 2,
                     ),
+                    const SizedBox(height: 12),
                     ListTile(
                       title: Text(_fechaIncidencia == null
                           ? 'Selecciona fecha de incidencia'
-                          : 'Fecha: ${_fechaIncidencia!.toLocal().toString().split(' ')[0]}'),
+                          : DateFormat.yMMMMd('es').format(_fechaIncidencia!)),
                       trailing: Icon(Icons.calendar_today),
                       onTap: () async {
                         final fecha = await showDatePicker(
                           context: context,
-                          initialDate: DateTime.now(),
+                          initialDate: _fechaIncidencia ?? DateTime.now(),
                           firstDate: DateTime(2020),
                           lastDate: DateTime(2100),
+                          locale: const Locale('es', 'ES'),
                         );
-                        if (fecha != null) {
-                          setState(() => _fechaIncidencia = fecha);
-                        }
+                        if (fecha != null) setState(() => _fechaIncidencia = fecha);
                       },
                     ),
+                    const SizedBox(height: 12),
                     TextFormField(
                       initialValue: 'Abierto',
                       decoration: InputDecoration(labelText: 'Estatus'),
                       enabled: false,
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     ElevatedButton(
                       onPressed: _guardar,
                       child: Text('Guardar'),
