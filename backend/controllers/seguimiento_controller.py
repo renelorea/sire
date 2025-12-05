@@ -1,8 +1,9 @@
 # controllers/seguimiento_controller.py
-from flask import Blueprint, request, jsonify, make_response
+from flask import Blueprint, request, jsonify, make_response, send_file, Response
 from flask_jwt_extended import jwt_required
 from models import seguimiento_model
 import logging
+import io
 
 seguimiento_bp = Blueprint('seguimiento_bp', __name__)
 
@@ -91,3 +92,27 @@ def actualizar_estatus(id_reporte):
 
     logging.info(f'[reportes.actualizar_estatus] estatus actualizado id={id_reporte} -> {nuevo}')
     return make_response(jsonify({'message': 'Estatus actualizado', 'id_reporte': id_reporte, 'estatus': nuevo}), 200)
+
+@seguimiento_bp.route('/api/seguimientos/<int:id>/evidencia', methods=['GET'])
+@jwt_required()
+def descargar_evidencia(id):
+    """
+    Descarga el archivo de evidencia
+    """
+    try:
+        archivo_data = obtener_archivo_evidencia(id)
+        
+        if not archivo_data or not archivo_data['evidencia_archivo']:
+            return {"msg": "Archivo no encontrado"}, 404
+        
+        # Crear un objeto de archivo en memoria
+        archivo_io = io.BytesIO(archivo_data['evidencia_archivo'])
+        
+        return send_file(
+            archivo_io,
+            download_name=archivo_data['evidencia_nombre'],
+            mimetype=archivo_data['evidencia_tipo'],
+            as_attachment=True
+        )
+    except Exception as e:
+        return {"msg": f"Error al descargar archivo: {str(e)}"}, 500

@@ -73,6 +73,57 @@ class UsuarioService {
     }
   }
 
+  Future<Map<String, dynamic>> resetearContrasena(int id) async {
+    final resp = await http.post(
+      Uri.parse('$apiBaseUrl/usuarios/$id/reset-password'),
+      headers: {
+        'Authorization': 'Bearer $jwtToken',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    );
+
+    developer.log('resetearContrasena - status: ${resp.statusCode} - body: ${resp.body}', name: 'UsuarioService');
+
+    if (resp.statusCode == 200) {
+      // Retorna la respuesta que incluye msg, nueva_contrasena y usuario
+      return jsonDecode(resp.body);
+    } else if (resp.statusCode == 401) {
+      throw UnauthorizedException('Token inválido o expirado');
+    } else if (resp.statusCode == 404) {
+      throw Exception('Usuario no encontrado o inactivo');
+    } else {
+      throw Exception('Error ${resp.statusCode}: ${resp.body}');
+    }
+  }
+
+  Future<void> cambiarContrasena(int id, String nuevaContrasena) async {
+    final resp = await http.put(
+      Uri.parse('$apiBaseUrl/usuarios/$id/change-password'),
+      headers: {
+        'Authorization': 'Bearer $jwtToken',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: jsonEncode({'nueva_contrasena': nuevaContrasena}),
+    );
+
+    developer.log('cambiarContrasena - status: ${resp.statusCode} - body: ${resp.body}', name: 'UsuarioService');
+
+    if (resp.statusCode == 200) {
+      return;
+    } else if (resp.statusCode == 401) {
+      throw UnauthorizedException('Token inválido o expirado');
+    } else if (resp.statusCode == 400) {
+      final errorData = jsonDecode(resp.body);
+      throw Exception(errorData['msg'] ?? 'Datos inválidos');
+    } else if (resp.statusCode == 404) {
+      throw Exception('Usuario no encontrado');
+    } else {
+      throw Exception('Error ${resp.statusCode}: ${resp.body}');
+    }
+  }
+
   Future<void> eliminarUsuario(int id) async {
     final resp = await http.delete(
       Uri.parse('$apiBaseUrl/usuarios/$id'),

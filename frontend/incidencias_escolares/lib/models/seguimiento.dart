@@ -1,43 +1,51 @@
 class Seguimiento {
-  int? idSeguimiento;
-  int idReporte;
-  String responsable;
-  String fechaSeguimiento; // YYYY-MM-DD
-  String descripcion;
-  String? evidenciaUrl;
-  String estado; // 'pendiente','en revision','solucionado'
-  int validado; // 0 o 1
+  final int idReporte;
+  final String responsable;
+  final String fechaSeguimiento;
+  final String descripcion;
+  final String? evidenciaNombre;    
+  final String? evidenciaTipo;      
+  final int? evidenciaTamano;       // Cambio: tamaño en bytes
+  final String estado;
+  final int validado;
 
   Seguimiento({
-    this.idSeguimiento,
     required this.idReporte,
     required this.responsable,
     required this.fechaSeguimiento,
     required this.descripcion,
-    this.evidenciaUrl,
-    this.estado = 'pendiente',
-    this.validado = 0,
+    this.evidenciaNombre,
+    this.evidenciaTipo,
+    this.evidenciaTamano,
+    required this.estado,
+    required this.validado,
   });
 
-  Map<String, dynamic> toJson() => {
-        if (idSeguimiento != null) 'id_seguimiento': idSeguimiento,
-        'id_reporte': idReporte,
-        'responsable': responsable,
-        'fecha_seguimiento': fechaSeguimiento,
-        'descripcion': descripcion,
-        'evidencia_url': evidenciaUrl,
-        'estado': estado,
-        'validado': validado,
-      };
+  factory Seguimiento.fromJson(Map<String, dynamic> json) {
+    return Seguimiento(
+      idReporte: json['id_reporte'],
+      responsable: json['responsable'],
+      fechaSeguimiento: json['fecha_seguimiento'],
+      descripcion: json['descripcion'],
+      evidenciaNombre: json['evidencia_nombre'],
+      evidenciaTipo: json['evidencia_tipo'],
+      evidenciaTamano: json['evidencia_tamano'],
+      estado: json['estado'],
+      validado: json['validado'],
+    );
+  }
 
-  factory Seguimiento.fromJson(Map<String, dynamic> json) => Seguimiento(
-        idSeguimiento: json['id_seguimiento'],
-        idReporte: json['id_reporte'],
-        responsable: json['responsable'],
-        fechaSeguimiento: json['fecha_seguimiento'],
-        descripcion: json['descripcion'],
-        evidenciaUrl: json['evidencia_url'],
-        estado: json['estado'] ?? 'pendiente',
-        validado: json['validado'] ?? 0,
-      );
+  Map<String, dynamic> toJson() {
+    return {
+      'id_reporte': idReporte,
+      'responsable': responsable,
+      'fecha_seguimiento': fechaSeguimiento,
+      'descripcion': descripcion,
+      'evidencia_nombre': evidenciaNombre,
+      'evidencia_tipo': evidenciaTipo,
+      'evidencia_tamano': evidenciaTamano,
+      'estado': estado,
+      'validado': validado,
+    };
+  }
 }

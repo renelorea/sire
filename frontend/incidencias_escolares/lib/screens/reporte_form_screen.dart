@@ -167,7 +167,10 @@ class _ReporteFormScreenState extends State<ReporteFormScreen> {
                     // Dropdown Alumno (usa la lista filtrada)
                     DropdownButtonFormField<Alumno>(
                       value: _alumnoSeleccionado,
-                      decoration: InputDecoration(labelText: 'Alumno'),
+                      decoration: InputDecoration(
+                        labelText: 'Alumno *',
+                        hintText: 'Campo obligatorio',
+                      ),
                       items: _alumnosFiltrados.map((a) {
                         return DropdownMenuItem(
                           value: a,
@@ -181,7 +184,10 @@ class _ReporteFormScreenState extends State<ReporteFormScreen> {
 
                     DropdownButtonFormField<Usuario>(
                       value: _usuarioSeleccionado,
-                      decoration: InputDecoration(labelText: 'Usuario que reporta'),
+                      decoration: InputDecoration(
+                        labelText: 'Usuario que reporta *',
+                        hintText: 'Campo obligatorio',
+                      ),
                       items: _usuarios.map((u) {
                         return DropdownMenuItem(
                           value: u,
@@ -194,7 +200,10 @@ class _ReporteFormScreenState extends State<ReporteFormScreen> {
                     const SizedBox(height: 12),
                     DropdownButtonFormField<TipoReporte>(
                       value: _tipoSeleccionado,
-                      decoration: InputDecoration(labelText: 'Tipo de reporte'),
+                      decoration: InputDecoration(
+                        labelText: 'Tipo de reporte *',
+                        hintText: 'Campo obligatorio',
+                      ),
                       items: _tipos.map((t) {
                         return DropdownMenuItem(
                           value: t,
@@ -207,7 +216,10 @@ class _ReporteFormScreenState extends State<ReporteFormScreen> {
                     const SizedBox(height: 12),
                     TextFormField(
                       controller: _descripcionController,
-                      decoration: InputDecoration(labelText: 'Descripción de los hechos'),
+                      decoration: InputDecoration(
+                        labelText: 'Descripción de los hechos *',
+                        hintText: 'Campo obligatorio',
+                      ),
                       maxLines: 3,
                       validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
                     ),
@@ -220,8 +232,8 @@ class _ReporteFormScreenState extends State<ReporteFormScreen> {
                     const SizedBox(height: 12),
                     ListTile(
                       title: Text(_fechaIncidencia == null
-                          ? 'Selecciona fecha de incidencia'
-                          : DateFormat.yMMMMd('es').format(_fechaIncidencia!)),
+                          ? 'Selecciona fecha de incidencia *'
+                          : 'Fecha: ${DateFormat.yMMMMd('es').format(_fechaIncidencia!)}'),
                       trailing: Icon(Icons.calendar_today),
                       onTap: () async {
                         final fecha = await showDatePicker(

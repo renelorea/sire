@@ -139,18 +139,27 @@ class _GrupoFormScreenState extends State<GrupoFormScreen> {
             children: [
               TextFormField(
                 controller: _descripcionController,
-                decoration: InputDecoration(labelText: 'Descripción'),
+                decoration: InputDecoration(
+                  labelText: 'Descripción *',
+                  hintText: 'Campo obligatorio',
+                ),
                 validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
               ),
               TextFormField(
                 controller: _gradoController,
-                decoration: InputDecoration(labelText: 'Grado'),
+                decoration: InputDecoration(
+                  labelText: 'Grado *',
+                  hintText: 'Campo obligatorio',
+                ),
                 keyboardType: TextInputType.number,
                 validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
               ),
               TextFormField(
                 controller: _cicloController,
-                decoration: InputDecoration(labelText: 'Ciclo Escolar'),
+                decoration: InputDecoration(
+                  labelText: 'Ciclo Escolar *',
+                  hintText: 'Campo obligatorio',
+                ),
                 validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
               ),
               // Dropdown de tutores (profesores)
@@ -161,7 +170,10 @@ class _GrupoFormScreenState extends State<GrupoFormScreen> {
                     )
                   : DropdownButtonFormField<String?>(
                       value: _tutorSeleccionadoId,
-                      decoration: const InputDecoration(labelText: 'Tutor (Profesor)'),
+                      decoration: const InputDecoration(
+                        labelText: 'Tutor (Profesor) *',
+                        hintText: 'Campo obligatorio',
+                      ),
                       items: <DropdownMenuItem<String?>>[
                         const DropdownMenuItem<String?>(value: null, child: Text('-- Ninguno --')),
                         ..._profesores.map((p) {

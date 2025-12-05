@@ -170,17 +170,26 @@ class _AlumnoFormScreenState extends State<AlumnoFormScreen> {
             children: [
               TextFormField(
                 controller: _matriculaController,
-                decoration: InputDecoration(labelText: 'Matrícula'),
+                decoration: InputDecoration(
+                  labelText: 'Matrícula *',
+                  hintText: 'Campo obligatorio',
+                ),
                 validator: (value) => (value == null || value.isEmpty) ? 'Campo requerido' : null,
               ),
               TextFormField(
                 controller: _nombreController,
-                decoration: InputDecoration(labelText: 'Nombre'),
+                decoration: InputDecoration(
+                  labelText: 'Nombre *',
+                  hintText: 'Campo obligatorio',
+                ),
                 validator: (value) => (value == null || value.isEmpty) ? 'Campo requerido' : null,
               ),
               TextFormField(
                 controller: _apaternoController,
-                decoration: InputDecoration(labelText: 'Apellido Paterno'),
+                decoration: InputDecoration(
+                  labelText: 'Apellido Paterno *',
+                  hintText: 'Campo obligatorio',
+                ),
                 validator: (value) => (value == null || value.isEmpty) ? 'Campo requerido' : null,
               ),
               TextFormField(
@@ -191,7 +200,8 @@ class _AlumnoFormScreenState extends State<AlumnoFormScreen> {
                 controller: _fechaController,
                 readOnly: true,
                 decoration: InputDecoration(
-                  labelText: 'Fecha de Nacimiento',
+                  labelText: 'Fecha de Nacimiento *',
+                  hintText: 'Campo obligatorio',
                   suffixIcon: IconButton(
                     icon: Icon(Icons.calendar_today),
                     onPressed: _seleccionarFecha,
@@ -203,12 +213,18 @@ class _AlumnoFormScreenState extends State<AlumnoFormScreen> {
                 value: _grupoSeleccionado,
                 items: _grupos.map((g) => DropdownMenuItem(value: g, child: Text('${g.descripcion} • ${g.grado}° • ${g.ciclo}'))).toList(),
                 onChanged: (grupo) => setState(() => _grupoSeleccionado = grupo),
-                decoration: InputDecoration(labelText: 'Grupo'),
+                decoration: InputDecoration(
+                  labelText: 'Grupo *',
+                  hintText: 'Campo obligatorio',
+                ),
                 validator: (value) => value == null ? 'Selecciona un grupo' : null,
               ),
               DropdownButtonFormField<String>(
                 value: _sexo,
-                decoration: InputDecoration(labelText: 'Sexo'),
+                decoration: InputDecoration(
+                  labelText: 'Sexo *',
+                  hintText: 'Campo obligatorio',
+                ),
                 items: [
                   DropdownMenuItem(value: 'M', child: Text('Masculino')),
                   DropdownMenuItem(value: 'F', child: Text('Femenino')),

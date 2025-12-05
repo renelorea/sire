@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import '../config/api_config.dart';
 import '../config/global.dart';
 import '../models/reporte.dart';
+import '../models/seguimiento.dart';
 import '../utils/auth_utils.dart';
 
 class ReporteService {
@@ -139,6 +140,69 @@ class ReporteService {
       throw UnauthorizedException('Token inválido o expirado');
     } else {
       throw Exception('Error ${resp.statusCode}: ${resp.body}');
+    }
+  }
+
+  Future<List<Seguimiento>> obtenerSeguimientosByReporte(int reporteId) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$apiBaseUrl/seguimientos/reporte/$reporteId'),
+        headers: {
+          'Authorization': 'Bearer $jwtToken',
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final List data = json.decode(response.body);
+        return data.map((e) => Seguimiento.fromJson(e)).toList();
+      }
+      return [];
+    } catch (e) {
+      print('Error obtenerSeguimientosByReporte: $e');
+      return [];
+    }
+  }
+
+  Future<bool> crearSeguimientoConArchivo(Map<String, dynamic> seguimientoData, {String? nuevoEstatusReporte}) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$apiBaseUrl/seguimientos'),
+        headers: {
+          'Authorization': 'Bearer $jwtToken',
+          'Content-Type': 'application/json',
+        },
+        body: json.encode(seguimientoData),
+      );
+
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        // Si se especifica cambio de estatus del reporte
+        if (nuevoEstatusReporte != null) {
+          await actualizarEstatusReporte(seguimientoData['id_reporte'], nuevoEstatusReporte);
+        }
+        return true;
+      }
+      return false;
+    } catch (e) {
+      throw e;
+    }
+  }
+
+  Future<bool> actualizarEstatusReporte(int reporteId, String nuevoEstatus) async {
+    try {
+      final response = await http.put(
+        Uri.parse('$apiBaseUrl/reportes/$reporteId/estatus'),
+        headers: {
+          'Authorization': 'Bearer $jwtToken',
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({'estatus': nuevoEstatus}),
+      );
+
+      return response.statusCode == 200;
+    } catch (e) {
+      print('Error actualizarEstatusReporte: $e');
+      return false;
     }
   }
 }

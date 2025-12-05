@@ -131,17 +131,54 @@ def cambio(id):
 @jwt_required()
 def listar_todos():
     """
-    Listar todos los reportes de incidencia
+    Listar todos los reportes de incidencia (excluyendo cerrados)
     ---
     tags:
       - Reportes
     security:
       - Bearer: []
+    parameters:
+      - name: incluir_cerrados
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+        description: Si incluir reportes cerrados o no
     responses:
       200:
         description: Lista de reportes
     """
-    return find_all_reportes()
+    try:
+        # 🔧 CAMBIO: Verificar si incluir reportes cerrados
+        incluir_cerrados = request.args.get('incluir_cerrados', 'false').lower() == 'true'
+        
+        logger.info(f"Obteniendo reportes - incluir_cerrados: {incluir_cerrados}")
+        
+        # Obtener todos los reportes
+        response = find_all_reportes()
+        
+        if not incluir_cerrados:
+            # 🔧 FILTRAR: Excluir reportes con estatus "Cerrado"
+            if isinstance(response, tuple):
+                data = response[0].get_json()
+                status_code = response[1]
+            else:
+                data = response.get_json()
+                status_code = 200
+            
+            if isinstance(data, list):
+                # Filtrar reportes que NO estén cerrados
+                reportes_abiertos = [r for r in data if r.get('estatus', '').lower() != 'cerrado']
+                logger.info(f"Reportes filtrados: {len(reportes_abiertos)} de {len(data)} total")
+                return jsonify(reportes_abiertos), status_code
+            
+        # Si incluir_cerrados=true o hay error, devolver respuesta original
+        return response
+        
+    except Exception as e:
+        logger.exception(f"Error en listar_todos: {e}")
+        return jsonify({"error": "Error interno al obtener reportes"}), 500
 
 @reportes_bp.route('/api/reportes/<int:id>', methods=['GET'])
 @jwt_required()

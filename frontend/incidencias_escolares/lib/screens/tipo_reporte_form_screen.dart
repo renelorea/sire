@@ -100,17 +100,26 @@ class _TipoReporteFormScreenState extends State<TipoReporteFormScreen> {
             children: [
               TextFormField(
                 controller: _nombreController,
-                decoration: InputDecoration(labelText: 'Nombre'),
+                decoration: InputDecoration(
+                  labelText: 'Nombre *',
+                  hintText: 'Campo obligatorio',
+                ),
                 validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
               ),
               TextFormField(
                 controller: _descripcionController,
-                decoration: InputDecoration(labelText: 'Descripción'),
+                decoration: InputDecoration(
+                  labelText: 'Descripción *',
+                  hintText: 'Campo obligatorio',
+                ),
                 validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
               ),
               DropdownButtonFormField<String>(
                 value: _gravedadSeleccionada,
-                decoration: InputDecoration(labelText: 'Gravedad'),
+                decoration: InputDecoration(
+                  labelText: 'Gravedad *',
+                  hintText: 'Campo obligatorio',
+                ),
                 items: _gravedades.map((nivel) {
                   return DropdownMenuItem(
                     value: nivel,

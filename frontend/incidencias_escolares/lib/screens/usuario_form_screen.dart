@@ -17,7 +17,6 @@ class _UsuarioFormScreenState extends State<UsuarioFormScreen> {
   final _apaternoController = TextEditingController();
   final _amaternoController = TextEditingController();
   final _correoController = TextEditingController();
-  final _contrasenaController = TextEditingController();
   String _rol = 'Profesor';
 
   final _service = UsuarioService();
@@ -30,7 +29,6 @@ class _UsuarioFormScreenState extends State<UsuarioFormScreen> {
       _apaternoController.text = widget.usuario!.apaterno;
       _amaternoController.text = widget.usuario!.amaterno;
       _correoController.text = widget.usuario!.correo;
-      _contrasenaController.text = widget.usuario!.contrasena;
       _rol = widget.usuario!.rol;
     }
   }
@@ -43,7 +41,7 @@ class _UsuarioFormScreenState extends State<UsuarioFormScreen> {
         apaterno: _apaternoController.text,
         amaterno: _amaternoController.text,
         correo: _correoController.text,
-        contrasena: _contrasenaController.text,
+        contrasena: 'cecytem@1234', // Contraseña por defecto
         rol: _rol,
       );
       try {
@@ -54,7 +52,7 @@ class _UsuarioFormScreenState extends State<UsuarioFormScreen> {
           context: context,
           builder: (context) => AlertDialog(
             title: const Text('Usuario creado'),
-            content: const Text('El usuario se creó correctamente.'),
+            content: const Text('El usuario se creó correctamente.\nContraseña temporal: cecytem@1234'),
             actions: [
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
@@ -66,8 +64,24 @@ class _UsuarioFormScreenState extends State<UsuarioFormScreen> {
 
         Navigator.pop(context);
       } catch (e) {
+        String mensajeError = 'Error al crear el usuario';
+        
+        // Verificar si el error es de usuario duplicado
+        if (e.toString().toLowerCase().contains('duplicate') || 
+            e.toString().toLowerCase().contains('duplicado') ||
+            e.toString().toLowerCase().contains('already exists') ||
+            e.toString().toLowerCase().contains('ya existe') ||
+            e.toString().toLowerCase().contains('unique constraint') ||
+            e.toString().toLowerCase().contains('correo')) {
+          mensajeError = 'Ya existe un usuario con este correo electrónico';
+        }
+        
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error al crear el usuario: $e')),
+          SnackBar(
+            content: Text(mensajeError),
+            backgroundColor: Colors.red,
+            duration: Duration(seconds: 4),
+          ),
         );
       }
     }
@@ -81,7 +95,7 @@ class _UsuarioFormScreenState extends State<UsuarioFormScreen> {
         apaterno: _apaternoController.text,
         amaterno: _amaternoController.text,
         correo: _correoController.text,
-        contrasena: _contrasenaController.text,
+        contrasena: widget.usuario?.contrasena ?? 'cecytem@1234', // Mantener contraseña existente
         rol: _rol,
       );
       try {
@@ -104,8 +118,24 @@ class _UsuarioFormScreenState extends State<UsuarioFormScreen> {
 
         Navigator.pop(context);
       } catch (e) {
+        String mensajeError = 'Error al actualizar el usuario';
+        
+        // Verificar si el error es de usuario duplicado
+        if (e.toString().toLowerCase().contains('duplicate') || 
+            e.toString().toLowerCase().contains('duplicado') ||
+            e.toString().toLowerCase().contains('already exists') ||
+            e.toString().toLowerCase().contains('ya existe') ||
+            e.toString().toLowerCase().contains('unique constraint') ||
+            e.toString().toLowerCase().contains('correo')) {
+          mensajeError = 'Ya existe un usuario con este correo electrónico';
+        }
+        
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error al actualizar el usuario: $e')),
+          SnackBar(
+            content: Text(mensajeError),
+            backgroundColor: Colors.red,
+            duration: Duration(seconds: 4),
+          ),
         );
       }
     }
@@ -140,12 +170,18 @@ class _UsuarioFormScreenState extends State<UsuarioFormScreen> {
             children: [
               TextFormField(
                 controller: _nombreController,
-                decoration: InputDecoration(labelText: 'Nombre'),
+                decoration: InputDecoration(
+                  labelText: 'Nombre *',
+                  hintText: 'Campo obligatorio',
+                ),
                 validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
               ),
               TextFormField(
                 controller: _apaternoController,
-                decoration: InputDecoration(labelText: 'Apellido Paterno'),
+                decoration: InputDecoration(
+                  labelText: 'Apellido Paterno *',
+                  hintText: 'Campo obligatorio',
+                ),
                 validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
               ),
               TextFormField(
@@ -155,14 +191,35 @@ class _UsuarioFormScreenState extends State<UsuarioFormScreen> {
               ),
               TextFormField(
                 controller: _correoController,
-                decoration: InputDecoration(labelText: 'Correo'),
+                decoration: InputDecoration(
+                  labelText: 'Correo *',
+                  hintText: 'Campo obligatorio',
+                ),
                 validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
               ),
-              TextFormField(
-                controller: _contrasenaController,
-                decoration: InputDecoration(labelText: 'Contraseña'),
-                validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
-                enabled: widget.usuario == null,
+              // Información sobre contraseña
+              Container(
+                padding: EdgeInsets.all(12),
+                margin: EdgeInsets.symmetric(vertical: 8),
+                decoration: BoxDecoration(
+                  color: Colors.blue.shade50,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Colors.blue.shade200),
+                ),
+                child: Row(
+                  children: [
+                    Icon(Icons.info, color: Colors.blue),
+                    SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        widget.usuario == null 
+                          ? 'Se asignará la contraseña: cecytem@1234'
+                          : 'Para cambiar contraseña, use la opción desde la lista de usuarios',
+                        style: TextStyle(color: Colors.blue.shade800),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               DropdownButtonFormField<String>(
                 value: _rol,

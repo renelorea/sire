@@ -5,8 +5,8 @@ import '../models/tipo_reporte.dart';
 import '../services/reporte_service.dart';
 import '../services/alumno_service.dart';
 import '../services/tipo_reporte_service.dart';
-import 'reporte_form_screen.dart'; // Asegúrate de tener esta pantalla creada
-import 'reporte_detail_screen.dart'; // <-- agregado
+import 'reporte_form_screen.dart';
+import 'reporte_detail_screen.dart';
 
 class ReportesScreen extends StatefulWidget {
   @override
@@ -18,13 +18,14 @@ class _ReportesScreenState extends State<ReportesScreen> {
   Future<List<Reporte>> _reportes = Future.value([]);
   List<Reporte> _todos = [];
 
-  List<Alumno> _alumnos = []; // lista completa
-  List<Alumno> _alumnosFiltrados = []; // lista para el dropdown (filtrada por búsqueda)
+  List<Alumno> _alumnos = [];
+  List<Alumno> _alumnosFiltrados = [];
   List<TipoReporte> _tipos = [];
   final List<String> _estatuses = ['Abierto', 'En Seguimiento', 'Cerrado'];
 
-  Alumno? _filtroAlumno;
-  TipoReporte? _filtroTipo;
+  // 🔧 CAMBIO: Usar ID en lugar del objeto completo
+  int? _filtroAlumnoId;  // Cambio aquí
+  int? _filtroTipoId;    // Cambio aquí (opcional para consistencia)
   String? _filtroEstatus;
 
   final TextEditingController _alumnoBusquedaCtrl = TextEditingController();
@@ -44,12 +45,22 @@ class _ReportesScreenState extends State<ReportesScreen> {
     setState(() {
       _todos = reportes;
       _reportes = Future.value(reportes);
-      _alumnos = alumnos;
-      _alumnosFiltrados = List.from(alumnos);
-      _tipos = tipos;
+      
+      // 🔧 CAMBIO: Eliminar duplicados basándose en ID
+      final alumnosUnicos = <int, Alumno>{};
+      for (var alumno in alumnos) {
+        alumnosUnicos[alumno.id] = alumno;
+      }
+      _alumnos = alumnosUnicos.values.toList();
+      _alumnosFiltrados = List.from(_alumnos);
+      
+      final tiposUnicos = <int, TipoReporte>{};
+      for (var tipo in tipos) {
+        tiposUnicos[tipo.id] = tipo;
+      }
+      _tipos = tiposUnicos.values.toList();
     });
 
-    // 👇 Log para verificar contenido
     print('📋 Reportes cargados:');
     for (var r in reportes) {
       print('Folio: ${r.folio}, Alumno: ${r.alumno.id} ${r.alumno.nombre} ${r.alumno.apaterno}, Tipo: ${r.tipoReporte.id} ${r.tipoReporte.nombre}, Estatus: ${r.estatus}');
@@ -67,17 +78,18 @@ class _ReportesScreenState extends State<ReportesScreen> {
           return full.contains(q);
         }).toList();
       }
-      // si la selección actual no está en la lista filtrada, resetear para evitar error en Dropdown
-      if (_filtroAlumno != null) {
-        final existe = _alumnosFiltrados.any((a) => a.id == _filtroAlumno!.id);
-        if (!existe) _filtroAlumno = null;
+      
+      // 🔧 CAMBIO: Verificar si el ID seleccionado sigue existiendo
+      if (_filtroAlumnoId != null) {
+        final existe = _alumnosFiltrados.any((a) => a.id == _filtroAlumnoId);
+        if (!existe) _filtroAlumnoId = null;
       }
     });
   }
 
   void _filtrar() {
-    final idAlumno = _filtroAlumno?.id;
-    final idTipo = _filtroTipo?.id;
+    final idAlumno = _filtroAlumnoId;
+    final idTipo = _filtroTipoId;
     final estatus = _filtroEstatus;
 
     final filtrados = _todos.where((r) {
@@ -95,8 +107,8 @@ class _ReportesScreenState extends State<ReportesScreen> {
 
   void _limpiarFiltros() {
     setState(() {
-      _filtroAlumno = null;
-      _filtroTipo = null;
+      _filtroAlumnoId = null;
+      _filtroTipoId = null;
       _filtroEstatus = null;
       _alumnoBusquedaCtrl.clear();
       _alumnosFiltrados = List.from(_alumnos);
@@ -115,7 +127,6 @@ class _ReportesScreenState extends State<ReportesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // asegura que la flecha de retorno (íconos del AppBar) sea blanca
         iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -136,7 +147,6 @@ class _ReportesScreenState extends State<ReportesScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             child: Column(
               children: [
-                // Campo de búsqueda para alumnos (nuevo)
                 TextField(
                   controller: _alumnoBusquedaCtrl,
                   decoration: InputDecoration(
@@ -146,35 +156,40 @@ class _ReportesScreenState extends State<ReportesScreen> {
                 ),
                 const SizedBox(height: 8),
 
-                DropdownButtonFormField<Alumno>(
-                  value: _filtroAlumno,
+                // 🔧 SOLUCIÓN: Dropdown con IDs únicos
+                DropdownButtonFormField<int>(
+                  value: _filtroAlumnoId,
                   decoration: InputDecoration(labelText: 'Filtrar por alumno'),
                   items: _alumnosFiltrados.map((a) {
-                    return DropdownMenuItem(
-                      value: a,
+                    return DropdownMenuItem<int>(
+                      value: a.id,  // Usar ID único
                       child: Text('${a.nombre} ${a.apaterno}'),
                     );
                   }).toList(),
                   onChanged: (value) {
-                    setState(() => _filtroAlumno = value);
+                    setState(() => _filtroAlumnoId = value);
                     _filtrar();
                   },
                 ),
+                
                 const SizedBox(height: 8),
-                DropdownButtonFormField<TipoReporte>(
-                  value: _filtroTipo,
+                
+                // 🔧 SOLUCIÓN: También aplicar a TipoReporte para consistencia
+                DropdownButtonFormField<int>(
+                  value: _filtroTipoId,
                   decoration: InputDecoration(labelText: 'Filtrar por tipo de reporte'),
                   items: _tipos.map((t) {
-                    return DropdownMenuItem(
-                      value: t,
+                    return DropdownMenuItem<int>(
+                      value: t.id,  // Usar ID único
                       child: Text(t.nombre),
                     );
                   }).toList(),
                   onChanged: (value) {
-                    setState(() => _filtroTipo = value);
+                    setState(() => _filtroTipoId = value);
                     _filtrar();
                   },
                 ),
+                
                 const SizedBox(height: 8),
                 DropdownButtonFormField<String>(
                   value: _filtroEstatus,
@@ -232,7 +247,6 @@ class _ReportesScreenState extends State<ReportesScreen> {
                           ],
                         ),
                         isThreeLine: true,
-                        // <-- agregado: botón/acción para ver detalle
                         trailing: IconButton(
                           icon: Icon(Icons.arrow_forward),
                           tooltip: 'Ver detalle',
