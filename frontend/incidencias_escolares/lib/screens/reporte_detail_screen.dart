@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:io';
+import 'seguimientos_evidencia_screen.dart'; // 🔧 AGREGAR ESTE IMPORT
 
 // Clase para manejar imágenes de evidencia
 class ImagenEvidencia {
@@ -546,9 +547,71 @@ class _ReporteDetailScreenState extends State<ReporteDetailScreen> {
                 ),
               ),
               
+              // Gestión de Seguimientos
+              Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                child: Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Gestión de Seguimientos',
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 12),
+                      
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton.icon(
+                              icon: Icon(Icons.timeline),
+                              label: Text('Ver Seguimientos'),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SeguimientosEvidenciaScreen(
+                                      reporte: widget.reporte,
+                                    ),
+                                  ),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blue,
+                                foregroundColor: Colors.white,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 12),
+                          Expanded(
+                            child: ElevatedButton.icon(
+                              icon: Icon(Icons.refresh),
+                              label: Text('Actualizar'),
+                              onPressed: () async {
+                                await _cargarSeguimientos();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Seguimientos actualizados')),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green,
+                                foregroundColor: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              
+              SizedBox(height: 16),
+              
               // Lista de seguimientos existentes
               if (_seguimientos.isNotEmpty) ...[
-                SizedBox(height: 16),
                 Text('Seguimientos Existentes', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                 SizedBox(height: 8),
                 ..._seguimientos.map((seg) => Card(

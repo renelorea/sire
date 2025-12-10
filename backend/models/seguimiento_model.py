@@ -260,3 +260,45 @@ def actualizar_estatus(id_reporte, nuevo_estatus):
         except:
             pass
         return False
+
+def obtener_seguimientos_reporte(id_reporte):
+    """
+    Obtener todos los seguimientos de un reporte específico
+    """
+    try:
+        logging.info(f'[model.seguimiento] Obteniendo seguimientos para reporte: {id_reporte}')
+        
+        cursor = mysql.connection.cursor()
+        query = """
+            SELECT id_seguimiento, id_reporte, responsable, descripcion, fecha_seguimiento, 
+                   estado, evidencia_nombre, evidencia_tipo, evidencia_tamaño
+            FROM seguimiento_evidencias 
+            WHERE id_reporte = %s 
+            ORDER BY fecha_seguimiento DESC
+        """
+        cursor.execute(query, (id_reporte,))
+        results = cursor.fetchall()
+        
+        seguimientos = []
+        for row in results:
+            seguimiento = {
+                'id': row[0],
+                'id_reporte': row[1],
+                'responsable': row[2],
+                'descripcion': row[3],
+                'fecha_seguimiento': row[4],
+                'estado': row[5],
+                'evidencia_nombre': row[6],
+                'evidencia_tipo': row[7],
+                'evidencia_tamano': row[8]
+            }
+            seguimientos.append(seguimiento)
+        
+        logging.info(f'[model.seguimiento] Encontrados {len(seguimientos)} seguimientos para reporte {id_reporte}')
+        return seguimientos
+        
+    except Exception as e:
+        logging.exception(f'[model.seguimiento] Error al obtener seguimientos: {e}')
+        return []
+    finally:
+        cursor.close()

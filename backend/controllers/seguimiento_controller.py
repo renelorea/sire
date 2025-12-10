@@ -93,6 +93,26 @@ def actualizar_estatus(id_reporte):
     logging.info(f'[reportes.actualizar_estatus] estatus actualizado id={id_reporte} -> {nuevo}')
     return make_response(jsonify({'message': 'Estatus actualizado', 'id_reporte': id_reporte, 'estatus': nuevo}), 200)
 
+@seguimiento_bp.route('/api/reportes/<int:id_reporte>/seguimientos', methods=['GET'])
+@jwt_required()
+def obtener_seguimientos_por_reporte(id_reporte):
+    """
+    Obtener seguimientos de un reporte específico
+    """
+    try:
+        logging.info(f'[seguimiento.por_reporte] Obteniendo seguimientos para reporte ID: {id_reporte}')
+        
+        # Llamar al modelo para obtener seguimientos
+        seguimientos = seguimiento_model.obtener_seguimientos_reporte(id_reporte)
+        
+        logging.info(f'[seguimiento.por_reporte] Encontrados {len(seguimientos)} seguimientos')
+        
+        return make_response(jsonify(seguimientos), 200)
+        
+    except Exception as e:
+        logging.exception(f'[seguimiento.por_reporte] Error: {e}')
+        return make_response(jsonify({'error': 'Error interno del servidor'}), 500)
+
 @seguimiento_bp.route('/api/seguimientos/<int:id>/evidencia', methods=['GET'])
 @jwt_required()
 def descargar_evidencia(id):
