@@ -2,7 +2,9 @@
 from flask import Blueprint, request, jsonify, make_response, send_file, Response
 from flask_jwt_extended import jwt_required
 from models import seguimiento_model
+from models.seguimiento_model import obtener_archivo_evidencia  # 🔧 AGREGAR ESTA LÍNEA
 import logging
+import base64
 import io
 
 seguimiento_bp = Blueprint('seguimiento_bp', __name__)
@@ -120,19 +122,96 @@ def descargar_evidencia(id):
     Descarga el archivo de evidencia
     """
     try:
+        logging.info(f'[seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: {id}')
+        
+        # Verificar si la función existe
+        if 'obtener_archivo_evidencia' not in globals():
+            logging.error(f'[seguimiento.evidencia] Función obtener_archivo_evidencia no encontrada')
+            return {"msg": "Error interno: función no encontrada"}, 500
+        
         archivo_data = obtener_archivo_evidencia(id)
         
-        if not archivo_data or not archivo_data['evidencia_archivo']:
+        logging.info(f'[seguimiento.evidencia] Datos obtenidos: {archivo_data is not None}')
+        
+        if not archivo_data:
+            logging.warning(f'[seguimiento.evidencia] No se encontraron datos para seguimiento ID: {id}')
+            return {"msg": "Archivo no encontrado"}, 404
+            
+        if not archivo_data.get('evidencia_archivo'):
+            logging.warning(f'[seguimiento.evidencia] No hay archivo de evidencia para seguimiento ID: {id}')
             return {"msg": "Archivo no encontrado"}, 404
         
+        # Log de información del archivo
+        evidencia_nombre = archivo_data.get('evidencia_nombre', 'sin_nombre')
+        evidencia_tipo = archivo_data.get('evidencia_tipo', 'application/octet-stream')
+        
+        # Verificar si evidencia_archivo es bytes o string
+        if isinstance(archivo_data['evidencia_archivo'], str):
+            # Si es string, convertir de base64 a bytes
+            import base64
+            archivo_bytes = base64.b64decode(archivo_data['evidencia_archivo'])
+        else:
+            # Si ya es bytes
+            archivo_bytes = archivo_data['evidencia_archivo']
+        
+        evidencia_tamano = len(archivo_bytes)
+        
+        logging.info(f'[seguimiento.evidencia] Archivo encontrado - Nombre: {evidencia_nombre}, Tipo: {evidencia_tipo}, Tamaño: {evidencia_tamano} bytes')
+        
+        # Verificar que io está importado
+        import io
+        
         # Crear un objeto de archivo en memoria
-        archivo_io = io.BytesIO(archivo_data['evidencia_archivo'])
+        archivo_io = io.BytesIO(archivo_bytes)
+        
+        logging.info(f'[seguimiento.evidencia] Enviando archivo {evidencia_nombre} de {evidencia_tamano} bytes')
         
         return send_file(
             archivo_io,
-            download_name=archivo_data['evidencia_nombre'],
-            mimetype=archivo_data['evidencia_tipo'],
+            download_name=evidencia_nombre,
+            mimetype=evidencia_tipo,
             as_attachment=True
         )
+        
     except Exception as e:
+        logging.exception(f'[seguimiento.evidencia] Error detallado al descargar archivo para seguimiento ID {id}: {str(e)}')
+        logging.error(f'[seguimiento.evidencia] Tipo de error: {type(e).__name__}')
         return {"msg": f"Error al descargar archivo: {str(e)}"}, 500
+
+@seguimiento_bp.route('/api/seguimientos/<int:id>/evidencia/preview', methods=['GET'])
+@jwt_required()
+def obtener_evidencia_preview(id):
+    """
+    Obtener evidencia como base64 para preview en la app
+    """
+    try:
+        logging.info(f'[seguimiento.evidencia.preview] Obteniendo preview para seguimiento ID: {id}')
+        
+        archivo_data = obtener_archivo_evidencia(id)
+        
+        if not archivo_data or not archivo_data.get('evidencia_archivo'):
+            logging.warning(f'[seguimiento.evidencia.preview] No se encontró evidencia para ID: {id}')
+            return make_response(jsonify({'error': 'Evidencia no encontrada'}), 404)
+        
+        # Convertir a base64 si es necesario
+        if isinstance(archivo_data['evidencia_archivo'], str):
+            evidencia_base64 = archivo_data['evidencia_archivo']
+        else:
+            import base64
+            evidencia_base64 = base64.b64encode(archivo_data['evidencia_archivo']).decode('utf-8')
+        
+        response_data = {
+            'id': id,
+            'archivo': evidencia_base64,
+            'nombre': archivo_data.get('evidencia_nombre'),
+            'tipo': archivo_data.get('evidencia_tipo'),
+            'tamano': archivo_data.get('evidencia_tamano')
+        }
+        
+        logging.info(f'[seguimiento.evidencia.preview] Enviando preview - Nombre: {response_data["nombre"]}, Tamaño: {response_data["tamano"]} bytes')
+        
+        return make_response(jsonify(response_data), 200)
+        
+    except Exception as e:
+        logging.exception(f'[seguimiento.evidencia.preview] Error al obtener preview: {e}')
+        return make_response(jsonify({'error': 'Error interno del servidor'}), 500)

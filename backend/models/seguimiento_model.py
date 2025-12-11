@@ -128,25 +128,42 @@ def obtener_seguimiento(id):
             pass
         return None
 
-def obtener_archivo_evidencia(id):
-    """Obtiene solo el archivo binario y metadatos"""
+def obtener_archivo_evidencia(id_seguimiento):
+    """
+    Obtener los datos del archivo de evidencia
+    """
     try:
+        logging.info(f'[model.seguimiento] Obteniendo archivo evidencia para ID: {id_seguimiento}')
+        
         cursor = mysql.connection.cursor(DictCursor)
-        cursor.execute("""
-            SELECT evidencia_archivo, evidencia_nombre, evidencia_tipo
+        query = """
+            SELECT evidencia_archivo, evidencia_nombre, evidencia_tipo, evidencia_tamaño
             FROM seguimiento_evidencias 
-            WHERE id_seguimiento = %s
-        """, (id,))
-        row = cursor.fetchone()
-        cursor.close()
-        return row
+            WHERE id_seguimiento = %s AND evidencia_archivo IS NOT NULL
+        """
+        cursor.execute(query, (id_seguimiento,))
+        result = cursor.fetchone()
+        
+        if result:
+            # 🔧 CORRECCIÓN: Usar el nombre de columna correcto con ñ
+            logging.info(f'[model.seguimiento] Archivo encontrado - Nombre: {result["evidencia_nombre"]}, Tipo: {result["evidencia_tipo"]}, Tamaño DB: {result["evidencia_tamaño"]}')
+            
+            return {
+                'evidencia_archivo': result['evidencia_archivo'],
+                'evidencia_nombre': result['evidencia_nombre'],
+                'evidencia_tipo': result['evidencia_tipo'], 
+                'evidencia_tamano': result['evidencia_tamaño']  # Nota: guardamos como tamano para consistencia en respuesta
+            }
+        else:
+            logging.warning(f'[model.seguimiento] No se encontró evidencia para ID: {id_seguimiento}')
+            return None
+        
     except Exception as e:
-        print('Error obtener_archivo_evidencia:', e)
-        try:
-            cursor.close()
-        except:
-            pass
+        logging.exception(f'[model.seguimiento] Error al obtener evidencia: {e}')
         return None
+    finally:
+        if 'cursor' in locals():
+            cursor.close()
 
 def actualizar_seguimiento(id, data):
     """

@@ -45,8 +45,8 @@ class _SeguimientoDetalleScreenState extends State<SeguimientoDetalleScreen> {
         actions: [
           if (widget.seguimiento.tieneEvidencia)
             IconButton(
-              icon: Icon(Icons.download),
-              onPressed: _descargarEvidencia,
+              icon: Icon(Icons.visibility),
+              onPressed: _cargarEvidencia,
             ),
         ],
       ),
@@ -280,7 +280,7 @@ class _SeguimientoDetalleScreenState extends State<SeguimientoDetalleScreen> {
                     child: ElevatedButton.icon(
                       icon: Icon(Icons.download),
                       label: Text('Descargar'),
-                      onPressed: _descargarEvidencia,
+                      onPressed: _cargarEvidencia,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.green,
                         foregroundColor: Colors.white,
@@ -365,13 +365,6 @@ class _SeguimientoDetalleScreenState extends State<SeguimientoDetalleScreen> {
         _cargandoEvidencia = false;
       });
     }
-  }
-
-  Future<void> _descargarEvidencia() async {
-    // Aquí puedes implementar la descarga del archivo
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Funcionalidad de descarga pendiente de implementar')),
-    );
   }
 
   Future<void> _copiarInfo() async {

@@ -22,4 +22,26 @@ class AuthService {
       throw Exception('Error ${response.statusCode}: ${response.body}');
     }
   }
+
+  Future<bool> cambiarPassword(String correo, String passwordActual, String passwordNueva) async {
+    final response = await http.put(
+      Uri.parse('$apiBaseUrl/usuarios/cambiar-password'),
+      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
+      body: jsonEncode({
+        'correo': correo,
+        'password_actual': passwordActual,
+        'password_nueva': passwordNueva,
+      }),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else if (response.statusCode == 400) {
+      throw Exception('Contraseña actual incorrecta');
+    } else if (response.statusCode == 404) {
+      throw Exception('Usuario no encontrado');
+    } else {
+      throw Exception('Error ${response.statusCode}: ${response.body}');
+    }
+  }
 }

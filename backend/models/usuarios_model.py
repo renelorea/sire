@@ -143,3 +143,43 @@ def find_usuario_by_id(id):
     else:
         return jsonify({"msg": "Usuario no encontrado"}), 404
 
+def cambiar_password_por_correo(correo, password_actual, password_nueva):
+    """
+    Cambiar contraseña de usuario usando correo electrónico
+    Valida que la contraseña actual sea correcta
+    """
+    try:
+        from flask_bcrypt import check_password_hash
+        
+        cursor = mysql.connection.cursor(DictCursor)
+        
+        # Buscar usuario por correo
+        cursor.execute("SELECT id_usuario, contrasena FROM usuarios WHERE email = %s AND activo = 1", (correo,))
+        usuario = cursor.fetchone()
+        
+        if not usuario:
+            cursor.close()
+            return {"success": False, "msg": "Usuario no encontrado"}
+        
+        # Verificar contraseña actual
+        if not check_password_hash(usuario['contrasena'], password_actual):
+            cursor.close()
+            return {"success": False, "msg": "Contraseña actual incorrecta"}
+        
+        # Actualizar con nueva contraseña
+        nueva_contrasena_hash = generate_password_hash(password_nueva).decode('utf-8')
+        cursor.execute("""
+            UPDATE usuarios SET contrasena = %s
+            WHERE id_usuario = %s
+        """, (nueva_contrasena_hash, usuario['id_usuario']))
+        
+        mysql.connection.commit()
+        cursor.close()
+        
+        return {"success": True, "msg": "Contraseña actualizada exitosamente"}
+        
+    except Exception as e:
+        if 'cursor' in locals():
+            cursor.close()
+        return {"success": False, "msg": f"Error al cambiar contraseña: {str(e)}"}
+

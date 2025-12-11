@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify, make_response
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models.usuarios_model import alta_usuario, baja_usuario, cambio_usuario, find_all_usuarios, find_usuario_by_id, resetear_contrasena_usuario, cambiar_contrasena_usuario
 import logging
@@ -266,3 +266,45 @@ def obtener_por_id(id):
         description: Usuario no encontrado
     """
     return find_usuario_by_id(id)
+
+@usuarios_bp.route('/api/usuarios/cambiar-password', methods=['PUT'])
+def cambiar_password_por_correo():
+    """
+    Cambiar contraseña de usuario por correo (sin autenticación JWT)
+    Se usa cuando el usuario tiene la contraseña predeterminada
+    """
+    try:
+        datos = request.json
+        logging.info(f'Solicitud de cambio de contraseña por correo')
+        
+        if not datos:
+            return make_response(jsonify({"msg": "Datos requeridos"}), 400)
+        
+        correo = datos.get('correo')
+        password_actual = datos.get('password_actual')
+        password_nueva = datos.get('password_nueva')
+        
+        if not correo or not password_actual or not password_nueva:
+            return make_response(jsonify({"msg": "Correo, contraseña actual y nueva contraseña son requeridos"}), 400)
+        
+        if len(password_nueva) < 6:
+            return make_response(jsonify({"msg": "La contraseña debe tener al menos 6 caracteres"}), 400)
+        
+        if password_nueva == 'cecytem@1234':
+            return make_response(jsonify({"msg": "No puedes usar la contraseña predeterminada"}), 400)
+        
+        # Importar función de modelo para cambiar contraseña por correo
+        from models.usuarios_model import cambiar_password_por_correo as cambiar_pass_modelo
+        
+        resultado = cambiar_pass_modelo(correo, password_actual, password_nueva)
+        
+        if resultado.get('success'):
+            logging.info(f'Contraseña cambiada exitosamente para usuario: {correo}')
+            return make_response(jsonify({"msg": "Contraseña actualizada exitosamente"}), 200)
+        else:
+            logging.warning(f'Error al cambiar contraseña para usuario {correo}: {resultado.get("msg")}')
+            return make_response(jsonify({"msg": resultado.get('msg', 'Error al cambiar contraseña')}), 400)
+    
+    except Exception as e:
+        logging.exception(f'Error en cambiar_password_por_correo: {str(e)}')
+        return make_response(jsonify({"msg": "Error interno del servidor"}), 500)

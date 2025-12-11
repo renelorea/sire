@@ -2078,3 +2078,571 @@ MySQLdb.OperationalError: (1054, "Unknown column 'fecha_creacion' in 'ORDER BY'"
 2025-12-10 08:43:10,791 - INFO - [model.seguimiento] Encontrados 3 seguimientos para reporte 2
 2025-12-10 08:43:10,791 - INFO - [seguimiento.por_reporte] Encontrados 3 seguimientos
 2025-12-10 08:43:10,793 - INFO - 192.168.1.101 - - [10/Dec/2025 08:43:10] "GET /api/reportes/2/seguimientos HTTP/1.1" 200 -
+2025-12-10 09:11:46,428 - INFO - 192.168.1.101 - - [10/Dec/2025 09:11:46] "POST /api/login HTTP/1.1" 200 -
+2025-12-10 09:11:48,505 - INFO - Obteniendo reportes - incluir_cerrados: False
+2025-12-10 09:11:49,010 - INFO - Reportes filtrados: 17 de 19 total
+2025-12-10 09:11:49,011 - INFO - 192.168.1.101 - - [10/Dec/2025 09:11:49] "GET /api/reportes HTTP/1.1" 200 -
+2025-12-10 09:11:49,537 - INFO - 192.168.1.101 - - [10/Dec/2025 09:11:49] "GET /api/alumnos HTTP/1.1" 200 -
+2025-12-10 09:11:50,036 - INFO - 192.168.1.101 - - [10/Dec/2025 09:11:50] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-12-10 09:11:52,584 - INFO - 192.168.1.101 - - [10/Dec/2025 09:11:52] "[33mGET /api/seguimientos/reporte/6 HTTP/1.1[0m" 404 -
+2025-12-10 09:11:59,624 - INFO - [seguimiento.por_reporte] Obteniendo seguimientos para reporte ID: 6
+2025-12-10 09:11:59,624 - INFO - [model.seguimiento] Obteniendo seguimientos para reporte: 6
+2025-12-10 09:12:00,109 - INFO - [model.seguimiento] Encontrados 0 seguimientos para reporte 6
+2025-12-10 09:12:00,109 - INFO - [seguimiento.por_reporte] Encontrados 0 seguimientos
+2025-12-10 09:12:00,110 - INFO - 192.168.1.101 - - [10/Dec/2025 09:12:00] "GET /api/reportes/6/seguimientos HTTP/1.1" 200 -
+2025-12-10 09:12:39,153 - INFO - [seguimiento.create] payload: {'id_reporte': 6, 'responsable': 'fgdgf', 'descripcion': 'dfgdgdgdfg', 'fecha_seguimiento': '2025-12-10', 'estado': 'En Progreso', 'evidencia_archivo': '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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA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', 'evidencia_nombre': 'scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg', 'evidencia_tipo': 'image/jpeg', 'evidencia_tamano': 15097}
+2025-12-10 09:12:39,556 - INFO - [seguimiento_model.crear_seguimiento] Query: INSERT INTO seguimiento_evidencias (
+                id_reporte, responsable, fecha_seguimiento,
+                descripcion, evidencia_archivo, evidencia_nombre,
+                evidencia_tipo, evidencia_tamaño, estado, validado
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+2025-12-10 09:12:39,557 - INFO - [seguimiento_model.crear_seguimiento] Params: [6, 'fgdgf', '2025-12-10', 'dfgdgdgdfg', '<archivo_binario_15097_bytes>', 'scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg', 'image/jpeg', 15097, 'En Progreso', 0]
+2025-12-10 09:12:39,896 - INFO - [seguimiento.create] seguimiento creado: {'id_seguimiento': 19, 'id_reporte': 6, 'responsable': 'fgdgf', 'fecha_seguimiento': datetime.date(2025, 12, 10), 'descripcion': 'dfgdgdgdfg', 'evidencia_nombre': 'scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg', 'evidencia_tipo': 'image/jpeg', 'evidencia_tamaño': 15097, 'estado': '', 'validado': 0}
+2025-12-10 09:12:39,896 - INFO - 192.168.1.101 - - [10/Dec/2025 09:12:39] "[35m[1mPOST /api/seguimientos HTTP/1.1[0m" 201 -
+2025-12-10 09:12:39,916 - INFO - [reportes.actualizar_estatus] id=6 payload={'estatus': 'En Seguimiento'}
+2025-12-10 09:12:40,500 - INFO - [reportes_model.actualizar_estatus] id=6 affected=1
+2025-12-10 09:12:40,500 - INFO - [reportes.actualizar_estatus] estatus actualizado id=6 -> En Seguimiento
+2025-12-10 09:12:40,501 - INFO - 192.168.1.101 - - [10/Dec/2025 09:12:40] "PUT /api/reportes/6/estatus HTTP/1.1" 200 -
+2025-12-10 09:12:42,226 - INFO - Obteniendo reportes - incluir_cerrados: False
+2025-12-10 09:12:42,717 - INFO - Reportes filtrados: 17 de 19 total
+2025-12-10 09:12:42,718 - INFO - 192.168.1.101 - - [10/Dec/2025 09:12:42] "GET /api/reportes HTTP/1.1" 200 -
+2025-12-10 09:12:43,270 - INFO - 192.168.1.101 - - [10/Dec/2025 09:12:43] "GET /api/alumnos HTTP/1.1" 200 -
+2025-12-10 09:12:43,756 - INFO - 192.168.1.101 - - [10/Dec/2025 09:12:43] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-12-10 09:12:45,410 - INFO - 192.168.1.101 - - [10/Dec/2025 09:12:45] "[33mGET /api/seguimientos/reporte/6 HTTP/1.1[0m" 404 -
+2025-12-10 09:12:54,980 - INFO - [seguimiento.por_reporte] Obteniendo seguimientos para reporte ID: 6
+2025-12-10 09:12:54,980 - INFO - [model.seguimiento] Obteniendo seguimientos para reporte: 6
+2025-12-10 09:12:55,472 - INFO - [model.seguimiento] Encontrados 1 seguimientos para reporte 6
+2025-12-10 09:12:55,473 - INFO - [seguimiento.por_reporte] Encontrados 1 seguimientos
+2025-12-10 09:12:55,473 - INFO - 192.168.1.101 - - [10/Dec/2025 09:12:55] "GET /api/reportes/6/seguimientos HTTP/1.1" 200 -
+2025-12-10 09:13:01,025 - INFO - 192.168.1.101 - - [10/Dec/2025 09:13:01] "[35m[1mGET /api/seguimientos/19/evidencia HTTP/1.1[0m" 500 -
+2025-12-10 09:13:36,057 - INFO - 192.168.1.101 - - [10/Dec/2025 09:13:36] "[35m[1mGET /api/seguimientos/19/evidencia HTTP/1.1[0m" 500 -
+2025-12-10 09:13:44,043 - INFO - 192.168.1.101 - - [10/Dec/2025 09:13:44] "[35m[1mGET /api/seguimientos/19/evidencia HTTP/1.1[0m" 500 -
+2025-12-10 09:14:28,401 - INFO - 192.168.1.101 - - [10/Dec/2025 09:14:28] "[35m[1mGET /api/seguimientos/19/evidencia HTTP/1.1[0m" 500 -
+2025-12-10 09:21:23,400 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/seguimiento_controller.py', reloading
+2025-12-10 09:21:23,770 - INFO -  * Restarting with stat
+2025-12-10 09:21:24,901 - WARNING -  * Debugger is active!
+2025-12-10 09:21:24,914 - INFO -  * Debugger PIN: 149-262-596
+2025-12-10 09:21:26,969 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/seguimiento_controller.py', reloading
+2025-12-10 09:21:27,124 - INFO -  * Restarting with stat
+2025-12-10 09:21:28,120 - WARNING -  * Debugger is active!
+2025-12-10 09:21:28,132 - INFO -  * Debugger PIN: 149-262-596
+2025-12-10 09:21:56,701 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py', reloading
+2025-12-10 09:21:56,838 - INFO -  * Restarting with stat
+2025-12-10 09:21:57,750 - WARNING -  * Debugger is active!
+2025-12-10 09:21:57,758 - INFO -  * Debugger PIN: 149-262-596
+2025-12-10 09:22:11,963 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py', reloading
+2025-12-10 09:22:12,080 - INFO -  * Restarting with stat
+2025-12-10 09:22:12,852 - WARNING -  * Debugger is active!
+2025-12-10 09:22:12,861 - INFO -  * Debugger PIN: 149-262-596
+2025-12-10 09:24:20,601 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/seguimiento_controller.py', reloading
+2025-12-10 09:24:20,722 - INFO -  * Restarting with stat
+2025-12-10 09:24:21,449 - WARNING -  * Debugger is active!
+2025-12-10 09:24:21,458 - INFO -  * Debugger PIN: 149-262-596
+2025-12-10 09:24:37,781 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/seguimiento_controller.py', reloading
+2025-12-10 09:24:37,907 - INFO -  * Restarting with stat
+2025-12-10 09:24:38,673 - WARNING -  * Debugger is active!
+2025-12-10 09:24:38,682 - INFO -  * Debugger PIN: 149-262-596
+2025-12-10 09:24:40,731 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/seguimiento_controller.py', reloading
+2025-12-10 09:24:40,855 - INFO -  * Restarting with stat
+2025-12-10 09:24:41,566 - WARNING -  * Debugger is active!
+2025-12-10 09:24:41,575 - INFO -  * Debugger PIN: 149-262-596
+2025-12-10 09:27:11,651 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py', reloading
+2025-12-10 09:27:11,786 - INFO -  * Restarting with stat
+2025-12-10 09:27:12,788 - WARNING -  * Debugger is active!
+2025-12-10 09:27:12,798 - INFO -  * Debugger PIN: 149-262-596
+2025-12-10 09:27:18,906 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py', reloading
+2025-12-10 09:27:19,040 - INFO -  * Restarting with stat
+2025-12-10 09:27:19,810 - WARNING -  * Debugger is active!
+2025-12-10 09:27:19,818 - INFO -  * Debugger PIN: 149-262-596
+2025-12-10 09:27:37,102 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/seguimiento_controller.py', reloading
+2025-12-10 09:27:37,236 - INFO -  * Restarting with stat
+2025-12-10 09:27:38,005 - WARNING -  * Debugger is active!
+2025-12-10 09:27:38,014 - INFO -  * Debugger PIN: 149-262-596
+2025-12-10 09:27:42,162 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/seguimiento_controller.py', reloading
+2025-12-10 09:27:42,362 - INFO -  * Restarting with stat
+2025-12-10 09:27:43,061 - WARNING -  * Debugger is active!
+2025-12-10 09:27:43,070 - INFO -  * Debugger PIN: 149-262-596
+2025-12-10 09:28:16,577 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.101:5000
+2025-12-10 09:28:16,578 - INFO - [33mPress CTRL+C to quit[0m
+2025-12-10 09:28:16,579 - INFO -  * Restarting with stat
+2025-12-10 09:28:17,252 - WARNING -  * Debugger is active!
+2025-12-10 09:28:17,260 - INFO -  * Debugger PIN: 149-262-596
+2025-12-10 09:29:03,199 - INFO - 192.168.1.101 - - [10/Dec/2025 09:29:03] "POST /api/login HTTP/1.1" 200 -
+2025-12-10 09:29:04,332 - INFO - Obteniendo reportes - incluir_cerrados: False
+2025-12-10 09:29:04,804 - INFO - Reportes filtrados: 17 de 19 total
+2025-12-10 09:29:04,805 - INFO - 192.168.1.101 - - [10/Dec/2025 09:29:04] "GET /api/reportes HTTP/1.1" 200 -
+2025-12-10 09:29:05,272 - INFO - 192.168.1.101 - - [10/Dec/2025 09:29:05] "GET /api/alumnos HTTP/1.1" 200 -
+2025-12-10 09:29:05,745 - INFO - 192.168.1.101 - - [10/Dec/2025 09:29:05] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-12-10 09:29:07,180 - INFO - 192.168.1.101 - - [10/Dec/2025 09:29:07] "[33mGET /api/seguimientos/reporte/6 HTTP/1.1[0m" 404 -
+2025-12-10 09:29:14,694 - INFO - [seguimiento.por_reporte] Obteniendo seguimientos para reporte ID: 6
+2025-12-10 09:29:14,694 - INFO - [model.seguimiento] Obteniendo seguimientos para reporte: 6
+2025-12-10 09:29:15,152 - INFO - [model.seguimiento] Encontrados 1 seguimientos para reporte 6
+2025-12-10 09:29:15,152 - INFO - [seguimiento.por_reporte] Encontrados 1 seguimientos
+2025-12-10 09:29:15,153 - INFO - 192.168.1.101 - - [10/Dec/2025 09:29:15] "GET /api/reportes/6/seguimientos HTTP/1.1" 200 -
+2025-12-10 09:29:18,520 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-10 09:29:18,520 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-10 09:29:18,520 - ERROR - [model.seguimiento] Error al obtener evidencia: name 'connection' is not defined
+Traceback (most recent call last):
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py", line 138, in obtener_archivo_evidencia
+    cursor = connection.cursor()
+             ^^^^^^^^^^
+NameError: name 'connection' is not defined
+2025-12-10 09:29:18,523 - INFO - [seguimiento.evidencia] Datos obtenidos: False
+2025-12-10 09:29:18,523 - WARNING - [seguimiento.evidencia] No se encontraron datos para seguimiento ID: 19
+2025-12-10 09:29:18,523 - INFO - 192.168.1.101 - - [10/Dec/2025 09:29:18] "[33mGET /api/seguimientos/19/evidencia HTTP/1.1[0m" 404 -
+2025-12-10 09:32:30,879 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py', reloading
+2025-12-10 09:32:31,021 - INFO -  * Restarting with stat
+2025-12-10 09:32:32,089 - WARNING -  * Debugger is active!
+2025-12-10 09:32:32,098 - INFO -  * Debugger PIN: 149-262-596
+2025-12-10 09:32:51,172 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.101:5000
+2025-12-10 09:32:51,172 - INFO - [33mPress CTRL+C to quit[0m
+2025-12-10 09:32:51,173 - INFO -  * Restarting with stat
+2025-12-10 09:32:52,048 - WARNING -  * Debugger is active!
+2025-12-10 09:32:52,057 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 09:26:51,932 - INFO - 192.168.2.191 - - [11/Dec/2025 09:26:51] "POST /api/login HTTP/1.1" 200 -
+2025-12-11 09:26:57,620 - INFO - Obteniendo reportes - incluir_cerrados: False
+2025-12-11 09:26:57,994 - INFO - Reportes filtrados: 17 de 19 total
+2025-12-11 09:26:57,995 - INFO - 192.168.2.191 - - [11/Dec/2025 09:26:57] "GET /api/reportes HTTP/1.1" 200 -
+2025-12-11 09:26:58,389 - INFO - 192.168.2.191 - - [11/Dec/2025 09:26:58] "GET /api/alumnos HTTP/1.1" 200 -
+2025-12-11 09:26:58,765 - INFO - 192.168.2.191 - - [11/Dec/2025 09:26:58] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-12-11 09:27:00,143 - INFO - 192.168.2.191 - - [11/Dec/2025 09:27:00] "[33mGET /api/seguimientos/reporte/6 HTTP/1.1[0m" 404 -
+2025-12-11 09:27:13,441 - INFO - [seguimiento.por_reporte] Obteniendo seguimientos para reporte ID: 6
+2025-12-11 09:27:13,442 - INFO - [model.seguimiento] Obteniendo seguimientos para reporte: 6
+2025-12-11 09:27:13,809 - INFO - [model.seguimiento] Encontrados 1 seguimientos para reporte 6
+2025-12-11 09:27:13,812 - INFO - [seguimiento.por_reporte] Encontrados 1 seguimientos
+2025-12-11 09:27:13,814 - INFO - 192.168.2.191 - - [11/Dec/2025 09:27:13] "GET /api/reportes/6/seguimientos HTTP/1.1" 200 -
+2025-12-11 09:27:18,618 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 09:27:18,618 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 09:27:19,078 - ERROR - [model.seguimiento] Error al obtener evidencia: (1054, "Unknown column 'evidencia_tamano' in 'SELECT'")
+Traceback (most recent call last):
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py", line 144, in obtener_archivo_evidencia
+    cursor.execute(query, (id_seguimiento,))
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'evidencia_tamano' in 'SELECT'")
+2025-12-11 09:27:19,110 - INFO - [seguimiento.evidencia] Datos obtenidos: False
+2025-12-11 09:27:19,110 - WARNING - [seguimiento.evidencia] No se encontraron datos para seguimiento ID: 19
+2025-12-11 09:27:19,110 - INFO - 192.168.2.191 - - [11/Dec/2025 09:27:19] "[33mGET /api/seguimientos/19/evidencia HTTP/1.1[0m" 404 -
+2025-12-11 09:39:54,558 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py', reloading
+2025-12-11 09:39:55,037 - INFO -  * Restarting with stat
+2025-12-11 09:40:17,471 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-12-11 09:40:17,471 - INFO - [33mPress CTRL+C to quit[0m
+2025-12-11 09:40:17,472 - INFO -  * Restarting with stat
+2025-12-11 09:40:18,147 - WARNING -  * Debugger is active!
+2025-12-11 09:40:18,179 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 09:40:31,522 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 09:40:31,522 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 09:40:31,878 - ERROR - [model.seguimiento] Error al obtener evidencia: (1054, "Unknown column 'id' in 'WHERE'")
+Traceback (most recent call last):
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py", line 144, in obtener_archivo_evidencia
+    cursor.execute(query, (id_seguimiento,))
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'id' in 'WHERE'")
+2025-12-11 09:40:31,881 - INFO - [seguimiento.evidencia] Datos obtenidos: False
+2025-12-11 09:40:31,881 - WARNING - [seguimiento.evidencia] No se encontraron datos para seguimiento ID: 19
+2025-12-11 09:40:31,882 - INFO - 192.168.2.191 - - [11/Dec/2025 09:40:31] "[33mGET /api/seguimientos/19/evidencia HTTP/1.1[0m" 404 -
+2025-12-11 09:41:43,368 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py', reloading
+2025-12-11 09:41:43,492 - INFO -  * Restarting with stat
+2025-12-11 09:41:44,486 - WARNING -  * Debugger is active!
+2025-12-11 09:41:44,495 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 09:42:11,243 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-12-11 09:42:11,243 - INFO - [33mPress CTRL+C to quit[0m
+2025-12-11 09:42:11,244 - INFO -  * Restarting with stat
+2025-12-11 09:42:11,931 - WARNING -  * Debugger is active!
+2025-12-11 09:42:11,943 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 09:42:19,811 - INFO - 192.168.2.191 - - [11/Dec/2025 09:42:19] "[31m[1mGET /api/seguimientos/19/evidencia HTTP/1.1[0m" 401 -
+2025-12-11 09:46:17,949 - INFO - 192.168.2.191 - - [11/Dec/2025 09:46:17] "[31m[1mPOST /api/login HTTP/1.1[0m" 401 -
+2025-12-11 09:49:14,712 - INFO - 192.168.2.191 - - [11/Dec/2025 09:49:14] "POST /api/login HTTP/1.1" 200 -
+2025-12-11 09:49:16,470 - INFO - Obteniendo reportes - incluir_cerrados: False
+2025-12-11 09:49:16,833 - INFO - Reportes filtrados: 17 de 19 total
+2025-12-11 09:49:16,834 - INFO - 192.168.2.191 - - [11/Dec/2025 09:49:16] "GET /api/reportes HTTP/1.1" 200 -
+2025-12-11 09:49:17,206 - INFO - 192.168.2.191 - - [11/Dec/2025 09:49:17] "GET /api/alumnos HTTP/1.1" 200 -
+2025-12-11 09:49:17,570 - INFO - 192.168.2.191 - - [11/Dec/2025 09:49:17] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-12-11 09:49:25,497 - INFO - 192.168.2.191 - - [11/Dec/2025 09:49:25] "[33mGET /api/seguimientos/reporte/6 HTTP/1.1[0m" 404 -
+2025-12-11 09:49:31,818 - INFO - [seguimiento.por_reporte] Obteniendo seguimientos para reporte ID: 6
+2025-12-11 09:49:31,819 - INFO - [model.seguimiento] Obteniendo seguimientos para reporte: 6
+2025-12-11 09:49:32,175 - INFO - [model.seguimiento] Encontrados 1 seguimientos para reporte 6
+2025-12-11 09:49:32,175 - INFO - [seguimiento.por_reporte] Encontrados 1 seguimientos
+2025-12-11 09:49:32,176 - INFO - 192.168.2.191 - - [11/Dec/2025 09:49:32] "GET /api/reportes/6/seguimientos HTTP/1.1" 200 -
+2025-12-11 09:50:15,796 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 09:50:15,796 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 09:50:16,161 - ERROR - [model.seguimiento] Error al obtener evidencia: 1
+Traceback (most recent call last):
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py", line 148, in obtener_archivo_evidencia
+    logging.info(f'[model.seguimiento] Archivo encontrado - Nombre: {result[1]}, Tipo: {result[2]}, Tamaño DB: {result[3]}')
+                                                                     ~~~~~~^^^
+KeyError: 1
+2025-12-11 09:50:16,164 - INFO - [seguimiento.evidencia] Datos obtenidos: False
+2025-12-11 09:50:16,164 - WARNING - [seguimiento.evidencia] No se encontraron datos para seguimiento ID: 19
+2025-12-11 09:50:16,165 - INFO - 192.168.2.191 - - [11/Dec/2025 09:50:16] "[33mGET /api/seguimientos/19/evidencia HTTP/1.1[0m" 404 -
+2025-12-11 10:01:48,861 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py', reloading
+2025-12-11 10:01:49,185 - INFO -  * Restarting with stat
+2025-12-11 10:01:50,229 - WARNING -  * Debugger is active!
+2025-12-11 10:01:50,238 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 10:03:36,677 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py', reloading
+2025-12-11 10:03:36,809 - INFO -  * Restarting with stat
+2025-12-11 10:03:37,903 - WARNING -  * Debugger is active!
+2025-12-11 10:03:37,911 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 10:05:31,258 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-12-11 10:05:31,258 - INFO - [33mPress CTRL+C to quit[0m
+2025-12-11 10:05:31,259 - INFO -  * Restarting with stat
+2025-12-11 10:05:31,914 - WARNING -  * Debugger is active!
+2025-12-11 10:05:31,922 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 10:58:53,874 - INFO - 192.168.2.191 - - [11/Dec/2025 10:58:53] "POST /api/login HTTP/1.1" 200 -
+2025-12-11 10:58:58,965 - INFO - Obteniendo reportes - incluir_cerrados: False
+2025-12-11 10:58:59,331 - INFO - Reportes filtrados: 17 de 19 total
+2025-12-11 10:58:59,332 - INFO - 192.168.2.191 - - [11/Dec/2025 10:58:59] "GET /api/reportes HTTP/1.1" 200 -
+2025-12-11 10:58:59,708 - INFO - 192.168.2.191 - - [11/Dec/2025 10:58:59] "GET /api/alumnos HTTP/1.1" 200 -
+2025-12-11 10:59:00,074 - INFO - 192.168.2.191 - - [11/Dec/2025 10:59:00] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-12-11 10:59:01,444 - INFO - 192.168.2.191 - - [11/Dec/2025 10:59:01] "[33mGET /api/seguimientos/reporte/6 HTTP/1.1[0m" 404 -
+2025-12-11 10:59:07,638 - INFO - [seguimiento.por_reporte] Obteniendo seguimientos para reporte ID: 6
+2025-12-11 10:59:07,638 - INFO - [model.seguimiento] Obteniendo seguimientos para reporte: 6
+2025-12-11 10:59:07,984 - INFO - [model.seguimiento] Encontrados 1 seguimientos para reporte 6
+2025-12-11 10:59:07,985 - INFO - [seguimiento.por_reporte] Encontrados 1 seguimientos
+2025-12-11 10:59:07,985 - INFO - 192.168.2.191 - - [11/Dec/2025 10:59:07] "GET /api/reportes/6/seguimientos HTTP/1.1" 200 -
+2025-12-11 10:59:12,471 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 10:59:12,471 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 10:59:12,816 - ERROR - [model.seguimiento] Error al obtener evidencia: (1054, "Unknown column 'evidencia_tamano' in 'SELECT'")
+Traceback (most recent call last):
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py", line 144, in obtener_archivo_evidencia
+    cursor.execute(query, (id_seguimiento,))
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'evidencia_tamano' in 'SELECT'")
+2025-12-11 10:59:12,822 - INFO - [seguimiento.evidencia] Datos obtenidos: False
+2025-12-11 10:59:12,822 - WARNING - [seguimiento.evidencia] No se encontraron datos para seguimiento ID: 19
+2025-12-11 10:59:12,822 - INFO - 192.168.2.191 - - [11/Dec/2025 10:59:12] "[33mGET /api/seguimientos/19/evidencia HTTP/1.1[0m" 404 -
+2025-12-11 10:59:19,678 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 10:59:19,679 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 10:59:20,033 - ERROR - [model.seguimiento] Error al obtener evidencia: (1054, "Unknown column 'evidencia_tamano' in 'SELECT'")
+Traceback (most recent call last):
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py", line 144, in obtener_archivo_evidencia
+    cursor.execute(query, (id_seguimiento,))
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'evidencia_tamano' in 'SELECT'")
+2025-12-11 10:59:20,034 - INFO - [seguimiento.evidencia] Datos obtenidos: False
+2025-12-11 10:59:20,034 - WARNING - [seguimiento.evidencia] No se encontraron datos para seguimiento ID: 19
+2025-12-11 10:59:20,035 - INFO - 192.168.2.191 - - [11/Dec/2025 10:59:20] "[33mGET /api/seguimientos/19/evidencia HTTP/1.1[0m" 404 -
+2025-12-11 11:00:14,899 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py', reloading
+2025-12-11 11:00:15,216 - INFO -  * Restarting with stat
+2025-12-11 11:00:16,399 - WARNING -  * Debugger is active!
+2025-12-11 11:00:16,409 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 11:00:35,789 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py', reloading
+2025-12-11 11:00:35,908 - INFO -  * Restarting with stat
+2025-12-11 11:00:36,620 - WARNING -  * Debugger is active!
+2025-12-11 11:00:36,628 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 11:00:50,900 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-12-11 11:00:50,901 - INFO - [33mPress CTRL+C to quit[0m
+2025-12-11 11:00:50,902 - INFO -  * Restarting with stat
+2025-12-11 11:00:51,558 - WARNING -  * Debugger is active!
+2025-12-11 11:00:51,567 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 11:01:30,722 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 11:01:30,722 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 11:01:31,076 - ERROR - [model.seguimiento] Error al obtener evidencia: (1054, "Unknown column 'evidencia_tamañoo' in 'SELECT'")
+Traceback (most recent call last):
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py", line 144, in obtener_archivo_evidencia
+    cursor.execute(query, (id_seguimiento,))
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'evidencia_tamañoo' in 'SELECT'")
+2025-12-11 11:01:31,080 - INFO - [seguimiento.evidencia] Datos obtenidos: False
+2025-12-11 11:01:31,080 - WARNING - [seguimiento.evidencia] No se encontraron datos para seguimiento ID: 19
+2025-12-11 11:01:31,082 - INFO - 192.168.2.191 - - [11/Dec/2025 11:01:31] "[33mGET /api/seguimientos/19/evidencia HTTP/1.1[0m" 404 -
+2025-12-11 11:02:27,026 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py', reloading
+2025-12-11 11:02:27,141 - INFO -  * Restarting with stat
+2025-12-11 11:02:27,811 - WARNING -  * Debugger is active!
+2025-12-11 11:02:27,819 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 11:02:37,933 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-12-11 11:02:37,933 - INFO - [33mPress CTRL+C to quit[0m
+2025-12-11 11:02:37,934 - INFO -  * Restarting with stat
+2025-12-11 11:02:38,585 - WARNING -  * Debugger is active!
+2025-12-11 11:02:38,593 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 11:02:49,737 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 11:02:49,737 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 11:02:50,095 - ERROR - [model.seguimiento] Error al obtener evidencia: (1054, "Unknown column 'id' in 'WHERE'")
+Traceback (most recent call last):
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py", line 144, in obtener_archivo_evidencia
+    cursor.execute(query, (id_seguimiento,))
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/cursors.py", line 179, in execute
+    res = self._query(mogrified_query)
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/cursors.py", line 330, in _query
+    db.query(q)
+    ~~~~~~~~^^^
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/venv/lib/python3.13/site-packages/MySQLdb/connections.py", line 280, in query
+    _mysql.connection.query(self, query)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+MySQLdb.OperationalError: (1054, "Unknown column 'id' in 'WHERE'")
+2025-12-11 11:02:50,098 - INFO - [seguimiento.evidencia] Datos obtenidos: False
+2025-12-11 11:02:50,099 - WARNING - [seguimiento.evidencia] No se encontraron datos para seguimiento ID: 19
+2025-12-11 11:02:50,101 - INFO - 192.168.2.191 - - [11/Dec/2025 11:02:50] "[33mGET /api/seguimientos/19/evidencia HTTP/1.1[0m" 404 -
+2025-12-11 11:03:32,373 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py', reloading
+2025-12-11 11:03:32,491 - INFO -  * Restarting with stat
+2025-12-11 11:03:33,424 - WARNING -  * Debugger is active!
+2025-12-11 11:03:33,433 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 11:03:41,943 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-12-11 11:03:41,944 - INFO - [33mPress CTRL+C to quit[0m
+2025-12-11 11:03:41,944 - INFO -  * Restarting with stat
+2025-12-11 11:03:42,592 - WARNING -  * Debugger is active!
+2025-12-11 11:03:42,601 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 11:03:50,660 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 11:03:50,660 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 11:03:51,023 - ERROR - [model.seguimiento] Error al obtener evidencia: 'evidencia_tamano'
+Traceback (most recent call last):
+  File "/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py", line 149, in obtener_archivo_evidencia
+    logging.info(f'[model.seguimiento] Archivo encontrado - Nombre: {result["evidencia_nombre"]}, Tipo: {result["evidencia_tipo"]}, Tamaño DB: {result["evidencia_tamano"]}')
+                                                                                                                                                ~~~~~~^^^^^^^^^^^^^^^^^^^^
+KeyError: 'evidencia_tamano'
+2025-12-11 11:03:51,025 - INFO - [seguimiento.evidencia] Datos obtenidos: False
+2025-12-11 11:03:51,025 - WARNING - [seguimiento.evidencia] No se encontraron datos para seguimiento ID: 19
+2025-12-11 11:03:51,028 - INFO - 192.168.2.191 - - [11/Dec/2025 11:03:51] "[33mGET /api/seguimientos/19/evidencia HTTP/1.1[0m" 404 -
+2025-12-11 12:22:21,224 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py', reloading
+2025-12-11 12:22:21,560 - INFO -  * Restarting with stat
+2025-12-11 12:22:22,737 - WARNING -  * Debugger is active!
+2025-12-11 12:22:22,749 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 13:44:10,750 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/seguimiento_model.py', reloading
+2025-12-11 13:44:11,060 - INFO -  * Restarting with stat
+2025-12-11 13:44:12,178 - WARNING -  * Debugger is active!
+2025-12-11 13:44:12,193 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 13:44:36,793 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-12-11 13:44:36,793 - INFO - [33mPress CTRL+C to quit[0m
+2025-12-11 13:44:36,794 - INFO -  * Restarting with stat
+2025-12-11 13:44:37,471 - WARNING -  * Debugger is active!
+2025-12-11 13:44:37,480 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 13:46:03,649 - INFO - 192.168.2.191 - - [11/Dec/2025 13:46:03] "POST /api/login HTTP/1.1" 200 -
+2025-12-11 13:46:05,060 - INFO - Obteniendo reportes - incluir_cerrados: False
+2025-12-11 13:46:05,430 - INFO - Reportes filtrados: 17 de 19 total
+2025-12-11 13:46:05,431 - INFO - 192.168.2.191 - - [11/Dec/2025 13:46:05] "GET /api/reportes HTTP/1.1" 200 -
+2025-12-11 13:46:05,837 - INFO - 192.168.2.191 - - [11/Dec/2025 13:46:05] "GET /api/alumnos HTTP/1.1" 200 -
+2025-12-11 13:46:06,214 - INFO - 192.168.2.191 - - [11/Dec/2025 13:46:06] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-12-11 13:46:08,382 - INFO - 192.168.2.191 - - [11/Dec/2025 13:46:08] "[33mGET /api/seguimientos/reporte/6 HTTP/1.1[0m" 404 -
+2025-12-11 13:46:13,575 - INFO - [seguimiento.por_reporte] Obteniendo seguimientos para reporte ID: 6
+2025-12-11 13:46:13,575 - INFO - [model.seguimiento] Obteniendo seguimientos para reporte: 6
+2025-12-11 13:46:13,944 - INFO - [model.seguimiento] Encontrados 1 seguimientos para reporte 6
+2025-12-11 13:46:13,944 - INFO - [seguimiento.por_reporte] Encontrados 1 seguimientos
+2025-12-11 13:46:13,945 - INFO - 192.168.2.191 - - [11/Dec/2025 13:46:13] "GET /api/reportes/6/seguimientos HTTP/1.1" 200 -
+2025-12-11 13:46:19,843 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 13:46:19,843 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 13:46:20,216 - INFO - [model.seguimiento] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño DB: 15097
+2025-12-11 13:46:20,216 - INFO - [seguimiento.evidencia] Datos obtenidos: True
+2025-12-11 13:46:20,216 - INFO - [seguimiento.evidencia] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño: 15097 bytes
+2025-12-11 13:46:20,216 - INFO - [seguimiento.evidencia] Enviando archivo scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg de 15097 bytes
+2025-12-11 13:46:20,217 - INFO - 192.168.2.191 - - [11/Dec/2025 13:46:20] "GET /api/seguimientos/19/evidencia HTTP/1.1" 200 -
+2025-12-11 13:46:25,879 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 13:46:25,879 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 13:46:26,259 - INFO - [model.seguimiento] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño DB: 15097
+2025-12-11 13:46:26,260 - INFO - [seguimiento.evidencia] Datos obtenidos: True
+2025-12-11 13:46:26,260 - INFO - [seguimiento.evidencia] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño: 15097 bytes
+2025-12-11 13:46:26,260 - INFO - [seguimiento.evidencia] Enviando archivo scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg de 15097 bytes
+2025-12-11 13:46:26,260 - INFO - 192.168.2.191 - - [11/Dec/2025 13:46:26] "GET /api/seguimientos/19/evidencia HTTP/1.1" 200 -
+2025-12-11 13:46:31,995 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 13:46:31,995 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 13:46:32,366 - INFO - [model.seguimiento] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño DB: 15097
+2025-12-11 13:46:32,366 - INFO - [seguimiento.evidencia] Datos obtenidos: True
+2025-12-11 13:46:32,366 - INFO - [seguimiento.evidencia] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño: 15097 bytes
+2025-12-11 13:46:32,366 - INFO - [seguimiento.evidencia] Enviando archivo scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg de 15097 bytes
+2025-12-11 13:46:32,367 - INFO - 192.168.2.191 - - [11/Dec/2025 13:46:32] "GET /api/seguimientos/19/evidencia HTTP/1.1" 200 -
+2025-12-11 13:47:49,575 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 13:47:49,575 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 13:47:49,954 - INFO - [model.seguimiento] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño DB: 15097
+2025-12-11 13:47:49,954 - INFO - [seguimiento.evidencia] Datos obtenidos: True
+2025-12-11 13:47:49,954 - INFO - [seguimiento.evidencia] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño: 15097 bytes
+2025-12-11 13:47:49,954 - INFO - [seguimiento.evidencia] Enviando archivo scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg de 15097 bytes
+2025-12-11 13:47:49,955 - INFO - 192.168.2.191 - - [11/Dec/2025 13:47:49] "GET /api/seguimientos/19/evidencia HTTP/1.1" 200 -
+2025-12-11 13:47:55,437 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 13:47:55,437 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 13:47:55,817 - INFO - [model.seguimiento] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño DB: 15097
+2025-12-11 13:47:55,817 - INFO - [seguimiento.evidencia] Datos obtenidos: True
+2025-12-11 13:47:55,817 - INFO - [seguimiento.evidencia] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño: 15097 bytes
+2025-12-11 13:47:55,817 - INFO - [seguimiento.evidencia] Enviando archivo scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg de 15097 bytes
+2025-12-11 13:47:55,818 - INFO - 192.168.2.191 - - [11/Dec/2025 13:47:55] "GET /api/seguimientos/19/evidencia HTTP/1.1" 200 -
+2025-12-11 13:48:01,092 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 13:48:01,092 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 13:48:01,473 - INFO - [model.seguimiento] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño DB: 15097
+2025-12-11 13:48:01,473 - INFO - [seguimiento.evidencia] Datos obtenidos: True
+2025-12-11 13:48:01,474 - INFO - [seguimiento.evidencia] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño: 15097 bytes
+2025-12-11 13:48:01,474 - INFO - [seguimiento.evidencia] Enviando archivo scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg de 15097 bytes
+2025-12-11 13:48:01,474 - INFO - 192.168.2.191 - - [11/Dec/2025 13:48:01] "GET /api/seguimientos/19/evidencia HTTP/1.1" 200 -
+2025-12-11 13:48:47,445 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 13:48:47,445 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 13:48:47,823 - INFO - [model.seguimiento] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño DB: 15097
+2025-12-11 13:48:47,823 - INFO - [seguimiento.evidencia] Datos obtenidos: True
+2025-12-11 13:48:47,823 - INFO - [seguimiento.evidencia] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño: 15097 bytes
+2025-12-11 13:48:47,823 - INFO - [seguimiento.evidencia] Enviando archivo scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg de 15097 bytes
+2025-12-11 13:48:47,824 - INFO - 192.168.2.191 - - [11/Dec/2025 13:48:47] "GET /api/seguimientos/19/evidencia HTTP/1.1" 200 -
+2025-12-11 14:10:00,626 - INFO - 192.168.2.191 - - [11/Dec/2025 14:10:00] "[31m[1mGET /api/seguimientos/19/evidencia HTTP/1.1[0m" 401 -
+2025-12-11 14:10:26,291 - INFO - 192.168.2.191 - - [11/Dec/2025 14:10:26] "POST /api/login HTTP/1.1" 200 -
+2025-12-11 14:10:28,989 - INFO - Obteniendo reportes - incluir_cerrados: False
+2025-12-11 14:10:29,368 - INFO - Reportes filtrados: 17 de 19 total
+2025-12-11 14:10:29,368 - INFO - 192.168.2.191 - - [11/Dec/2025 14:10:29] "GET /api/reportes HTTP/1.1" 200 -
+2025-12-11 14:10:29,760 - INFO - 192.168.2.191 - - [11/Dec/2025 14:10:29] "GET /api/alumnos HTTP/1.1" 200 -
+2025-12-11 14:10:30,139 - INFO - 192.168.2.191 - - [11/Dec/2025 14:10:30] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-12-11 14:10:31,299 - INFO - 192.168.2.191 - - [11/Dec/2025 14:10:31] "[33mGET /api/seguimientos/reporte/6 HTTP/1.1[0m" 404 -
+2025-12-11 14:10:40,156 - INFO - [seguimiento.por_reporte] Obteniendo seguimientos para reporte ID: 6
+2025-12-11 14:10:40,156 - INFO - [model.seguimiento] Obteniendo seguimientos para reporte: 6
+2025-12-11 14:10:40,521 - INFO - [model.seguimiento] Encontrados 1 seguimientos para reporte 6
+2025-12-11 14:10:40,521 - INFO - [seguimiento.por_reporte] Encontrados 1 seguimientos
+2025-12-11 14:10:40,522 - INFO - 192.168.2.191 - - [11/Dec/2025 14:10:40] "GET /api/reportes/6/seguimientos HTTP/1.1" 200 -
+2025-12-11 14:10:43,582 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 14:10:43,582 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 14:10:43,960 - INFO - [model.seguimiento] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño DB: 15097
+2025-12-11 14:10:43,961 - INFO - [seguimiento.evidencia] Datos obtenidos: True
+2025-12-11 14:10:43,961 - INFO - [seguimiento.evidencia] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño: 15097 bytes
+2025-12-11 14:10:43,961 - INFO - [seguimiento.evidencia] Enviando archivo scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg de 15097 bytes
+2025-12-11 14:10:43,961 - INFO - 192.168.2.191 - - [11/Dec/2025 14:10:43] "GET /api/seguimientos/19/evidencia HTTP/1.1" 200 -
+2025-12-11 14:10:50,013 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 14:10:50,013 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 14:10:50,397 - INFO - [model.seguimiento] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño DB: 15097
+2025-12-11 14:10:50,397 - INFO - [seguimiento.evidencia] Datos obtenidos: True
+2025-12-11 14:10:50,397 - INFO - [seguimiento.evidencia] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño: 15097 bytes
+2025-12-11 14:10:50,397 - INFO - [seguimiento.evidencia] Enviando archivo scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg de 15097 bytes
+2025-12-11 14:10:50,398 - INFO - 192.168.2.191 - - [11/Dec/2025 14:10:50] "GET /api/seguimientos/19/evidencia HTTP/1.1" 200 -
+2025-12-11 14:10:59,639 - INFO - [seguimiento.evidencia] Iniciando descarga de evidencia para seguimiento ID: 19
+2025-12-11 14:10:59,639 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 14:11:00,014 - INFO - [model.seguimiento] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño DB: 15097
+2025-12-11 14:11:00,014 - INFO - [seguimiento.evidencia] Datos obtenidos: True
+2025-12-11 14:11:00,014 - INFO - [seguimiento.evidencia] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño: 15097 bytes
+2025-12-11 14:11:00,015 - INFO - [seguimiento.evidencia] Enviando archivo scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg de 15097 bytes
+2025-12-11 14:11:00,015 - INFO - 192.168.2.191 - - [11/Dec/2025 14:11:00] "GET /api/seguimientos/19/evidencia HTTP/1.1" 200 -
+2025-12-11 14:22:02,889 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-12-11 14:22:02,889 - INFO - [33mPress CTRL+C to quit[0m
+2025-12-11 14:22:02,891 - INFO -  * Restarting with stat
+2025-12-11 14:22:03,750 - WARNING -  * Debugger is active!
+2025-12-11 14:22:03,765 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 14:23:42,016 - INFO - 192.168.2.191 - - [11/Dec/2025 14:23:42] "POST /api/login HTTP/1.1" 200 -
+2025-12-11 14:23:45,626 - INFO - Obteniendo reportes - incluir_cerrados: False
+2025-12-11 14:23:46,001 - INFO - Reportes filtrados: 17 de 19 total
+2025-12-11 14:23:46,002 - INFO - 192.168.2.191 - - [11/Dec/2025 14:23:46] "GET /api/reportes HTTP/1.1" 200 -
+2025-12-11 14:23:46,403 - INFO - 192.168.2.191 - - [11/Dec/2025 14:23:46] "GET /api/alumnos HTTP/1.1" 200 -
+2025-12-11 14:23:46,783 - INFO - 192.168.2.191 - - [11/Dec/2025 14:23:46] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-12-11 14:23:48,248 - INFO - 192.168.2.191 - - [11/Dec/2025 14:23:48] "[33mGET /api/seguimientos/reporte/6 HTTP/1.1[0m" 404 -
+2025-12-11 14:23:53,981 - INFO - [seguimiento.por_reporte] Obteniendo seguimientos para reporte ID: 6
+2025-12-11 14:23:53,981 - INFO - [model.seguimiento] Obteniendo seguimientos para reporte: 6
+2025-12-11 14:23:54,342 - INFO - [model.seguimiento] Encontrados 1 seguimientos para reporte 6
+2025-12-11 14:23:54,342 - INFO - [seguimiento.por_reporte] Encontrados 1 seguimientos
+2025-12-11 14:23:54,342 - INFO - 192.168.2.191 - - [11/Dec/2025 14:23:54] "GET /api/reportes/6/seguimientos HTTP/1.1" 200 -
+2025-12-11 14:23:57,724 - INFO - [seguimiento.evidencia.preview] Obteniendo preview para seguimiento ID: 19
+2025-12-11 14:23:57,724 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 14:23:58,088 - INFO - [model.seguimiento] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño DB: 15097
+2025-12-11 14:23:58,088 - INFO - [seguimiento.evidencia.preview] Enviando preview - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tamaño: 15097 bytes
+2025-12-11 14:23:58,089 - INFO - 192.168.2.191 - - [11/Dec/2025 14:23:58] "GET /api/seguimientos/19/evidencia/preview HTTP/1.1" 200 -
+2025-12-11 14:24:14,112 - INFO - [seguimiento.evidencia.preview] Obteniendo preview para seguimiento ID: 19
+2025-12-11 14:24:14,113 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 14:24:14,497 - INFO - [model.seguimiento] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño DB: 15097
+2025-12-11 14:24:14,498 - INFO - [seguimiento.evidencia.preview] Enviando preview - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tamaño: 15097 bytes
+2025-12-11 14:24:14,498 - INFO - 192.168.2.191 - - [11/Dec/2025 14:24:14] "GET /api/seguimientos/19/evidencia/preview HTTP/1.1" 200 -
+2025-12-11 14:24:24,033 - INFO - [seguimiento.evidencia.preview] Obteniendo preview para seguimiento ID: 19
+2025-12-11 14:24:24,033 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 14:24:24,424 - INFO - [model.seguimiento] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño DB: 15097
+2025-12-11 14:24:24,424 - INFO - [seguimiento.evidencia.preview] Enviando preview - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tamaño: 15097 bytes
+2025-12-11 14:24:24,425 - INFO - 192.168.2.191 - - [11/Dec/2025 14:24:24] "GET /api/seguimientos/19/evidencia/preview HTTP/1.1" 200 -
+2025-12-11 14:29:30,453 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/usuarios_controller.py', reloading
+2025-12-11 14:29:30,737 - INFO -  * Restarting with stat
+2025-12-11 14:29:31,964 - WARNING -  * Debugger is active!
+2025-12-11 14:29:31,993 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 14:29:42,156 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/usuarios_controller.py', reloading
+2025-12-11 14:29:42,304 - INFO -  * Restarting with stat
+2025-12-11 14:29:43,173 - WARNING -  * Debugger is active!
+2025-12-11 14:29:43,181 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 14:29:44,238 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/usuarios_controller.py', reloading
+2025-12-11 14:29:44,414 - INFO -  * Restarting with stat
+2025-12-11 14:29:45,428 - WARNING -  * Debugger is active!
+2025-12-11 14:29:45,439 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 14:29:48,506 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/controllers/usuarios_controller.py', reloading
+2025-12-11 14:29:48,631 - INFO -  * Restarting with stat
+2025-12-11 14:29:49,510 - WARNING -  * Debugger is active!
+2025-12-11 14:29:49,518 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 14:30:00,698 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/usuarios_model.py', reloading
+2025-12-11 14:30:00,828 - INFO -  * Restarting with stat
+2025-12-11 14:30:01,810 - WARNING -  * Debugger is active!
+2025-12-11 14:30:01,825 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 14:30:03,893 - INFO -  * Detected change in '/Users/reneloreaayala/Documents/Maestria/Segundo Semestre/Ingenieria de Software/Proyecto/backend/models/usuarios_model.py', reloading
+2025-12-11 14:30:04,070 - INFO -  * Restarting with stat
+2025-12-11 14:30:05,028 - WARNING -  * Debugger is active!
+2025-12-11 14:30:05,037 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 14:31:00,673 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.2.191:5000
+2025-12-11 14:31:00,674 - INFO - [33mPress CTRL+C to quit[0m
+2025-12-11 14:31:00,676 - INFO -  * Restarting with stat
+2025-12-11 14:31:01,418 - WARNING -  * Debugger is active!
+2025-12-11 14:31:01,430 - INFO -  * Debugger PIN: 149-262-596
+2025-12-11 14:32:46,398 - INFO - 192.168.2.191 - - [11/Dec/2025 14:32:46] "POST /api/login HTTP/1.1" 200 -
+2025-12-11 14:33:08,160 - INFO - Solicitud de cambio de contraseña por correo
+2025-12-11 14:33:09,296 - INFO - Contraseña cambiada exitosamente para usuario: antonio.sic@cecytem.com
+2025-12-11 14:33:09,297 - INFO - 192.168.2.191 - - [11/Dec/2025 14:33:09] "PUT /api/usuarios/cambiar-password HTTP/1.1" 200 -
+2025-12-11 14:33:49,499 - INFO - 192.168.2.191 - - [11/Dec/2025 14:33:49] "POST /api/login HTTP/1.1" 200 -
+2025-12-11 14:33:52,693 - INFO - Obteniendo reportes - incluir_cerrados: False
+2025-12-11 14:33:53,069 - INFO - Reportes filtrados: 17 de 19 total
+2025-12-11 14:33:53,070 - INFO - 192.168.2.191 - - [11/Dec/2025 14:33:53] "GET /api/reportes HTTP/1.1" 200 -
+2025-12-11 14:33:53,467 - INFO - 192.168.2.191 - - [11/Dec/2025 14:33:53] "GET /api/alumnos HTTP/1.1" 200 -
+2025-12-11 14:33:53,850 - INFO - 192.168.2.191 - - [11/Dec/2025 14:33:53] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-12-11 14:33:55,380 - INFO - 192.168.2.191 - - [11/Dec/2025 14:33:55] "[33mGET /api/seguimientos/reporte/6 HTTP/1.1[0m" 404 -

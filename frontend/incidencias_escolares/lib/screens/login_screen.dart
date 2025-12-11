@@ -4,6 +4,7 @@ import '../models/login_response.dart';
 import '../config/global.dart';
 import 'menu_principal_screen.dart';
 import 'reportes_screen.dart';
+import 'cambio_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -31,15 +32,29 @@ class _LoginScreenState extends State<LoginScreen> {
   void _login() async {
     setState(() => _error = null);
     try {
-      final loginResponse = await _authService.login(
-        _correoController.text.trim(),
-        _contrasenaController.text,
-      );
+      final correo = _correoController.text.trim();
+      final contrasena = _contrasenaController.text;
+      
+      final loginResponse = await _authService.login(correo, contrasena);
+      
       print('loginResponse: $loginResponse');
       if (loginResponse != null) {
         jwtToken = loginResponse.token;
-        usuarioRol = loginResponse.usuario?.rol ?? '';
+        usuarioRol = loginResponse.usuario.rol ?? '';
         print('token set, rol=$usuarioRol');
+        
+        // 🔒 VERIFICACIÓN: Si usa contraseña predeterminada, forzar cambio
+        if (contrasena == 'cecytem@1234') {
+          print('Contraseña predeterminada detectada, redirigiendo a cambio de contraseña');
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => CambioPasswordScreen(correoUsuario: correo),
+            ),
+          );
+          return;
+        }
+        
         Navigator.pushReplacementNamed(context, '/menu');
       } else {
         setState(() => _error = 'Credenciales inválidas');
@@ -141,6 +156,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginScreen(),
         '/menu': (context) => MenuPrincipalScreen(),
         '/reportes': (context) => ReportesScreen(),
+        '/cambio-password': (context) => CambioPasswordScreen(correoUsuario: ''),
         // agrega más rutas aquí según tus pantallas
       },
       // opcional:

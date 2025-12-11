@@ -55,7 +55,8 @@ class SeguimientoEvidenciaService {
   }
 
   Future<String?> descargarEvidencia(int idSeguimiento) async {
-    final url = Uri.parse('$apiBaseUrl/seguimientos/$idSeguimiento/evidencia');
+    // 🔧 CORRECCIÓN: Usar el endpoint de preview que devuelve JSON con base64
+    final url = Uri.parse('$apiBaseUrl/seguimientos/$idSeguimiento/evidencia/preview');
     
     final resp = await http.get(
       url,
