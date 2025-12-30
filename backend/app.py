@@ -107,5 +107,84 @@ def test_email_endpoint():
             "connection_test": {}
         }), 500
 
+# Endpoint para diagnóstico avanzado
+@app.route('/api/diagnose-email', methods=['GET'])  
+def diagnose_email_endpoint():
+    """Endpoint para diagnóstico avanzado de problemas de correo"""
+    from flask import jsonify
+    from services.email_service import email_service
+    import socket
+    
+    try:
+        diagnosis = {
+            "network_connectivity": {},
+            "smtp_ports": {},
+            "dns_resolution": {},
+            "config_status": {},
+            "recommendations": []
+        }
+        
+        # 1. Verificar resolución DNS
+        hosts_to_check = ["smtp.gmail.com", "smtp.sendgrid.net"]
+        for host in hosts_to_check:
+            try:
+                ip = socket.gethostbyname(host)
+                diagnosis["dns_resolution"][host] = f"✅ {ip}"
+            except Exception as e:
+                diagnosis["dns_resolution"][host] = f"❌ {str(e)}"
+        
+        # 2. Verificar conectividad de puertos
+        ports_to_check = [25, 465, 587, 80, 443]
+        for host in hosts_to_check:
+            diagnosis["smtp_ports"][host] = {}
+            for port in ports_to_check:
+                try:
+                    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    sock.settimeout(5)
+                    result = sock.connect_ex((host, port))
+                    sock.close()
+                    diagnosis["smtp_ports"][host][port] = "✅ Abierto" if result == 0 else "❌ Cerrado"
+                except Exception as e:
+                    diagnosis["smtp_ports"][host][port] = f"❌ Error: {str(e)}"
+        
+        # 3. Verificar configuración
+        config = email_service.get_configuration_info()
+        diagnosis["config_status"] = config
+        
+        # 4. Generar recomendaciones
+        all_ports_blocked = True
+        for host_ports in diagnosis["smtp_ports"].values():
+            if any("Abierto" in status for status in host_ports.values()):
+                all_ports_blocked = False
+                break
+        
+        if all_ports_blocked:
+            diagnosis["recommendations"].append("🔥 CRÍTICO: Todos los puertos SMTP están bloqueados")
+            diagnosis["recommendations"].append("💡 Solución: Usar SendGrid API (no SMTP)")
+        
+        if not os.getenv('SENDGRID_API_KEY'):
+            diagnosis["recommendations"].append("💡 Configurar SENDGRID_API_KEY para mayor confiabilidad")
+        
+        # 5. Probar SendGrid API si está configurado
+        if os.getenv('SENDGRID_API_KEY'):
+            success, provider, error = email_service.send_email_sendgrid_api(
+                to_email=os.getenv('SMTP_USER', 'test@example.com'),
+                subject='Prueba SendGrid API',
+                content='Test desde Railway usando API'
+            )
+            diagnosis["sendgrid_api_test"] = {
+                "success": success,
+                "provider": provider,
+                "error": error
+            }
+        
+        return jsonify(diagnosis), 200
+        
+    except Exception as e:
+        logger.exception("Error en diagnose_email_endpoint")
+        return jsonify({
+            "error": f"Error en diagnóstico: {str(e)}"
+        }), 500
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

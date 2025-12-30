@@ -41,7 +41,9 @@ class _LoginScreenState extends State<LoginScreen> {
       if (loginResponse != null) {
         jwtToken = loginResponse.token;
         usuarioRol = loginResponse.usuario.rol ?? '';
-        print('token set, rol=$usuarioRol');
+        usuarioId = loginResponse.usuario.id;
+        usuarioNombreCompleto = '${loginResponse.usuario.nombre} ${loginResponse.usuario.apaterno} ${loginResponse.usuario.amaterno}'.trim();
+        print('token set, rol=$usuarioRol, usuario=$usuarioNombreCompleto');
         
         // 🔒 VERIFICACIÓN: Si usa contraseña predeterminada, forzar cambio
         if (contrasena == 'cecytem@1234') {

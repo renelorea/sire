@@ -4,6 +4,7 @@ String? jwtToken; // Se asigna tras login
 String? usuarioRol; // Se asigna tras login
 String? notasUsuario; // <-- nueva variable global para almacenar notas del usuario
 int? usuarioId;     // Si lo necesitas para peticiones
+String? usuarioNombreCompleto; // Nombre completo del usuario loggeado
 
 // Indicador global de "busy" / reloj de arena
 final ValueNotifier<bool> appBusy = ValueNotifier<bool>(false);

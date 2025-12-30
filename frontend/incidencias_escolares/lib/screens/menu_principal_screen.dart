@@ -110,9 +110,12 @@ class _MenuPrincipalScreenState extends State<MenuPrincipalScreen> {
 
   void _performLogout() {
     developer.log('Usuario con rol=$_rol cerrando sesión', name: 'MenuPrincipal');
+    // Limpiar todas las variables globales de sesión
     jwtToken = null;
     usuarioRol = null;
     notasUsuario = null;
+    usuarioId = null;
+    usuarioNombreCompleto = null;
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(builder: (_) => LoginScreen()),
       (route) => false,

@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:io';
+import '../config/global.dart'; // Para acceder al usuario loggeado
 import 'seguimientos_evidencia_screen.dart'; // 🔧 AGREGAR ESTE IMPORT
 
 // Clase para manejar imágenes de evidencia
@@ -53,6 +54,8 @@ class _ReporteDetailScreenState extends State<ReporteDetailScreen> {
   @override
   void initState() {
     super.initState();
+    // Establecer el usuario loggeado como responsable por defecto
+    _responsableCtrl.text = usuarioNombreCompleto ?? 'Usuario no identificado';
     _cargarSeguimientos();
   }
 
@@ -429,11 +432,15 @@ class _ReporteDetailScreenState extends State<ReporteDetailScreen> {
                       
                       TextFormField(
                         controller: _responsableCtrl,
+                        readOnly: true, // Campo de solo lectura
                         decoration: InputDecoration(
                           labelText: 'Responsable *',
-                          hintText: 'Campo obligatorio',
+                          hintText: 'Usuario loggeado',
+                          filled: true,
+                          fillColor: Colors.grey.shade100,
+                          suffixIcon: Icon(Icons.person, color: Colors.green),
                         ),
-                        validator: (v) => (v == null || v.trim().isEmpty) ? 'Ingresa responsable' : null,
+                        validator: (v) => (v == null || v.trim().isEmpty) ? 'Error: Usuario no identificado' : null,
                       ),
                       SizedBox(height: 16),
                       

@@ -6,7 +6,7 @@ pip install -r requirements.txt
 
 python app.py
 
-
+export SENDGRID_API_KEY=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
 export SMTP_HOST=smtp.gmail.com
 export SMTP_PORT=587
 export SMTP_USER=perrillo1981@gmail.com
