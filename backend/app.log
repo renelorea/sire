@@ -2646,3 +2646,20 @@ KeyError: 'evidencia_tamano'
 2025-12-11 14:33:53,467 - INFO - 192.168.2.191 - - [11/Dec/2025 14:33:53] "GET /api/alumnos HTTP/1.1" 200 -
 2025-12-11 14:33:53,850 - INFO - 192.168.2.191 - - [11/Dec/2025 14:33:53] "GET /api/tipos-reporte HTTP/1.1" 200 -
 2025-12-11 14:33:55,380 - INFO - 192.168.2.191 - - [11/Dec/2025 14:33:55] "[33mGET /api/seguimientos/reporte/6 HTTP/1.1[0m" 404 -
+2025-12-11 14:55:05,544 - INFO - 192.168.2.121 - - [11/Dec/2025 14:55:05] "POST /api/login HTTP/1.1" 200 -
+2025-12-11 14:55:08,135 - INFO - Obteniendo reportes - incluir_cerrados: False
+2025-12-11 14:55:08,519 - INFO - Reportes filtrados: 17 de 19 total
+2025-12-11 14:55:08,520 - INFO - 192.168.2.121 - - [11/Dec/2025 14:55:08] "GET /api/reportes HTTP/1.1" 200 -
+2025-12-11 14:55:08,947 - INFO - 192.168.2.121 - - [11/Dec/2025 14:55:08] "GET /api/alumnos HTTP/1.1" 200 -
+2025-12-11 14:55:09,325 - INFO - 192.168.2.121 - - [11/Dec/2025 14:55:09] "GET /api/tipos-reporte HTTP/1.1" 200 -
+2025-12-11 14:55:13,419 - INFO - 192.168.2.121 - - [11/Dec/2025 14:55:13] "[33mGET /api/seguimientos/reporte/6 HTTP/1.1[0m" 404 -
+2025-12-11 14:55:17,493 - INFO - [seguimiento.por_reporte] Obteniendo seguimientos para reporte ID: 6
+2025-12-11 14:55:17,495 - INFO - [model.seguimiento] Obteniendo seguimientos para reporte: 6
+2025-12-11 14:55:17,859 - INFO - [model.seguimiento] Encontrados 1 seguimientos para reporte 6
+2025-12-11 14:55:17,860 - INFO - [seguimiento.por_reporte] Encontrados 1 seguimientos
+2025-12-11 14:55:17,860 - INFO - 192.168.2.121 - - [11/Dec/2025 14:55:17] "GET /api/reportes/6/seguimientos HTTP/1.1" 200 -
+2025-12-11 14:55:22,429 - INFO - [seguimiento.evidencia.preview] Obteniendo preview para seguimiento ID: 19
+2025-12-11 14:55:22,430 - INFO - [model.seguimiento] Obteniendo archivo evidencia para ID: 19
+2025-12-11 14:55:22,813 - INFO - [model.seguimiento] Archivo encontrado - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tipo: image/jpeg, Tamaño DB: 15097
+2025-12-11 14:55:22,814 - INFO - [seguimiento.evidencia.preview] Enviando preview - Nombre: scaled_6e716533-6707-4dae-9822-1465dfbff78d4393930341669598894.jpg, Tamaño: 15097 bytes
+2025-12-11 14:55:22,815 - INFO - 192.168.2.121 - - [11/Dec/2025 14:55:22] "GET /api/seguimientos/19/evidencia/preview HTTP/1.1" 200 -
