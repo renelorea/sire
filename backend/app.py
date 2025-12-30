@@ -57,5 +57,74 @@ app.register_blueprint(tipos_bp)
 app.register_blueprint(reportes_bp)
 app.register_blueprint(seguimiento_bp)
 
+# Endpoint de prueba para correo
+@app.route('/api/test-email', methods=['GET'])
+def test_email_endpoint():
+    """Endpoint para probar la configuración de correo"""
+    import os
+    import smtplib
+    from email.message import EmailMessage
+    from flask import jsonify, request
+    
+    try:
+        # Leer configuración SMTP
+        smtp_host = os.getenv('SMTP_HOST')
+        smtp_port = int(os.getenv('SMTP_PORT', '587'))
+        smtp_user = os.getenv('SMTP_USER')
+        smtp_pass = os.getenv('SMTP_PASS')
+        email_from = os.getenv('EMAIL_FROM', smtp_user)
+        
+        # Verificar configuración
+        config_info = {
+            "smtp_host": smtp_host,
+            "smtp_port": smtp_port,
+            "smtp_user": smtp_user,
+            "email_from": email_from,
+            "smtp_pass_configured": bool(smtp_pass)
+        }
+        
+        if not smtp_host or not smtp_user or not smtp_pass:
+            return jsonify({
+                "success": False,
+                "message": "Configuración SMTP incompleta",
+                "config": config_info
+            }), 400
+        
+        # Correo de destino (parámetro o el mismo usuario)
+        email_to = request.args.get('email', smtp_user)
+        
+        # Crear mensaje de prueba
+        msg = EmailMessage()
+        msg['Subject'] = 'Prueba de correo desde Railway'
+        msg['From'] = email_from
+        msg['To'] = email_to
+        msg.set_content('Este es un correo de prueba para verificar la configuración SMTP en Railway.')
+        
+        # Enviar correo
+        if smtp_port == 465:
+            smtp = smtplib.SMTP_SSL(smtp_host, smtp_port, timeout=30)
+            smtp.login(smtp_user, smtp_pass)
+            smtp.send_message(msg)
+            smtp.quit()
+        else:
+            smtp = smtplib.SMTP(smtp_host, smtp_port, timeout=30)
+            smtp.starttls()
+            smtp.login(smtp_user, smtp_pass)
+            smtp.send_message(msg)
+            smtp.quit()
+        
+        return jsonify({
+            "success": True,
+            "message": f"Correo de prueba enviado exitosamente a {email_to}",
+            "config": config_info
+        }), 200
+        
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "message": f"Error enviando correo: {str(e)}",
+            "config": config_info if 'config_info' in locals() else {}
+        }), 500
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)

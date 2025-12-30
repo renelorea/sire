@@ -291,11 +291,20 @@ def reporte_buscar():
             smtp_user = os.getenv('SMTP_USER')
             smtp_pass = os.getenv('SMTP_PASS')
             email_from = os.getenv('EMAIL_FROM', smtp_user)
+            
+            # Log para debugging
+            logger.info("Configuración SMTP: host=%s, port=%s, user=%s, from=%s", 
+                       smtp_host, smtp_port, smtp_user, email_from)
+            logger.info("SMTP_PASS presente: %s", bool(smtp_pass))
+            
             if not smtp_host or not smtp_user or not smtp_pass:
-                logger.error("Configuración SMTP incompleta -- SMTP_HOST/SMTP_USER/SMTP_PASS faltantes")
+                logger.error("Configuración SMTP incompleta -- SMTP_HOST=%s, SMTP_USER=%s, SMTP_PASS=%s", 
+                           bool(smtp_host), bool(smtp_user), bool(smtp_pass))
                 return jsonify({"msg": "Configuración SMTP incompleta"}), 500
 
             try:
+                logger.info("Iniciando envío de correo a %s usando %s:%s", email_to, smtp_host, smtp_port)
+                
                 msg = EmailMessage()
                 msg['Subject'] = 'Reporte de incidencias (Excel)'
                 msg['From'] = email_from
@@ -306,6 +315,7 @@ def reporte_buscar():
                                    subtype='vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                                    filename='reportes_incidencias.xlsx')
 
+                logger.info("Conectando a servidor SMTP...")
                 if smtp_port == 465:
                     smtp = smtplib.SMTP_SSL(smtp_host, smtp_port, timeout=30)
                     smtp.login(smtp_user, smtp_pass)
@@ -314,9 +324,13 @@ def reporte_buscar():
                 else:
                     smtp = smtplib.SMTP(smtp_host, smtp_port, timeout=30)
                     smtp.starttls()
+                    logger.info("Iniciando sesión SMTP...")
                     smtp.login(smtp_user, smtp_pass)
+                    logger.info("Enviando mensaje...")
                     smtp.send_message(msg)
                     smtp.quit()
+                
+                logger.info("Correo enviado exitosamente")
             except Exception as e:
                 logger.exception("Error enviando correo: %s -- params=%s -- X-Client-Error=%s", e, request.args.to_dict(), client_error)
                 return jsonify({"msg": f"Error enviando correo: {e}"}), 500
