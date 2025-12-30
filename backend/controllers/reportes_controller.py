@@ -10,9 +10,8 @@ from models.reportes_model import (
 )
 import io
 import os
-import smtplib
-from email.message import EmailMessage
 import pandas as pd
+from services.email_service import email_service
 from dotenv import load_dotenv
 import logging
 
@@ -285,58 +284,28 @@ def reporte_buscar():
                 logger.exception("Error generando Excel: %s -- params=%s -- X-Client-Error=%s", e, request.args.to_dict(), client_error)
                 return jsonify({"msg": f"Error generando Excel: {e}"}), 500
 
-            # Leer configuración SMTP desde variables de entorno
-            smtp_host = os.getenv('SMTP_HOST')
-            smtp_port = int(os.getenv('SMTP_PORT', '587'))
-            smtp_user = os.getenv('SMTP_USER')
-            smtp_pass = os.getenv('SMTP_PASS')
-            email_from = os.getenv('EMAIL_FROM', smtp_user)
-            
-            # Log para debugging
-            logger.info("Configuración SMTP: host=%s, port=%s, user=%s, from=%s", 
-                       smtp_host, smtp_port, smtp_user, email_from)
-            logger.info("SMTP_PASS presente: %s", bool(smtp_pass))
-            
-            if not smtp_host or not smtp_user or not smtp_pass:
-                logger.error("Configuración SMTP incompleta -- SMTP_HOST=%s, SMTP_USER=%s, SMTP_PASS=%s", 
-                           bool(smtp_host), bool(smtp_user), bool(smtp_pass))
-                return jsonify({"msg": "Configuración SMTP incompleta"}), 500
-
+            # Usar el servicio de correo mejorado
             try:
-                logger.info("Iniciando envío de correo a %s usando %s:%s", email_to, smtp_host, smtp_port)
+                logger.info("Enviando correo con archivo Excel a %s", email_to)
                 
-                msg = EmailMessage()
-                msg['Subject'] = 'Reporte de incidencias (Excel)'
-                msg['From'] = email_from
-                msg['To'] = email_to
-                msg.set_content('Adjunto se envía el reporte de incidencias en formato Excel.')
-                msg.add_attachment(excel_bytes,
-                                   maintype='application',
-                                   subtype='vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                                   filename='reportes_incidencias.xlsx')
-
-                logger.info("Conectando a servidor SMTP...")
-                if smtp_port == 465:
-                    smtp = smtplib.SMTP_SSL(smtp_host, smtp_port, timeout=30)
-                    smtp.login(smtp_user, smtp_pass)
-                    smtp.send_message(msg)
-                    smtp.quit()
+                success, provider_used, error_msg = email_service.send_email(
+                    to_email=email_to,
+                    subject='Reporte de incidencias (Excel)',
+                    content='Adjunto se envía el reporte de incidencias en formato Excel.',
+                    attachment_data=excel_bytes,
+                    attachment_filename='reportes_incidencias.xlsx'
+                )
+                
+                if success:
+                    logger.info("Correo enviado exitosamente usando %s a %s (count=%d)", provider_used, email_to, len(rows))
+                    return jsonify({"msg": f"Correo enviado a {email_to} usando {provider_used}", "count": len(rows)}), 200
                 else:
-                    smtp = smtplib.SMTP(smtp_host, smtp_port, timeout=30)
-                    smtp.starttls()
-                    logger.info("Iniciando sesión SMTP...")
-                    smtp.login(smtp_user, smtp_pass)
-                    logger.info("Enviando mensaje...")
-                    smtp.send_message(msg)
-                    smtp.quit()
-                
-                logger.info("Correo enviado exitosamente")
+                    logger.error("Error enviando correo: %s", error_msg)
+                    return jsonify({"msg": f"Error enviando correo: {error_msg}"}), 500
+                    
             except Exception as e:
                 logger.exception("Error enviando correo: %s -- params=%s -- X-Client-Error=%s", e, request.args.to_dict(), client_error)
                 return jsonify({"msg": f"Error enviando correo: {e}"}), 500
-
-            logger.info("Correo enviado a %s (count=%d)", email_to, len(rows))
-            return jsonify({"msg": f"Correo enviado a {email_to}", "count": len(rows)}), 200
 
         # Si no se solicitó email, devolver los datos normalmente
         return jsonify(data_list), 200

@@ -62,7 +62,7 @@ if __name__ == "__main__":
     # Para usar localmente, configura las variables aquí:
     if not os.getenv('SMTP_HOST'):
         os.environ['SMTP_HOST'] = 'smtp.gmail.com'
-        os.environ['SMTP_PORT'] = '587'
+        os.environ['SMTP_PORT'] = '465'  # Cambiar a puerto 465
         os.environ['SMTP_USER'] = 'perrillo1981@gmail.com'
         os.environ['SMTP_PASS'] = 'qiuj fsca izzl hcfy'
         os.environ['EMAIL_FROM'] = 'perrillo1981@gmail.com'
