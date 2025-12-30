@@ -56,13 +56,17 @@ class EmailService:
             tuple: (success, provider_used, error_message)
         """
         
+        errors = []  # Acumular errores de cada proveedor
+        
         for provider in self.providers:
             if not provider['password']:
-                logger.info(f"Saltando {provider['name']} - no hay credenciales")
+                error_detail = f"{provider['name']}: Sin credenciales configuradas"
+                logger.info(error_detail)
+                errors.append(error_detail)
                 continue
                 
             try:
-                logger.info(f"Intentando enviar correo con {provider['name']}")
+                logger.info(f"Intentando enviar correo con {provider['name']} ({provider['host']}:{provider['port']})")
                 
                 # Crear mensaje
                 msg = EmailMessage()
@@ -83,14 +87,19 @@ class EmailService:
                 
                 # Establecer conexión
                 if provider['use_ssl']:
+                    logger.info(f"Conectando con SSL a {provider['host']}:{provider['port']}")
                     smtp = smtplib.SMTP_SSL(provider['host'], provider['port'], timeout=30)
                 else:
+                    logger.info(f"Conectando con SMTP a {provider['host']}:{provider['port']}")
                     smtp = smtplib.SMTP(provider['host'], provider['port'], timeout=30)
                     if provider['use_tls']:
+                        logger.info("Iniciando TLS...")
                         smtp.starttls()
                 
                 # Autenticarse y enviar
+                logger.info(f"Autenticando con usuario: {provider['user']}")
                 smtp.login(provider['user'], provider['password'])
+                logger.info("Enviando mensaje...")
                 smtp.send_message(msg)
                 smtp.quit()
                 
@@ -99,7 +108,9 @@ class EmailService:
                 
             except Exception as e:
                 error_msg = str(e)
+                error_detail = f"{provider['name']}: {error_msg}"
                 logger.warning(f"❌ Error con {provider['name']}: {error_msg}")
+                errors.append(error_detail)
                 
                 # Si es error de red, continuar con el siguiente proveedor
                 if "Network is unreachable" in error_msg or "errno 101" in error_msg:
@@ -112,7 +123,7 @@ class EmailService:
                     continue
         
         # Si ningún proveedor funcionó
-        error_msg = "Todos los proveedores de correo fallaron"
+        error_msg = f"Todos los proveedores fallaron. Detalles: {'; '.join(errors)}"
         logger.error(error_msg)
         return False, None, error_msg
     
@@ -126,6 +137,8 @@ class EmailService:
                 continue
             
             try:
+                logger.info(f"Probando conexión con {provider['name']} ({provider['host']}:{provider['port']})")
+                
                 if provider['use_ssl']:
                     smtp = smtplib.SMTP_SSL(provider['host'], provider['port'], timeout=10)
                 else:
@@ -138,9 +151,30 @@ class EmailService:
                 results[provider['name']] = "✅ Conectado"
                 
             except Exception as e:
-                results[provider['name']] = f"❌ Error: {str(e)}"
+                error_detail = f"❌ Error: {str(e)}"
+                results[provider['name']] = error_detail
+                logger.warning(f"Error probando {provider['name']}: {str(e)}")
         
         return results
+    
+    def get_configuration_info(self):
+        """Obtiene información sobre la configuración actual"""
+        config_info = {}
+        
+        for provider in self.providers:
+            config_info[provider['name']] = {
+                "host": provider['host'],
+                "port": provider['port'],
+                "user": provider['user'],
+                "has_password": bool(provider['password']),
+                "use_ssl": provider['use_ssl'],
+                "use_tls": provider['use_tls']
+            }
+        
+        return {
+            "email_from": self.email_from,
+            "providers": config_info
+        }
 
 # Instancia global del servicio
 email_service = EmailService()

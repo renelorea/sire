@@ -65,13 +65,25 @@ def test_email_endpoint():
     from services.email_service import email_service
     
     try:
+        # Obtener información de configuración
+        config_info = email_service.get_configuration_info()
+        
         # Correo de destino (parámetro o el mismo usuario)
         email_to = request.args.get('email', os.getenv('SMTP_USER', 'perrillo1981@gmail.com'))
         
         # Probar conectividad primero
+        logger.info("Probando conectividad de proveedores de correo...")
         connection_results = email_service.test_connection()
         
+        # Si se pide solo test de conexión
+        if request.args.get('test_only') == 'true':
+            return jsonify({
+                "config": config_info,
+                "connection_test": connection_results
+            }), 200
+        
         # Enviar correo de prueba
+        logger.info("Enviando correo de prueba...")
         success, provider_used, error_msg = email_service.send_email(
             to_email=email_to,
             subject='Prueba de correo desde Railway',
@@ -82,13 +94,16 @@ def test_email_endpoint():
             "success": success,
             "message": f"Correo enviado a {email_to} usando {provider_used}" if success else f"Error: {error_msg}",
             "provider_used": provider_used,
+            "config": config_info,
             "connection_test": connection_results
         }), 200 if success else 500
         
     except Exception as e:
+        logger.exception("Error en test_email_endpoint")
         return jsonify({
             "success": False,
             "message": f"Error inesperado: {str(e)}",
+            "config": {},
             "connection_test": {}
         }), 500
 
